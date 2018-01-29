@@ -1,0 +1,3 @@
+es:
+  routes:
+    login: iniciar_sesion

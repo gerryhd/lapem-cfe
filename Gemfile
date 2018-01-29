@@ -34,6 +34,10 @@ gem 'action_access'
 # Source: https://github.com/james2m/seedbank
 gem 'seedbank'
 
+# Gem to translate urls
+# Source: https://github.com/enriclluelles/route_translator
+gem 'route_translator'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
