@@ -1,3 +1,4 @@
 es:
   routes:
     login: iniciar_sesion
+    logout: salir
