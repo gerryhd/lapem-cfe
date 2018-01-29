@@ -29,4 +29,11 @@ class User < ActiveRecord::Base
   def save_password?
     self.change_password || self.new_record?
   end
+
+  def self.authenticate(username, password)
+    user = find_by_username(username)
+    if user && user.password == BCrypt::Engine.hash_secret(password, user.password_salt)
+      user
+    end
+  end
 end

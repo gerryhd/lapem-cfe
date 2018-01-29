@@ -22,17 +22,17 @@ module LoginHelper
 
   def enter
     if administrator?
-      # redirect
+      render html: 'you are an admin'
     end
 
     if applicant?
-      # reditect
+      render html: 'you are an applicant'
     end
 
   end
 
   def administrator?
-    current_user.type_user.id == TypeUser::ADMIM
+    current_user.type_user.id == TypeUser::ADMIN
   end
 
   def applicant?

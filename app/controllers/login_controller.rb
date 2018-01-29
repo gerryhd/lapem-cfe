@@ -1,17 +1,17 @@
 class LoginController < ApplicationController
-  let :all, :action_controller
+  let :all, :all
   include LoginHelper
 
   def new
     if logged_in?
       enter
     else
-      render action: 'new', layout: false
+      render :new, layout: false
     end
   end
 
   def create
-    user = User.authenticate(params[:session][:email], params[:session][:passowrd])
+    user = User.authenticate(params[:session][:email], params[:session][:password])
     if user
       log_in user
       enter
