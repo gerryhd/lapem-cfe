@@ -1,2 +1,2 @@
-admin = TypeUser.first_or_create(id: TypeUser::ADMIN, name: 'ADMIN')
-applicant = TypeUser.first_or_create(id: TypeUser::APPLICANT, name: 'APPLICANT')
+admin = TypeUser.create(id: TypeUser::ADMIN, name: 'admin')
+applicant = TypeUser.create(id: TypeUser::APPLICANT, name: 'applicant')
