@@ -22,13 +22,14 @@ module LoginHelper
 
   def enter
     if admin?
-      render html: 'you are an admin'
+      redirect_to admin_index_path and return
     end
 
     if applicant?
-      render html: 'you are an applicant'
+      redirect_to applicant_index_path and return
     end
 
+    raise "No admin or applicant present after log in"
   end
 
   def admin?

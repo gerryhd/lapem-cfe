@@ -16,12 +16,12 @@ class LoginController < ApplicationController
       log_in user
       enter
     else
-      flash[:notice] = I18n.t('public.login.unauthorized')
+      render html: I18n.t('public.login.unauthorized')
     end
   end
 
   def destroy
     log_out if logged_in?
-    redirect_to index_path
+    redirect_to root_path
   end
 end
