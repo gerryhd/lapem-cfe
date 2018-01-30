@@ -7,13 +7,12 @@ class ApplicationController < ActionController::Base
   include LoginHelper
 
   def index
-
-    if current_user.type_user.id == TypeUser::ADMIN
+    if current_user.blank?
+      render html: "you are in the public landing page"
+    elsif current_user.type_user.id == TypeUser::ADMIN
       redirect_to admin_index_path
     elsif current_user.type_user.id == TypeUser::APPLICANT
       redirect_to applicant_index_path
-    else
-      render html: "you are in the public landing page"
     end
 
   end
