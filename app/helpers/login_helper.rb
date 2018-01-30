@@ -21,7 +21,7 @@ module LoginHelper
   end
 
   def enter
-    if administrator?
+    if admin?
       render html: 'you are an admin'
     end
 
@@ -31,7 +31,7 @@ module LoginHelper
 
   end
 
-  def administrator?
+  def admin?
     current_user.type_user.id == TypeUser::ADMIN
   end
 
