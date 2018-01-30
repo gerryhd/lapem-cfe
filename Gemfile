@@ -24,7 +24,19 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
+
+gem 'sweetalert2'
+
+gem 'action_access'
+
+# Gem to add folder support for seeders
+# Source: https://github.com/james2m/seedbank
+gem 'seedbank'
+
+# Gem to translate urls
+# Source: https://github.com/enriclluelles/route_translator
+gem 'route_translator'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
