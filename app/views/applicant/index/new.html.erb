@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <title>Login</title>
+  <link rel="shortcut icon" href="<%= image_path("favicon.ico") %>" />
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Oswald">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<% if @errors.present? %>
+  <% @errors.each do |error| %>
+    <%= error %>
+    <br>
+  <% end%>
+<% end %>
+<%= form_for @applicant, url: {action: :create} do |applicant_f| %>
+  <div>
+  email
+  <%= applicant_f.email_field :email %>
+  </div>
+  <%= fields_for @applicant.user do |user_f| %>
+    <div>
+    username
+    <%= user_f.text_field :username %>
+    </div>
+    <div>
+    password
+    <%= user_f.password_field :password %>
+    </div>
+    <div>
+    password_confirmation
+    <%= user_f.password_field :password_confirmation%>
+    </div>
+  <% end %>  
+
+  <%= applicant_f.submit "Registrar" %>
+<% end %>
+
+</body>
