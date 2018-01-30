@@ -11,7 +11,7 @@ class LoginController < ApplicationController
   end
 
   def create
-    user = User.authenticate(params[:session][:email], params[:session][:password])
+    user = User.authenticate(params[:session][:username], params[:session][:password])
     if user
       log_in user
       enter

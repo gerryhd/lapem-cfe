@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
   belongs_to :type_user
   
-  # has_one :admin
-  # has_one :applicant
+  has_one :admin
+  has_one :applicant
 
   validates :username, presence: true, :uniqueness => {case_sensitive: false}
   validates :password, presence: true
