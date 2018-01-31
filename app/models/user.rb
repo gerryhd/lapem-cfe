@@ -5,12 +5,9 @@ class User < ActiveRecord::Base
   has_one :applicant
 
   validates :username, presence: true, :uniqueness => {case_sensitive: false}
-  validates :password, presence: true
-
+  validates :password, presence: true, confirmation: true, if: :save_password?
+  
   before_create :password_hash
-
-  validates_confirmation_of :password, if: :save_password?
-  validates_presence_of :password_confirmation, if: :password_changed?, on: :create
 
   attr_accessor :change_password
   
@@ -35,5 +32,13 @@ class User < ActiveRecord::Base
     if user && user.password == BCrypt::Engine.hash_secret(password, user.password_salt)
       user
     end
+  end
+
+  def applicant?
+    self.type_user.id == TypeUser::APPLICANT
+  end
+
+  def admin?
+    self.type_user.id == TypeUser::ADMIN
   end
 end

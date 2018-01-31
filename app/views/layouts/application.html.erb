@@ -41,8 +41,7 @@
 
           <% else %>
 
-            <li><%= link_to "INICIAR SESIÓN", '#' %></li>
-            <li><%= link_to "REGISTRARSE", '#' %></li>
+            <li><%= link_to "INICIAR SESIÓN", login_path %></li>
 
           <% end %>
         </ul>
@@ -50,6 +49,11 @@
     </div>
   </nav>
   <div class="body-content container-fluid">
+    <% flash.each do |key, value|%>
+      <div class='alert alert-<%= key %>'>
+        <%= value %>
+      </div>
+    <% end %>
     <%= yield %>
   </div>
 

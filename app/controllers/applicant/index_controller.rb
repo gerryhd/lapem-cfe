@@ -11,6 +11,10 @@ class Applicant::IndexController < ApplicationController
     render html: "#{flash[:success] or flash[:error]} \n This is the index for applicants"
   end
 
+
+  # These won't be used for now as registration of applicants is performed
+  # by admin users
+=begin
   def new
     @applicant = Applicant.new
     @applicant.user = User.new
@@ -34,6 +38,7 @@ class Applicant::IndexController < ApplicationController
       render 'new'
     end
   end
+=end
   
   
   private 
