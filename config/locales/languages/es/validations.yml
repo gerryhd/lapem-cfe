@@ -1,0 +1,8 @@
+es:
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      taken: ya se encuentra en la base de datos, intente con otro.
+      confirmation: no coincide con la contraseña.
+      empty: no puede estar vacío.
+      invalid: es inválido. Revise el formato e intente de nuevo.

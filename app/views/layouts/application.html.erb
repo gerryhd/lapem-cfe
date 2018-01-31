@@ -1,14 +1,61 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>LapemCfe</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Lapem-CFE</a>
 
-<%= yield %>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+          <% if current_user.present? %>
+
+              <li><a> <%= current_user.username %></a></li>
+
+              <% if current_user.applicant? %>
+
+                <li><%= link_to "MI PERFIL", '#' %></li>
+                <LI><%= link_to "MIS SOLICITUDES", '#' %>
+
+              <% elsif current_user.admin? %>
+
+                <li><%= link_to "SOLICITUDES" %>
+                <li><%= link_to "SOLICITANTES"%>
+
+              <% end %>
+
+              <li><%= link_to "SALIR", '#' %></li>
+
+          <% else %>
+
+            <li><%= link_to "INICIAR SESIÓN", login_path %></li>
+
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="body-content container-fluid">
+    <% flash.each do |key, value|%>
+      <div class='alert alert-<%= key %>'>
+        <%= value %>
+      </div>
+    <% end %>
+    <%= yield %>
+  </div>
 
 </body>
 </html>

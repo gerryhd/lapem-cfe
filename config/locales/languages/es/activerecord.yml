@@ -1,0 +1,21 @@
+es:
+  activerecord:
+    models:
+      user:
+        one: Usuario
+        other: Usuarios
+      applicant:
+        one: Solicitante
+        other: Solicitantes
+      admin:
+        one: Administrador
+        other: Administradores
+      type_user: Tipo de usuario
+    attributes:
+      user:
+        username: Nombre de usuario
+        email: Correo electrónico
+        password: Contraseña
+        password_confirmation: Confirmación de la contraseña
+      applicant:
+        email: Correo electrónico
