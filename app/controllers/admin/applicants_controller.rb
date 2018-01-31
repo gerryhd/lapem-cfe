@@ -1,11 +1,15 @@
 class Admin::ApplicantsController < ApplicationController
   let :admin, :all
 
+
+  # Catálogo de usuarios solicitantes
+  def index
+    @applicants = Applicant.all
+  end
+
   def new
     @applicant = Applicant.new
     @applicant.user = User.new
-
-    render :new
   end
 
   def create
@@ -19,7 +23,8 @@ class Admin::ApplicantsController < ApplicationController
       flash[:error] = "Something went wrong"
       @errors = @applicant.errors.full_messages
     end
-    render 'new'
+
+    render :new
   end
 
   private
