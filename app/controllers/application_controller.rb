@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
   def index
     if current_user.blank?
-      render html: "you are in the public landing page"
+      render html: "you are in the public landing page", layout: true
     elsif current_user.type_user.id == TypeUser::ADMIN
       redirect_to admin_index_path
     elsif current_user.type_user.id == TypeUser::APPLICANT
