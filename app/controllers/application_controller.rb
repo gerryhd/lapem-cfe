@@ -16,5 +16,14 @@ class ApplicationController < ActionController::Base
     end
 
   end
+
+  # Esto es usado por la autentificación de active_admin
+  def authenticate_admin!
+    redirect_to root_path unless current_user.admin?
+  end
+
+  def current_admin_user
+    current_user if current_user.type_user.id == TypeUser::ADMIN
+  end
   
 end
