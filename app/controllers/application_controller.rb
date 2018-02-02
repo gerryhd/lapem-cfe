@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
     if current_user.blank?
       render html: "you are in the public landing page", layout: true
     elsif current_user.type_user.id == TypeUser::ADMIN
-      redirect_to admin_index_path
+      redirect_to admin_root_path
     elsif current_user.type_user.id == TypeUser::APPLICANT
       redirect_to applicant_index_path
     end

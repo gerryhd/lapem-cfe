@@ -6,8 +6,10 @@ class User < ActiveRecord::Base
 
   validates :username, presence: true, :uniqueness => {case_sensitive: false}
   validates :password, presence: true, confirmation: true, if: :save_password?
+  validates_presence_of :password_confirmation, if: :save_password?
   
   before_create :password_hash
+  before_save :password_hash, if: :password_changed?
 
   attr_accessor :change_password
   

@@ -30,13 +30,35 @@ ActiveAdmin.register Applicant do
       @applicant.user.type_user = TypeUser.find(TypeUser::APPLICANT)
 
       if @applicant.save
-        flash[:success] = "Object successfully created"
+        flash[:success] = "El usuario solicitante ha sido creado"
         redirect_to action: :index and return
       else
         @errors = @applicant.errors.full_messages
       end
 
       render :new
+    end
+
+    def edit
+      @applicant = Applicant.find(params[:id])
+    end
+
+    def update
+      @applicant = Applicant.find(params[:id])
+      applicant_data = applicant_params
+
+      applicant_data[:user_attributes] = user_params.reject{|_, v| v.blank?}
+      applicant_data[:user_attributes][:id] = @applicant.user.id
+      applicant_data[:user_attributes][:change_password] = true if user_params[:password].present?
+
+      if @applicant.update(applicant_data)
+        flash[:success] = "La información del solicitante se actualizó correctamente"
+        redirect_to action: :show and return
+      else
+        @errors = @applicant.errors.full_messages
+      end
+
+      render :edit
     end
 
     def applicant_params
