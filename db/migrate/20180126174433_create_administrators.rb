@@ -1,6 +1,6 @@
-class CreateAdmins < ActiveRecord::Migration
+class CreateAdministrators < ActiveRecord::Migration
   def change
-    create_table :admins do |t|
+    create_table :administrators do |t|
       t.references :user, index: true, foreign_key: true
 
       t.timestamps null: false

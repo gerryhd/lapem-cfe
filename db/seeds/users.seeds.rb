@@ -6,7 +6,7 @@ after :type_users do
 
   admin_user = User.create(username: 'admin2018', password: '2018', password_confirmation: '2018', type_user: admin_user_type)
 
-  Admin.create(user: admin_user)
+  Administrator.create(user: admin_user)
 
   # Create test applicant user
 
