@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   validates_presence_of :password_confirmation, if: :save_password?
   
   before_create :password_hash
-  before_save :password_hash, if: :password_changed?
+  before_update :password_hash, if: :password_changed?
 
   attr_accessor :change_password
   
