@@ -1,2 +1,7 @@
-en:
+es:
   hello: "Hello world"
+  time:
+    formats:
+      default: "%Y/%m/%d"
+      short: "%b %d"
+      long: "%B %d, %Y"

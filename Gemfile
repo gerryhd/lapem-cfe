@@ -31,6 +31,12 @@ gem 'sweetalert2'
 
 gem 'action_access'
 
+# Gema para gestionar
+gem 'activeadmin'
+gem 'active_admin_flat_skin', git: 'git@github.com:gerryhd/active_admin_flat_skin.git', branch: 'master'
+
+gem 'font-awesome-sass', '~> 4.7.0'
+
 # Gem to add folder support for seeders
 # Source: https://github.com/james2m/seedbank
 gem 'seedbank'
@@ -48,6 +54,7 @@ gem 'route_translator'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
 end
 
 group :development do

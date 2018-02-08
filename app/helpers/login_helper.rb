@@ -22,7 +22,7 @@ module LoginHelper
 
   def enter
     if admin?
-      redirect_to admin_index_path and return
+      redirect_to admin_root_path and return
     end
 
     if applicant?
