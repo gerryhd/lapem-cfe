@@ -6,4 +6,8 @@ class Applicant < ActiveRecord::Base
   validates :email, presence: true, :uniqueness => {case_sensitive: false}, format: VALID_EMAIL_REGEX
 
   accepts_nested_attributes_for :user
+
+  def full_name
+    "#{self.name} #{self.last_name}"
+  end
 end
