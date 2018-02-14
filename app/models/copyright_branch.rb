@@ -1,0 +1,27 @@
+class CopyrightBranch < ActiveRecord::Base
+  has_many :copyright, dependent: :destroy
+
+  # Ramas
+
+  LITERARIA = 1
+  MUSICAL_LETRA = 2
+  MUSICAL_SIN_LETRA = 3
+  DRAMATICA = 4
+  DANZA = 5
+  PICTORICA = 6
+  DIBUJO = 7
+  ESCULTORICA = 8
+  PLASTICO = 9
+  CARICATURA = 10
+  HISTORIETA = 11
+  ARQUITECTONICA = 12
+  CINEMATOGRAFICA = 13
+  AUDIOVISUAL = 14
+  RADIO_PROGRAMA = 15
+  TV_PROGRAMA = 16
+  SOFTWARE = 17
+  FOTOGRAFIA = 18
+  ARTE_APLICADO = 19
+  BASE_DE_DATOS = 20
+
+end

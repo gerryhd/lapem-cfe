@@ -5,5 +5,6 @@ class AddDetailsToApplicants < ActiveRecord::Migration
     add_column :applicants, :phone, :string
     add_column :applicants, :position, :string
     add_column :applicants, :nationality, :string
+    add_column :applicants, :curp, :string
   end
 end
