@@ -4,7 +4,6 @@ class CreateApplications < ActiveRecord::Migration
       t.integer :status
 
       t.references :applicant, index: true, foreign_key: true
-      t.references :application_type, index: true, foreign_key: true
       
       t.timestamps null: false
     end
