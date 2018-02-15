@@ -1,0 +1,5 @@
+en:
+  routes:
+    login: log_in
+    logout: log_out
+    index: index

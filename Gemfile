@@ -4,9 +4,12 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+#gem 'sqlite3'
+
+gem 'mysql2'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
+gem 'bootstrap-sass'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
@@ -24,7 +27,25 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
+
+gem 'sweetalert2'
+
+gem 'action_access'
+
+# Gema para gestionar
+gem 'activeadmin'
+gem 'active_admin_flat_skin', git: 'https://github.com/gerryhd/active_admin_flat_skin.git', branch: 'master'
+
+gem 'font-awesome-sass', '~> 4.7.0'
+
+# Gem to add folder support for seeders
+# Source: https://github.com/james2m/seedbank
+gem 'seedbank'
+
+# Gem to translate urls
+# Source: https://github.com/enriclluelles/route_translator
+gem 'route_translator'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -35,6 +56,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
 end
 
 group :development do

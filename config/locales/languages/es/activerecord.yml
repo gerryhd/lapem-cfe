@@ -1,0 +1,39 @@
+es:
+  status:
+    pending: "Pendiente"
+    revision: "En revisión"
+    rejected: "Rechazado"
+    approved: "Aprobado"
+  application_type:
+    brand: "Registro de marca"
+    patent: "Patentes y diseño"
+    copyright: "Derechos de autor"
+  activerecord:
+    models:
+      user:
+        one: Usuario
+        other: Usuarios
+      applicant:
+        one: Solicitante
+        other: Solicitantes
+      admin:
+        one: Administrador
+        other: Administradores
+      type_user: Tipo de usuario
+      application:
+        one: Solicitud
+        other: Solicitudes
+      application_type: Tipo de solicitud
+    attributes:
+      user:
+        username: Nombre de usuario
+        email: Correo electrónico
+        password: Contraseña
+        password_confirmation: Confirmación de la contraseña
+      applicant:
+        email: Correo electrónico
+        applications: Solicitudes
+      application:
+        status: Estado
+        applicant: Solicitante
+        application_type: Tipo de aplicación

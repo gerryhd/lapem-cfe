@@ -21,3 +21,6 @@
 
 en:
   hello: "Hello world"
+  public:
+    login:
+      unauthorized: "You are not authorized to perform this action."

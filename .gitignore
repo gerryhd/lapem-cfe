@@ -20,3 +20,5 @@ db/schema.rb
 Gemfile.lock
 /test/
 tmp/
+db/*.sqlite3
+.ruby-gemset
