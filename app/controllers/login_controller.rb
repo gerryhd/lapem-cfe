@@ -6,7 +6,7 @@ class LoginController < ApplicationController
     if logged_in?
       enter
     else
-      render :new
+      render :new, layout: false
     end
   end
 

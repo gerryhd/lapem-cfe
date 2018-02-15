@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   ActiveAdmin.routes(self)
-  root 'application#index'
+  root 'login#new'
 
   localized do
     get 'login' => 'login#new'
