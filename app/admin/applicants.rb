@@ -1,5 +1,14 @@
 ActiveAdmin.register Applicant do
   permit_params :email, user_attributes: [:username, :password, :password_confirmation]
+  
+  index do
+    column :email
+    column :user
+    column :name
+    column :last_name
+
+    actions
+  end
 
 
   form do |f|
@@ -18,6 +27,16 @@ ActiveAdmin.register Applicant do
   end
   controller do
     let :admin, :all
+
+    def scoped_collection
+      query = params[:search]
+      
+      if query.blank?
+        super
+      else
+        super.joins(:user).where('username LIKE :search OR email LIKE :search OR name LIKE :search OR last_name LIKE :search', search: "%#{params[:search]}%")
+      end
+    end
 
     def new
       @applicant = Applicant.new
@@ -68,6 +87,5 @@ ActiveAdmin.register Applicant do
     def user_params
       applicant_params[:user_attributes]
     end
-
   end
 end

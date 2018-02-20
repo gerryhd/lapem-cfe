@@ -16,10 +16,9 @@ ActiveAdmin.register Application do
   scope "Patentes y diseños", :patents
   scope "Derechos de autor", :copyrights
 
-  filter :status, as: :select, collection: Application.statuses_t
+  filter :status, as: :select, collection: Application.statuses_t, filters: ['eq']
 
   index do
-    selectable_column
     column :applicant do |application|
       link_to application.applicant.full_name, admin_applicant_path(application.applicant.id)
     end
