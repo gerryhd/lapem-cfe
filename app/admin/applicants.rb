@@ -1,6 +1,8 @@
 ActiveAdmin.register Applicant do
-  permit_params :email, user_attributes: [:username, :password, :password_confirmation]
+  permit_params :email, :name, :last_name, user_attributes: [:username, :password, :password_confirmation]
   
+  actions :index, :show, :update, :edit
+
   index do
     column :email
     column :user
@@ -8,6 +10,10 @@ ActiveAdmin.register Applicant do
     column :last_name
 
     actions
+  end
+
+  action_item only: :index do
+    link_to 'Nuevo', admin_applicant_quick_add_path, class: 'fancybox', data: { 'fancybox-type' => 'ajax' }
   end
 
 
@@ -38,24 +44,32 @@ ActiveAdmin.register Applicant do
       end
     end
 
-    def new
+    def quick_add
       @applicant = Applicant.new
       @applicant.user = User.new
+      render layout: false
     end
 
-    def create
+    def quick_create
       @applicant = Applicant.new(applicant_params)
       @applicant.user = User.new(user_params)
       @applicant.user.type_user = TypeUser.find(TypeUser::APPLICANT)
 
-      if @applicant.save
-        flash[:success] = "El usuario solicitante ha sido creado"
-        redirect_to action: :index and return
-      else
-        @errors = @applicant.errors.full_messages
-      end
 
-      render :new
+      respond_to do |format|
+        if @applicant.save
+          flash[:success] = "El usuario solicitante ha sido creado"
+          format.html { render :action => 'quick_add' }
+          format.js { render :action => 'quick_response' }
+        else
+          @errors = @applicant.errors.full_messages
+          flash.now[:error] = @errors
+          format.html { render :action => 'quick_add' }
+          format.js { render :action => 'quick_response' }
+        end
+      end
+      
+      
     end
 
     def edit
@@ -75,6 +89,8 @@ ActiveAdmin.register Applicant do
         redirect_to action: :show and return
       else
         @errors = @applicant.errors.full_messages
+        flash[:error] = @errors
+        byebug
       end
 
       render :edit

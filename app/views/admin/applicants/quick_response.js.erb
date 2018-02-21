@@ -1,0 +1,6 @@
+<% if @applicant.errors.any? %>
+  var html = "<%= escape_javascript(render partial: 'error_messages') %>";
+  $('#quick-errors').html(html);
+<% else %>
+  window.location.reload();
+<% end %>

@@ -1,0 +1,22 @@
+doctype html
+html
+  body
+    #modal
+      h2 Nuevo Solicitanteee
+      p.modal-description Agregar nuevo solicitantea
+
+      section#quick-errors
+      
+      section.form-fluid
+        = simple_form_for(@applicant, url: admin_applicant_quick_create_path, remote: true) do |f|
+          .form-inputs
+            
+            = f.input :email, label_html: { class: 'label'}, wrapper_html: { class: 'separated'}
+            = f.input :name,label_html: { class: 'label'}, wrapper_html: { class: 'separated'}
+            = f.input :last_name, label_html: { class: 'label'}, wrapper_html: { class: 'separated'}
+            = f.simple_fields_for :user do |user_f|
+              .form-inputs
+                = user_f.input :username, label_html: { class: 'label'}, wrapper_html: { class: 'separated'}
+                = user_f.input :password, label_html: { class: 'label'}, wrapper_html: { class: 'separated'}
+                = user_f.input :password_confirmation, label_html: { class: 'label'}, wrapper_html: { class: 'separated'}
+            = f.submit 'Crear', class: 'separated'
