@@ -25,6 +25,19 @@ ActiveAdmin.register Application do
     actions
   end
 
+  show do
+    attributes_table do
+      row :applicant
+      row :status
+      row :application_type
+
+      row :brand do |app|
+        # 
+      end
+
+    end
+  end
+
   
   controller do
     let :admin, :all
@@ -46,7 +59,7 @@ ActiveAdmin.register Application do
           end
         end
   
-        super.joins(:applicant).joins(:user).where('name LIKE :search OR last_name LIKE :search OR name LIKE :search OR last_name LIKE :search', search: "%#{params[:search]}%")
+        super.joins(:applicant).where('name LIKE :search OR last_name LIKE :search OR name LIKE :search OR last_name LIKE :search', search: "%#{params[:search]}%")
       end
     end
   end
