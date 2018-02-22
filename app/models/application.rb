@@ -1,8 +1,14 @@
 class Application < ActiveRecord::Base
+
+  
   enum status: [:pending, :revision, :rejected, :approved]
   
   belongs_to :applicant
   belongs_to :application_type
+
+  has_one :brand
+  has_one :patent
+  has_one :copyright
 
   before_create :default_values
   
