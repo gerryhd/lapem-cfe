@@ -1,16 +1,6 @@
 ActiveAdmin.register Application do
-# See permitted parameters documentation:
-# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-#
-# permit_params :list, :of, :attributes, :on, :model
-#
-# or
-#
-# permit_params do
-#   permitted = [:permitted, :attributes]
-#   permitted << :other if params[:action] == 'create' && current_user.admin?
-#   permitted
-# end
+
+  actions :index, :show
 
   scope "Registro de marcas", :brands
   scope "Patentes y diseños", :patents
@@ -19,6 +9,8 @@ ActiveAdmin.register Application do
   filter :status, as: :select, collection: Application.statuses_t, filters: ['eq']
 
   index do
+
+    
     column :applicant do |application|
       link_to application.applicant.full_name, admin_applicant_path(application.applicant.id)
     end
@@ -33,7 +25,29 @@ ActiveAdmin.register Application do
     actions
   end
 
+  
   controller do
     let :admin, :all
+
+    def scoped_collection
+      query = params[:search]
+      
+      
+
+      if query.blank?
+        super
+      else
+        # If query matches any of the statuses, return the scope
+        (I18n.t :status).each do |k,s|
+          if s.casecmp(query) == 0
+            status = s
+            query_is_status = true
+            return eval("super.#{k.to_s}")
+          end
+        end
+  
+        super.joins(:applicant).joins(:user).where('name LIKE :search OR last_name LIKE :search OR name LIKE :search OR last_name LIKE :search', search: "%#{params[:search]}%")
+      end
+    end
   end
 end
