@@ -290,4 +290,11 @@ ActiveAdmin.setup do |config|
   # You can inherit it with own class and inject it for all resources
   #
   # config.order_clause = MyOrderClause
+
+  # Add "logout" button to menu
+  config.namespace :admin do |admin|
+    admin.build_menu do |menu|
+      menu.add label: "Salir", url: '/logout', priority: 1
+    end
+  end
 end

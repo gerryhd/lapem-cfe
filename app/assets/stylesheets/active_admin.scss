@@ -44,7 +44,15 @@ div.quick-errors {
   padding: 5%;
 }
 
+.header#header {
+  height: 100%;
+}
+
 #sidebar {
+  display: none;
+}
+
+#footer {
   display: none;
 }
 
