@@ -17,7 +17,7 @@ after "development:applications" do
   
   brand_apps = Application.where(application_type_id: ApplicationType::BRAND)
   brand_apps.each do |app|
-    var = (1..2).sample
+    var = [1,2].sample
 
     if var == 1
       person = NaturalPerson.create

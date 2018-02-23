@@ -1,4 +1,4 @@
 class NaturalPerson < ActiveRecord::Base
-  belongs_to :brand, as: :person
+  has_one :brand, as: :person
 
 end

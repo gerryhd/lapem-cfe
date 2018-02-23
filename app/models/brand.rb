@@ -1,8 +1,9 @@
 class Brand < ActiveRecord::Base
   belongs_to :application
   
-  has_one :brand_type
-  has_one :person, polymorphic: true
+  belongs_to :brand_type
+  belongs_to :sign_type
+  belongs_to :person, polymorphic: true
 
   
 end
