@@ -1,0 +1,7 @@
+nominativa = BrandType.create(id: BrandType::NOMINATIVE, name: "Nominativa")
+innominada = BrandType.create(id: BrandType::INNOMINATED, name: "Innominada")
+tridimensional = BrandType.create(id: BrandType::THREE_DIMENSIONAL, name: "Tridimensional")
+mixta_denominacion_diseño = BrandType.create(id: BrandType::DENOMINATION_AND_DESIGN, name: "denominación y diseño")
+mixta_denominacion_tridimensional = BrandType.create(id: BrandType::DENOMINATION_AND_3D, name: "denominación y forma tridimensional")
+mixta_diseño_forma_tridimensional = BrandType.create(id: BrandType::DESIGN_AND_3D, name: "diseño y forma tridimensional")
+mixa_denominacion_diseño_tridimensional = BrandType.create(id: BrandType::MIXED, name: "denominación, diseño y forma tridimensional")

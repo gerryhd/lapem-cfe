@@ -1,4 +1,6 @@
 class Application < ActiveRecord::Base
+  mount_uploaders :proof_files, ProofUploader
+  serialize :proof_files, JSON
 
   
   enum status: [:pending, :revision, :rejected, :approved]
