@@ -10,4 +10,20 @@ class Applicant < ActiveRecord::Base
   def full_name
     "#{self.name} #{self.last_name}"
   end
+
+  def to_natural_person
+    {
+      date: DateTime.now.to_date,
+      name: self.name,
+      last_name: self.last_names[0],
+      second_last_name: self.last_names[2],
+      nationality: self.nationality,
+      phone_number: self.phone,
+      email: self.email
+    }
+  end
+
+  def last_names
+    self.last_name.split(" ")
+  end
 end
