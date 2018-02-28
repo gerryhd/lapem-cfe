@@ -26,4 +26,11 @@ class Applicant < ActiveRecord::Base
   def last_names
     self.last_name.split(" ")
   end
+
+  def first_last_name
+    last_names[0]
+  end
+  def second_last_name
+    last_names[1]
+  end
 end
