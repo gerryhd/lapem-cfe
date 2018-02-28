@@ -16,7 +16,7 @@ ActiveAdmin.register Application do
       I18n.t("status.#{application.status.to_s}")
     end
     column :application_type do |application|
-      application.application_type.name_t
+      application.application_type.name
     end
     column "Creado el", :created_at
 
@@ -50,6 +50,28 @@ ActiveAdmin.register Application do
       row :application_type
     end
 
+    panel "Detalles del Solicitante" do
+      attributes_table_for application.applicant do
+        row :date do
+          application.created_at.to_date
+        end
+        row :curp
+        row :name
+        row :first_last_name
+        row :second_last_name
+        row :nationality
+        row :phone
+        row :email
+        row :zip_code
+        row :street
+        row :ext_num
+        row :int_num
+        row :zone_name
+        row :municipality
+      end
+
+    end
+
     if application.application_type_id == ApplicationType::BRAND
       
       panel "Registro de Marca" do
@@ -62,18 +84,17 @@ ActiveAdmin.register Application do
       panel "Persona" do
         person = application.brand.person
         
-
         if person.instance_of? NaturalPerson
           h1 "Persona física"
-          attributes_table_for person do
-            row :date
-            row :name
-            row :last_name
-            row :second_last_name
-            row :nationality
-            row :phone_number
-            row :email
-          end
+          # attributes_table_for person do
+          #   row :date
+          #   row :name
+          #   row :last_name
+          #   row :second_last_name
+          #   row :nationality
+          #   row :phone_number
+          #   row :email
+          # end
         elsif person.instance_of? LegalPerson
           h1 "Persona moral"
           attributes_table_for person do
@@ -99,7 +120,7 @@ ActiveAdmin.register Application do
     elsif application.application_type_id == ApplicationType::COPYRIGHT
 
       panel "Derechos de Autor" do
-        attributes_table_for application.patent do
+        attributes_table_for application.copyright do
           row :title
           row :summary
         end
@@ -114,14 +135,12 @@ ActiveAdmin.register Application do
 
     def scoped_collection
       query = params[:search]
-      
-      
 
       if query.blank?
         super
       else
 
-        # If query matches any of the statuses, return the scope
+        # If query matches any of the statuses, return the collection scoped to said status
         (I18n.t :status).each do |k,s|
           if s.casecmp(query) == 0
             status = s
