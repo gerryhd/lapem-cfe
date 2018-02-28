@@ -1,4 +1,5 @@
 require 'faker'
+require 'open-uri'
 
 after "development:applications" do
 
@@ -34,6 +35,12 @@ after "development:applications" do
     end
 
     app.brand = Brand.create(person: person, brand_type: brand_types.sample, sign_type: sign_types.sample)
+
+    download = open(Faker::Company.logo)
+
+    IO.copy_stream(download, "#{Rails.root}/public/proof_files/#{app.brand.id}.png")
+    app.proof_files = [Pathname.new("#{Rails.root}/public/proof_files/#{app.brand.id}.png").open]
+
     app.save!
   end
 end

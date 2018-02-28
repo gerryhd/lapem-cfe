@@ -73,6 +73,14 @@ ActiveAdmin.register Application do
     end
 
     if application.application_type_id == ApplicationType::BRAND
+
+      panel "Signo Distintivo" do
+        application.proof_files.each do |image|
+          span do
+            image_tag image.url
+          end
+        end
+      end
       
       panel "Registro de Marca" do
         attributes_table_for application.brand do
