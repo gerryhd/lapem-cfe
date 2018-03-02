@@ -294,7 +294,7 @@ ActiveAdmin.setup do |config|
   # Add "logout" button to menu
   config.namespace :admin do |admin|
     admin.build_menu do |menu|
-      menu.add label: "Salir", url: '/logout', priority: 1
+      menu.add label: "Salir", url: '/logout', priority: 11
     end
   end
 end
