@@ -1,0 +1,49 @@
+<md-card ng-controller="IndexController">
+  <input type="hidden" ng-init="applications = <%= current_user.applicant.applications.to_json(include: [:status_application]) %>">
+  <input type="hidden" ng-init="countries = <%= Country.all.to_json() %>">
+  <md-card-header>
+    <md-card-header-text>
+      <span class="md-title">{{new_request ? 'Nueva Solicitud' : 'Solicitudes'}}</span>
+    </md-card-header-text>
+
+  </md-card-header>
+
+  <md-card-actions layout="row">
+    <md-button ng-if="!new_request" class="md-raised md-primary" ng-click="newRequest()">Nueva solicitud</md-button>
+  </md-card-actions>
+
+
+  <md-card-content>
+    <div ng-if="!new_request">
+      <md-table-container>
+        <table md-table>
+          <thead md-head md-order="myOrder">
+          <!--<th md-column md-order-by="date_creation">Fecha de creacion</th>-->
+          <th md-column>Fecha de creacion</th>
+          <th md-column>Estatus</th>
+          <th md-column>Operaciones</th>
+          </thead>
+          <tbody md-body>
+          <!-- we can let ng-repeat sort the columns for us -->
+          <tr md-row ng-repeat="application in applications track by $index">
+            <td md-cell>{{application.created_at | date:'yyyy-mm-dd'}}</td>
+            <td md-cell>{{application.status_application.name}}</td>
+            <td md-cell>
+              <a href="#" ng-click="delete(application.id,$index)">eliminar</a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+      <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{applications.count}}" md-on-paginate="getApplications" md-page-select></md-table-pagination>
+    </div>
+
+    <%= render 'applicant/index/new' %>
+
+  </md-card-content>
+
+  <md-card-footer ng-if="new_request">
+    <md-button class="md-raised md-warn" ng-click="cancelNewRequest()">Cancelar</md-button>
+    <md-button class="md-raised md-primary" ng-click="save()">Guardar</md-button>
+  </md-card-footer>
+</md-card>

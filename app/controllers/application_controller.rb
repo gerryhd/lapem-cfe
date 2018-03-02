@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   let :all, :all
   include LoginHelper
+  layout :get_layout
 
   def index
     if current_user.blank?
@@ -24,6 +25,12 @@ class ApplicationController < ActionController::Base
 
   def current_admin_user
     current_user if current_user.type_user.id == TypeUser::ADMIN
+  end
+
+  private
+  def get_layout
+    my_class_name = self.class.name
+    my_class_name.split("::").first.downcase
   end
   
 end

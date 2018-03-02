@@ -7,10 +7,10 @@ Rails.application.routes.draw do
   post 'login' => 'login#create'
   get 'logout' => 'login#destroy'
 
-  scope module: 'applicant' do
-    get 'index' => 'index#index', as: 'applicant_index'
-      # get 'register' => 'index#new', as: 'new_applicant'
-      # post 'register' => 'index#create'
+
+  namespace :applicant do
+    get 'index' => 'index#index'
+    resources :applications
   end
     
   get '/admin/applicants/new/quick_add' => 'admin/applicants#quick_add', as: :admin_applicant_quick_add

@@ -18,3 +18,6 @@
 //= require angular-aria
 //= require angular-resource
 //= require angular-material
+//= require md-data-table.min
+//= require sweetalert2
+//= require sweet-alert2-rails

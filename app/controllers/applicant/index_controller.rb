@@ -1,14 +1,10 @@
 class Applicant::IndexController < ApplicationController
   include LoginHelper
 
-  let :applicant, [:index]
-  let :all, [:new, :create]
-
-  before_filter :check_if_logged, only: [:new, :create]
+  let :applicant, :all
 
   def index
     # @applications = current_user.applicant.applications.all
-    render html: "#{flash[:success] or flash[:error]} \n This is the index for applicants"
   end
 
 
@@ -41,15 +37,7 @@ class Applicant::IndexController < ApplicationController
 =end
   
   
-  private 
-
-  def check_if_logged
-
-    if current_user.present?
-      redirect_to applicant_index_path and return
-    end
-    
-  end
+  private
 
   def applicant_params
     params.require(:applicant).permit(:email)

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app="ApplicantModule">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LapemCfe</title>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!--javascript file per-controllers -->
+  <%= javascript_include_tag params[:controller], 'data-turbolinks-track' => true if ::Rails.application.assets.find_asset("#{params[:controller]}.js") %>
+
+  <!--css file per-controllers -->
+  <%= stylesheet_link_tag "application", params[:controller], :media => "all", 'data-turbolinks-track' => true if ::Rails.application.assets.find_asset("#{params[:controller]}.css") %>
+
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<input type="hidden" id="token" value="'<%= form_authenticity_token %>'">
+<div layout="column" layout-fill style="height: 500px;" ng-cloak="" class="sidenavdemoCustomSidenav" ng-controller="MenuController">
+
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Lapem CFE</h2>
+
+      <md-button ng-click="toggleLeft()">
+        <i class="material-icons" style="padding: 9px;font-size: 50px;">view_headline</i>
+      </md-button>
+
+    </div>
+
+  </md-toolbar>
+
+  <md-content flex="" layout-padding="">
+
+    <section layout="row" flex="">
+
+      <md-sidenav class="md-sidenav-left" md-component-id="left" md-disable-backdrop="" md-whiteframe="4">
+
+        <md-toolbar class="md-theme-indigo">
+          <h1 class="md-toolbar-tools">Lapem CFE</h1>
+        </md-toolbar>
+
+        <md-content layout-margin="">
+
+        </md-content>
+
+      </md-sidenav>
+
+
+    </section>
+
+    <%= yield %>
+
+  </md-content>
+
+</div>
+
+<!--
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that can be foundin the LICENSE file at http://material.angularjs.org/HEAD/license.
+-->
+</body>
+</html>
