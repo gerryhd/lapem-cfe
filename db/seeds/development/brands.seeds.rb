@@ -38,8 +38,8 @@ after "development:applications" do
 
     download = open(Faker::Company.logo)
 
-    IO.copy_stream(download, "#{Rails.root}/public/proof_files/#{app.brand.id}.png")
-    app.proof_files = [Pathname.new("#{Rails.root}/public/proof_files/#{app.brand.id}.png").open]
+    IO.copy_stream(download, "#{Rails.root}/private/proof_files/#{app.brand.id}.png")
+    app.proof_files = [Pathname.new("#{Rails.root}/private/proof_files/#{app.brand.id}.png").open]
 
     app.save!
   end

@@ -118,6 +118,14 @@ ActiveAdmin.register Application do
     
     elsif application.application_type_id == ApplicationType::PATENT
 
+      panel "Información de Evidencia" do
+        application.proof_files.each do |file|
+          span do
+            link_to "Ver archivo #{File.basename(file.url)}", "/proof_files/#{application.id}/#{File.basename(file.url)}"
+          end
+        end
+      end
+
       panel "Patente" do
         attributes_table_for application.patent do
           row :title
@@ -159,6 +167,15 @@ ActiveAdmin.register Application do
   
         super.joins(:applicant).where('name LIKE :search OR last_name LIKE :search OR name LIKE :search OR last_name LIKE :search', search: "%#{params[:search]}%")
       end
+    end
+
+    def download_file
+      path = "#{Rails.root}/private/proof_files/#{file_params[:id]}/#{file_params[:basename]}.#{file_params[:extension]}"
+      send_file path, :x_sendfile=>true
+    end
+
+    def file_params
+      params.permit(:id, :basename, :extension)
     end
   end
 end
