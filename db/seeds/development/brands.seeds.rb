@@ -1,3 +1,6 @@
+require 'faker'
+require 'open-uri'
+
 after "development:applications" do
 
   nominativa = BrandType.find(BrandType::NOMINATIVE)
@@ -20,11 +23,24 @@ after "development:applications" do
     var = [1,2].sample
 
     if var == 1
-      person = NaturalPerson.create
+      person = NaturalPerson.create(app.applicant.to_natural_person)
     elsif var == 2
-      person == LegalPerson.create
+      person = LegalPerson.create(
+        date: DateTime.now.to_date,
+        denomination: Faker::Company.name,
+        rfc: Faker::Bank.swift_bic,
+        phone_number: Faker::PhoneNumber.cell_phone,
+        email: Faker::Internet.email
+      )
     end
 
     app.brand = Brand.create(person: person, brand_type: brand_types.sample, sign_type: sign_types.sample)
+
+    download = open(Faker::Company.logo)
+
+    IO.copy_stream(download, "#{Rails.root}/private/proof_files/#{app.brand.id}.png")
+    app.proof_files = [Pathname.new("#{Rails.root}/private/proof_files/#{app.brand.id}.png").open]
+
+    app.save!
   end
 end

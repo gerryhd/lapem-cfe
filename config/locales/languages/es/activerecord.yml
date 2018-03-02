@@ -24,6 +24,8 @@ es:
         one: Solicitud
         other: Solicitudes
       application_type: Tipo de solicitud
+      brand_type: Tipo de marca
+      sign_type: Tipo de signo distintivo
     attributes:
       user:
         username: Nombre de usuario
@@ -37,3 +39,20 @@ es:
         status: Estado
         applicant: Solicitante
         application_type: Tipo de aplicación
+      brand:
+        brand_type: Tipo de marca
+        sign_type: Tipo de signo distintivo
+      natural_person:
+        date: Fecha
+        name: Nombre (s)
+        last_name: Apellido paterno
+        second_last_name:  Apellido materno
+        nationality: Nacionalidad
+        phone_number: Teléfono
+        email: Correo electrónico
+      legal_person:
+        date: Fecha
+        denomination: Denominación
+        rfc: RFC
+        phone_number: Teléfono
+        email: Correo electrónico
