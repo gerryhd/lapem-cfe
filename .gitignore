@@ -22,3 +22,4 @@ Gemfile.lock
 tmp/
 db/*.sqlite3
 .ruby-gemset
+.byebug-history
