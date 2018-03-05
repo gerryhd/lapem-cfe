@@ -1,3 +1,4 @@
+=begin
 require 'faker'
 require 'open-uri'
 
@@ -44,3 +45,5 @@ after "development:applications" do
     app.save!
   end
 end
+
+=end

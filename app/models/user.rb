@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   before_update :password_hash, if: :password_changed?
 
   attr_accessor :change_password
+
+  accepts_nested_attributes_for :applicant
   
   def clearance_levels
     self.type_user.name
