@@ -1,4 +1,4 @@
-<% if @applicant.errors.any? %>
+<% if @user.errors.any? %>
   var html = "<%= escape_javascript(render partial: 'error_messages') %>";
   $('#quick-errors').html(html);
 <% else %>

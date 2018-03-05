@@ -12,7 +12,7 @@ copyright_app = ApplicationType.find(ApplicationType::COPYRIGHT)
   username = Faker::Internet.unique.user_name
   password = "12345"
 
-  user = User.create(username: username, password: password, password_confirmation: password)
+  user = User.create(username: username, password: password, password_confirmation: password, type_user: applicant_user_type)
 
   applicant_details = {
     user: user,

@@ -13,8 +13,8 @@ Rails.application.routes.draw do
     resources :applications
   end
     
-  get '/admin/applicants/new/quick_add' => 'admin/applicants#quick_add', as: :admin_applicant_quick_add
-  post '/admin/applicants/quick_create' => 'admin/applicants#quick_create', as: :admin_applicant_quick_create
+  get '/admin/users/new/quick_add' => 'admin/users#quick_add', as: :admin_applicant_quick_add
+  post '/admin/users/quick_create' => 'admin/users#quick_create', as: :admin_applicant_quick_create
 
   get "/proof_files/:id/:basename.:extension" => 'admin/applications#download_file'
 end

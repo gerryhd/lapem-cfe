@@ -1,3 +1,4 @@
+=begin
 require 'faker'
 
 after "development:applications" do
@@ -12,3 +13,5 @@ after "development:applications" do
     app.save!
   end
 end
+
+=end
