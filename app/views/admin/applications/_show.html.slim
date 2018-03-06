@@ -1,22 +1,108 @@
 div.panel
-  div.header
+  div.application_header
     p Datos generales del o de los solicitante(s)
-  div.application-details
+  div.application_details
     - general_data = application.data_general
     - person = general_data.person
     - if person.type_person_id == TypePerson::PHYSICAL_PERSON
       h1 Persona física
+      p
+        = person.curp
       label CURP
-      p person.curp
+      p
+        = person.name
       label Nombre(s)
-      p person.name
+      p
+        = person.first_last_name
       label Primer apellido
-      p person.first_last_name
+      p
+        = person.second_last_name
       label Segundo apellido
-      p person.second_last_name
+      p
+        = person.nationality
       label Nacionalidad
-      p person.nationality
+      p
+        = person.phone
       label Teléfono
-      p person.phone
+      p
+        = person.email
       label Correo electrónico
-      p person.email
+div.panel
+  div.application_header
+    p Domicilio del solicitante
+  div.application_details
+    - address = general_data.address_data
+    p
+      = address.zip_code
+    label Código postal
+    p
+      = address.street
+    label Calle
+    p
+      = address.external_number
+    label external_number
+    p
+      = address.internal_number
+    label Número interior
+    p
+      = address.colony
+    label Colonia
+    p
+      = address.municipality
+    label Municipio o demarcación territorial
+    p
+      = address.location
+    label Localidad
+    p
+      = address.federal_entity
+    label Entidad federativa
+    p
+      = address.back_street
+    label Calle posterior
+div.panel
+  div.application_header
+    p Domicilio para oír y recibir notificaciones
+  div.application_details
+    - notifications_address = application.address_notification.address_data
+    p
+      = address.zip_code
+    label Código postal
+    p
+      = address.street
+    label Calle
+    p
+      = address.external_number
+    label external_number
+    p
+      = address.internal_number
+    label Número interior
+    p
+      = address.colony
+    label Colonia
+    p
+      = address.municipality
+    label Municipio o demarcación territorial
+    p
+      = address.location
+    label Localidad
+    p
+      = address.federal_entity
+    label Entidad federativa
+    p
+      = address.back_street
+    label Calle posterior
+div.panel
+  div.application_header
+    p Datos del signo distintivo
+  div.application_details
+    - distinctive_sign = application.applicable
+    h2 Tipo de signo distintivo que solicita
+    p.sign_name= distinctive_sign.sign_type.name
+    h2 Tipo de marca
+    p.sign_name= distinctive_sign.brand_type.name
+    - if distinctive_sign.not_used
+      p Sin primer uso
+    - else
+      p= distinctive_sign.first_date_use
+    label Fecha de primer uso
+

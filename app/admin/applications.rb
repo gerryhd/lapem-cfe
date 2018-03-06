@@ -6,14 +6,12 @@ ActiveAdmin.register Application do
   scope "Patentes y diseños", :patents
   scope "Derechos de autor", :copyrights
 
-  filter :status, as: :select, collection: Application.statuses_t, filters: ['eq']
-
   index do
     column :applicant do |application|
-      link_to application.applicant.full_name, admin_applicant_path(application.applicant.id)
+      link_to application.applicant.full_name, admin_user_path(application.applicant.user_id)
     end
     column :status do |application|
-      I18n.t("status.#{application.status.to_s}")
+      application.status_application.name
     end
     column :application_type do |application|
       application.application_type.name
@@ -21,8 +19,10 @@ ActiveAdmin.register Application do
     column "Creado el", :created_at
 
     actions defaults: true do |app|
-      text_node link_to "Aprobar", approve_admin_application_path(app), method: :put, class: "member_link" if app.pending?
-      text_node link_to "Rechazar", reject_admin_application_path(app), method: :put, class: "member_link" if app.pending?
+      if app.status_application_id == StatusApplication::PENDING
+        text_node link_to "Aprobar", approve_admin_application_path(app), method: :put, class: "member_link"
+        text_node link_to "Rechazar", reject_admin_application_path(app), method: :put, class: "member_link"
+      end
     end
   end
 
@@ -40,7 +40,7 @@ ActiveAdmin.register Application do
     redirect_to admin_applications_path
   end
 
-
+=begin
   show do
     attributes_table do
       row :applicant
@@ -145,7 +145,15 @@ ActiveAdmin.register Application do
     end
     active_admin_comments
   end
-  
+=end
+
+  show do
+    panel "Datos generales del o de los solicitantes" do
+      render 'show', {application: application}
+    end
+    active_admin_comments
+  end
+
   controller do
     let :admin, :all
 

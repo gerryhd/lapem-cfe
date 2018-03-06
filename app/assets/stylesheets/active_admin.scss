@@ -60,3 +60,42 @@ p.inline-errors {
   margin: 0 !important;
 }
 
+
+// REGLAS PARA LA ACCIÓN SHOW DE ADMIN::APPLICATIONS
+div.application_header {
+  background-color: #3D3F3C;
+  color: #FFFFFF;
+  padding: 1%;
+  text-align: center;
+  font-size: 155%;
+  p {
+    margin: 0;
+  }
+}
+div.application_details {
+  border: 2px solid #AFAFAF;
+  text-align: center;
+  padding: 0 0 2% 0;
+  h1, h2, h3 {
+    margin: 0;
+    padding: 1%;
+    background-color: #EEEFF1;
+  }
+  p{
+    margin: 0 40%;
+    padding: 1% 0 0 0;
+    border-bottom: 2px dotted #AFAFAF;
+
+  }
+  label{
+    font-weight: lighter;
+    font-size: 130%;
+    margin: 0 0 1% 0;
+  }
+  p.sign_name {
+    font-size: 150%;
+    padding: 1% 0;
+    margin: 0;
+    border-bottom: 2px solid #AFAFAF;
+  }
+}
