@@ -8,7 +8,8 @@ class Application < ActiveRecord::Base
 
   belongs_to :applicable, polymorphic: true
 
-  
+  has_one :data_general
+  has_one :address_notification
   validates_presence_of :application_type, :applicant
 
 

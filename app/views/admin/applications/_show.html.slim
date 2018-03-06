@@ -1,0 +1,22 @@
+div.panel
+  div.header
+    p Datos generales del o de los solicitante(s)
+  div.application-details
+    - general_data = application.data_general
+    - person = general_data.person
+    - if person.type_person_id == TypePerson::PHYSICAL_PERSON
+      h1 Persona física
+      label CURP
+      p person.curp
+      label Nombre(s)
+      p person.name
+      label Primer apellido
+      p person.first_last_name
+      label Segundo apellido
+      p person.second_last_name
+      label Nacionalidad
+      p person.nationality
+      label Teléfono
+      p person.phone
+      label Correo electrónico
+      p person.email
