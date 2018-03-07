@@ -105,4 +105,42 @@ div.panel
     - else
       p= distinctive_sign.first_date_use
     label Fecha de primer uso
+    p
+      = distinctive_sign.denomination
+    label Denominación
+    p
+      = distinctive_sign.tags
+    label Leyendas o figuras no reservables
+    h2 Ubicación del establecimiento
+    - establishment = distinctive_sign.establishment_location.address_data
+    p
+      = establishment.zip_code
+    label Código postal
+    p
+      = establishment.street
+    label Calle
+    p
+      = establishment.external_number
+    label Número exterior
+    p
+      = establishment.internal_number
+    label Número interior
+    p
+      = establishment.colony
+    label Colonia
+    p
+      = establishment.municipality
+    label Municipio o demarcación territorial
+    p
+      = establishment.location
+    label Localidad
+    p
+      = establishment.federal_entity
+    label Entidad federativa
+    p
+      = establishment.back_street
+    label Calle posterior
+    p
+      =establishment.country.name
+    label País
 

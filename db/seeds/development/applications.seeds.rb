@@ -4,7 +4,7 @@ after "development:users" do
   app = Application.create(id: 666, application_type_id: ApplicationType::BRAND, applicant: Applicant.all.sample, status_application_id: StatusApplication::PENDING)
 
   app.data_general = DataGeneral.create()
-  app.address_notification = AddressNotification.create();
+  app.address_notification = AddressNotification.create()
 
   address = AddressData.create(
       zip_code: "973202",
@@ -34,11 +34,14 @@ after "development:users" do
                                       first_date_use: DateTime.now.to_date,
                                       not_used: true,
                                       class_sign: 34,
-                                      denomination: "OTO CYCLE",
+                                      denomination: "OTTO CYCLE",
                                       tags: "no se",
                                       sign_type_id: SignType::COMMERCIAL_NOTICE,
                                       brand_type_id: BrandType::NOMINATIVE
   )
+
+  app.applicable.establishment_location = EstablishmentLocation.create();
+  app.applicable.establishment_location.address_data = address.dup
 
   app.save!
 end
