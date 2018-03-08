@@ -7,10 +7,12 @@ class Application < ActiveRecord::Base
 
   belongs_to :applicable, polymorphic: true
 
-
+  
   validates_presence_of :application_type, :applicant
   accepts_nested_attributes_for :data_general
   accepts_nested_attributes_for :address_notification
+  has_one :reclaimed_priority
+  has_many :observations
 
   before_create :set_status
 
@@ -21,10 +23,10 @@ class Application < ActiveRecord::Base
 
   def self.statuses_t
     {
-        "#{I18n.t('status.pending')}" => StatusApplication::PENDING,
-        "#{I18n.t('status.revision')}" => StatusApplication::OBSERVATIONS,
-        "#{I18n.t('status.rejected')}" => StatusApplication::REJECTED,
-        "#{I18n.t('status.approved')}" => StatusApplication::APPROVED
+      "#{I18n.t('status.pending')}" => StatusApplication::PENDING,
+      "#{I18n.t('status.revision')}" => StatusApplication::OBSERVATIONS,
+      "#{I18n.t('status.rejected')}" => StatusApplication::REJECTED,
+      "#{I18n.t('status.approved')}" => StatusApplication::APPROVED
     }
   end
 end

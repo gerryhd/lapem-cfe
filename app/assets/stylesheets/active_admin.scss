@@ -60,3 +60,96 @@ p.inline-errors {
   margin: 0 !important;
 }
 
+
+// REGLAS PARA LA ACCIÓN SHOW DE ADMIN::APPLICATIONS
+div.application_header {
+  background-color: #3D3F3C;
+  color: #FFFFFF;
+  padding: 1%;
+  text-align: center;
+  font-size: 155%;
+  p {
+    margin: 0;
+  }
+}
+div.application_details {
+  border: 2px solid #AFAFAF;
+  text-align: center;
+  padding: 0 0 2% 0;
+  h1, h2, h3 {
+    margin: 0;
+    padding: 1%;
+    background-color: #EEEFF1;
+  }
+  p{
+    margin: 0 40%;
+    padding: 1% 0 0 0;
+    border-bottom: 2px dotted #AFAFAF;
+
+  }
+  label{
+    font-weight: lighter;
+    font-size: 130%;
+    margin: 0 0 1% 0;
+  }
+  p.sign_name {
+    font-size: 150%;
+    padding: 1% 0;
+    margin: 0;
+    border-bottom: 2px solid #AFAFAF;
+  }
+}
+
+div.observations{
+  clear: both;
+  padding: 1% 0;
+  div.author_data {
+    float: left;
+    width: 130px;
+    span {
+      font-size: 0.9em;
+      line-height: 0;
+    }
+    h4 {
+      margin: 0;
+    }
+    h4.admin_identifier {
+      font-size: 100%;
+      margin: 0;
+    }
+  }
+
+
+}
+
+div.new_observation {
+  width: 50%;
+  #observation_notes{
+    width: 100%;
+  }
+}
+
+div.status_button {
+  display: inline-block;
+  padding: 0 1%;
+  a{
+    border-radius: 50%;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    i{
+      padding: 15px 0;
+      font-size: 200%;
+    }
+  }
+  label{
+    display: block;
+  }
+  #approve_circle{
+    background-color: #4CAF50;
+  }
+  #reject_circle{
+    background-color: #F44336;
+  }
+}
+

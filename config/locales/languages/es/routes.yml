@@ -1,5 +1,0 @@
-es:
-  routes:
-    login: iniciar_sesion
-    logout: salir
-    index: inicio

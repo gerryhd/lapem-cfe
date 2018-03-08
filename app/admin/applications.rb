@@ -1,151 +1,39 @@
 ActiveAdmin.register Application do
+  permit_params :observation
 
   actions :index, :show
 
-  scope "Registro de marcas", :brands
-  scope "Patentes y diseños", :patents
+  scope "Todas", :all, default: true
+  scope "Marcas, Avisos y Nombres Comerciales", :brands
+  scope "Patentes, Registro de Modelo de Utilidad y Registro de Diseño Industrial", :patents
   scope "Derechos de autor", :copyrights
 
-  filter :status, as: :select, collection: Application.statuses_t, filters: ['eq']
 
   index do
     column :applicant do |application|
-      link_to application.applicant.full_name, admin_applicant_path(application.applicant.id)
+      link_to application.applicant.full_name, admin_user_path(application.applicant.user_id)
     end
     column :status do |application|
-      I18n.t("status.#{application.status.to_s}")
+      application.status_application.name
     end
     column :application_type do |application|
       application.application_type.name
     end
     column "Creado el", :created_at
 
-    actions defaults: true do |app|
-      text_node link_to "Aprobar", approve_admin_application_path(app), method: :put, class: "member_link" if app.pending?
-      text_node link_to "Rechazar", reject_admin_application_path(app), method: :put, class: "member_link" if app.pending?
-    end
+    actions
   end
-
-  member_action :approve, method: :put do
-    resource.approved!
-    flash[:success] = "La aplicación fue aprobada."
-
-    redirect_to admin_applications_path
-  end
-
-  member_action :reject, method: :put do
-    resource.rejected!
-    flash[:success] = "La aplicación ha sido rechazada."
-
-    redirect_to admin_applications_path
-  end
-
 
   show do
-    attributes_table do
-      row :applicant
-      row :status do |app|
-        I18n.t("status.#{app.status.to_s}")
-      end
-      row :application_type
+    panel "Datos generales del o de los solicitantes" do
+      render 'show', {application: application}
     end
 
-    panel "Detalles del Solicitante" do
-      attributes_table_for application.applicant do
-        row :date do
-          application.created_at.to_date
-        end
-        row :curp
-        row :name
-        row :first_last_name
-        row :second_last_name
-        row :nationality
-        row :phone
-        row :email
-        row :zip_code
-        row :street
-        row :ext_num
-        row :int_num
-        row :zone_name
-        row :municipality
-      end
-
+    panel "Observaciones" do
+      render 'observations', {application: application, observation: Observation.new}
     end
-
-    if application.application_type_id == ApplicationType::BRAND
-
-      panel "Signo Distintivo" do
-        application.proof_files.each do |image|
-          span do
-            image_tag image.url
-          end
-        end
-      end
-      
-      panel "Registro de Marca" do
-        attributes_table_for application.brand do
-          row :brand_type
-          row :sign_type
-        end
-      end
-
-      panel "Persona" do
-        person = application.brand.person
-        
-        if person.instance_of? NaturalPerson
-          h1 "Persona física"
-          # attributes_table_for person do
-          #   row :date
-          #   row :name
-          #   row :last_name
-          #   row :second_last_name
-          #   row :nationality
-          #   row :phone_number
-          #   row :email
-          # end
-        elsif person.instance_of? LegalPerson
-          h1 "Persona moral"
-          attributes_table_for person do
-            row :date
-            row :denomination
-            row :rfc
-            row :phone_number
-            row :email
-          end
-        end
-        
-      end
-    
-    elsif application.application_type_id == ApplicationType::PATENT
-
-      panel "Información de Evidencia" do
-        application.proof_files.each do |file|
-          span do
-            link_to "Ver archivo #{File.basename(file.url)}", "/proof_files/#{application.id}/#{File.basename(file.url)}"
-          end
-        end
-      end
-
-      panel "Patente" do
-        attributes_table_for application.patent do
-          row :title
-          row :divulgation_date
-        end
-      end
-
-    elsif application.application_type_id == ApplicationType::COPYRIGHT
-
-      panel "Derechos de Autor" do
-        attributes_table_for application.copyright do
-          row :title
-          row :summary
-        end
-      end
-
-    end
-    active_admin_comments
   end
-  
+
   controller do
     let :admin, :all
 
@@ -169,13 +57,47 @@ ActiveAdmin.register Application do
       end
     end
 
+    def reject
+      application = Application.find(params[:id])
+      application.status_application_id = StatusApplication::REJECTED
+      application.save
+      redirect_to admin_application_path(application)
+    end
+
+    def approve
+      application = Application.find(params[:id])
+      application.status_application_id = StatusApplication::APPROVED
+      application.save
+      redirect_to admin_application_path(application)
+    end
+
+    def create_observation
+      observation = observation_params
+      # Ensure comment is for current application from show and from current user
+      if params[:id] == observation[:application_id] && current_admin_user.id == observation[:user_id].to_i
+        observation = Observation.create(observation)
+        app = Application.find(observation[:application_id]).status_application_id = StatusApplication::OBSERVATIONS
+        app.save
+      else
+        flash[:error] = "Error al hacer comentario: Las IDs no concuerdan"
+      end
+
+      redirect_to admin_application_path(observation.application_id)
+    end
+
     def download_file
       path = "#{Rails.root}/private/proof_files/#{file_params[:id]}/#{file_params[:basename]}.#{file_params[:extension]}"
       send_file path, :x_sendfile=>true
     end
 
+    private
+
     def file_params
       params.permit(:id, :basename, :extension)
+    end
+
+    def observation_params
+      params.require(:observation).permit(:notes, :application_id, :user_id)
     end
   end
 end

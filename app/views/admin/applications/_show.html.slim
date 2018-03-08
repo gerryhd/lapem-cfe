@@ -1,0 +1,164 @@
+div.panel
+  div.application_header
+    p Datos generales del o de los solicitante(s)
+  div.application_details
+    - general_data = application.data_general
+    - person = general_data.person
+    - if person.type_person_id == TypePerson::PHYSICAL_PERSON
+      h1 Persona física
+      p
+        = person.curp
+      label CURP
+      p
+        = person.name
+      label Nombre(s)
+      p
+        = person.first_last_name
+      label Primer apellido
+      p
+        = person.second_last_name
+      label Segundo apellido
+      p
+        = person.nationality
+      label Nacionalidad
+      p
+        = person.phone
+      label Teléfono
+      p
+        = person.email
+      label Correo electrónico
+div.panel
+  div.application_header
+    p Domicilio del solicitante
+  div.application_details
+    - address = general_data.address_data
+    p
+      = address.zip_code
+    label Código postal
+    p
+      = address.street
+    label Calle
+    p
+      = address.external_number
+    label external_number
+    p
+      = address.internal_number
+    label Número interior
+    p
+      = address.colony
+    label Colonia
+    p
+      = address.municipality
+    label Municipio o demarcación territorial
+    p
+      = address.location
+    label Localidad
+    p
+      = address.federal_entity
+    label Entidad federativa
+    p
+      = address.back_street
+    label Calle posterior
+div.panel
+  div.application_header
+    p Domicilio para oír y recibir notificaciones
+  div.application_details
+    - notifications_address = application.address_notification.address_data
+    p
+      = address.zip_code
+    label Código postal
+    p
+      = address.street
+    label Calle
+    p
+      = address.external_number
+    label external_number
+    p
+      = address.internal_number
+    label Número interior
+    p
+      = address.colony
+    label Colonia
+    p
+      = address.municipality
+    label Municipio o demarcación territorial
+    p
+      = address.location
+    label Localidad
+    p
+      = address.federal_entity
+    label Entidad federativa
+    p
+      = address.back_street
+    label Calle posterior
+div.panel
+  div.application_header
+    p Datos del signo distintivo
+  div.application_details
+    - distinctive_sign = application.applicable
+    h2 Tipo de signo distintivo que solicita
+    p.sign_name= distinctive_sign.sign_type.name
+    h2 Tipo de marca
+    p.sign_name= distinctive_sign.brand_type.name
+    - if distinctive_sign.not_used
+      p Sin primer uso
+    - else
+      p= distinctive_sign.first_date_use
+    label Fecha de primer uso
+    p
+      = distinctive_sign.denomination
+    label Denominación
+    p
+      = distinctive_sign.tags
+    label Leyendas o figuras no reservables
+    h2 Ubicación del establecimiento
+    - establishment = distinctive_sign.establishment_location.address_data
+    p
+      = establishment.zip_code
+    label Código postal
+    p
+      = establishment.street
+    label Calle
+    p
+      = establishment.external_number
+    label Número exterior
+    p
+      = establishment.internal_number
+    label Número interior
+    p
+      = establishment.colony
+    label Colonia
+    p
+      = establishment.municipality
+    label Municipio o demarcación territorial
+    p
+      = establishment.location
+    label Localidad
+    p
+      = establishment.federal_entity
+    label Entidad federativa
+    p
+      = establishment.back_street
+    label Calle posterior
+    p
+      = establishment.country.name
+    label País
+div.panel
+  div.application_header
+    p Estado de la solicitud
+  div.application_details
+    - pending_or_observations = application.status_application_id == StatusApplication::PENDING || application.status_application_id == StatusApplication::OBSERVATIONS
+    - if pending_or_observations
+      div.status_button
+        a#approve_circle href=admin_application_approve_path(application)
+          i class="fa fa-check"
+        label= "Aprobar"
+      div.status_button
+        a#reject_circle href=admin_application_reject_path(application)
+          i class="fa fa-times"
+        label= "Rechazar"
+    - else
+      div.current_status
+
+
+
