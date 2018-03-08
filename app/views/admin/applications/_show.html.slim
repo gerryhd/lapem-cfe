@@ -143,5 +143,22 @@ div.panel
     p
       = establishment.country.name
     label País
+div.panel
+  div.application_header
+    p Estado de la solicitud
+  div.application_details
+    - pending_or_observations = application.status_application_id == StatusApplication::PENDING || application.status_application_id == StatusApplication::OBSERVATIONS
+    - if pending_or_observations
+      div.status_button
+        a#approve_circle href=admin_application_approve_path(application)
+          i class="fa fa-check"
+        label= "Aprobar"
+      div.status_button
+        a#reject_circle href=admin_application_reject_path(application)
+          i class="fa fa-times"
+        label= "Rechazar"
+    - else
+      div.current_status
+
 
 

@@ -129,3 +129,27 @@ div.new_observation {
   }
 }
 
+div.status_button {
+  display: inline-block;
+  padding: 0 1%;
+  a{
+    border-radius: 50%;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    i{
+      padding: 15px 0;
+      font-size: 200%;
+    }
+  }
+  label{
+    display: block;
+  }
+  #approve_circle{
+    background-color: #4CAF50;
+  }
+  #reject_circle{
+    background-color: #F44336;
+  }
+}
+

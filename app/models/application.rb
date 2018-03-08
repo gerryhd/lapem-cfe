@@ -19,6 +19,8 @@ class Application < ActiveRecord::Base
   has_many :observations
   validates_presence_of :application_type, :applicant
 
+  before_create :initialize_pending_status
+
   def self.statuses_t
     {
       "#{I18n.t('status.pending')}" => StatusApplication::PENDING,
@@ -26,5 +28,9 @@ class Application < ActiveRecord::Base
       "#{I18n.t('status.rejected')}" => StatusApplication::REJECTED,
       "#{I18n.t('status.approved')}" => StatusApplication::APPROVED
     }
+  end
+
+  def initialize_pending_status
+    self.status_application_id = StatusApplication::PENDING
   end
 end

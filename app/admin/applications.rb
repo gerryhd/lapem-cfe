@@ -21,26 +21,7 @@ ActiveAdmin.register Application do
     end
     column "Creado el", :created_at
 
-    actions defaults: true do |app|
-      if app.status_application_id == StatusApplication::PENDING
-        text_node link_to "Aprobar", approve_admin_application_path(app), method: :put, class: "member_link"
-        text_node link_to "Rechazar", reject_admin_application_path(app), method: :put, class: "member_link"
-      end
-    end
-  end
-
-  member_action :approve, method: :put do
-    resource.approved!
-    flash[:success] = "La aplicación fue aprobada."
-
-    redirect_to admin_applications_path
-  end
-
-  member_action :reject, method: :put do
-    resource.rejected!
-    flash[:success] = "La aplicación ha sido rechazada."
-
-    redirect_to admin_applications_path
+    actions
   end
 
   show do
@@ -76,11 +57,27 @@ ActiveAdmin.register Application do
       end
     end
 
+    def reject
+      application = Application.find(params[:id])
+      application.status_application_id = StatusApplication::REJECTED
+      application.save
+      redirect_to admin_application_path(application)
+    end
+
+    def approve
+      application = Application.find(params[:id])
+      application.status_application_id = StatusApplication::APPROVED
+      application.save
+      redirect_to admin_application_path(application)
+    end
+
     def create_observation
       observation = observation_params
       # Ensure comment is for current application from show and from current user
       if params[:id] == observation[:application_id] && current_admin_user.id == observation[:user_id].to_i
         observation = Observation.create(observation)
+        app = Application.find(observation[:application_id]).status_application_id = StatusApplication::OBSERVATIONS
+        app.save
       else
         flash[:error] = "Error al hacer comentario: Las IDs no concuerdan"
       end
