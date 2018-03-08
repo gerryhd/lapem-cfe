@@ -3,9 +3,11 @@ ActiveAdmin.register Application do
 
   actions :index, :show
 
-  # scope "Registro de marcas", :brands
-  # scope "Patentes y diseños", :patents
-  # scope "Derechos de autor", :copyrights
+  scope "Todas", :all, default: true
+  scope "Marcas, Avisos y Nombres Comerciales", :brands
+  scope "Patentes, Registro de Modelo de Utilidad y Registro de Diseño Industrial", :patents
+  scope "Derechos de autor", :copyrights
+
 
   index do
     column :applicant do |application|

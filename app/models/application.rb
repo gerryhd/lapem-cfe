@@ -1,7 +1,12 @@
 class Application < ActiveRecord::Base
   mount_uploaders :proof_files, ProofUploader
   serialize :proof_files, JSON
-  
+
+  scope :brands, -> {where(application_type_id: ApplicationType::BRAND)}
+  scope :patents, -> {where(application_type_id: ApplicationType::PATENT)}
+  scope :copyrights, -> {where(application_type_id: ApplicationType::COPYRIGHT)}
+
+
   belongs_to :applicant
   belongs_to :application_type
   belongs_to :status_application
