@@ -43,5 +43,8 @@ after "development:users" do
   app.applicable.establishment_location = EstablishmentLocation.create();
   app.applicable.establishment_location.address_data = address.dup
 
+  app.observations << Observation.create(user_id: Administrator.first.user.id, notes: "Esto está todo mal")
+  app.observations << Observation.create(user_id: app.applicant.user_id, notes: "Yo digo que está bien y ya lo deberías aceptar")
+
   app.save!
 end

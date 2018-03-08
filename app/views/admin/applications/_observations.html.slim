@@ -1,0 +1,16 @@
+- application.observations.each do |obs|
+  div.observations
+    div.author_data
+      h4= link_to(obs.user.username, admin_user_path(obs.user.id))
+      - if obs.user.type_user_id == TypeUser::ADMIN
+        h4.admin_identifier= "(admin)"
+      span= obs.created_at.strftime("%d/%m/%y")
+    div.notes
+      = obs.notes
+
+div.new_observation
+  = form_for(observation, url: admin_observation_create_path) do |f|
+    = f.text_area :notes, class: "notes_field"
+    = f.hidden_field :application_id, value: application.id
+    = f.hidden_field :user_id, value: current_user.id
+    = f.submit 'Comentar'

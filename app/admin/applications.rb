@@ -1,4 +1,5 @@
 ActiveAdmin.register Application do
+  permit_params :observation
 
   actions :index, :show
 
@@ -40,118 +41,14 @@ ActiveAdmin.register Application do
     redirect_to admin_applications_path
   end
 
-=begin
-  show do
-    attributes_table do
-      row :applicant
-      row :status do |app|
-        I18n.t("status.#{app.status.to_s}")
-      end
-      row :application_type
-    end
-
-    panel "Detalles del Solicitante" do
-      attributes_table_for application.applicant do
-        row :date do
-          application.created_at.to_date
-        end
-        row :curp
-        row :name
-        row :first_last_name
-        row :second_last_name
-        row :nationality
-        row :phone
-        row :email
-        row :zip_code
-        row :street
-        row :ext_num
-        row :int_num
-        row :zone_name
-        row :municipality
-      end
-
-    end
-
-    if application.application_type_id == ApplicationType::BRAND
-
-      panel "Signo Distintivo" do
-        application.proof_files.each do |image|
-          span do
-            image_tag image.url
-          end
-        end
-      end
-      
-      panel "Registro de Marca" do
-        attributes_table_for application.brand do
-          row :brand_type
-          row :sign_type
-        end
-      end
-
-      panel "Persona" do
-        person = application.brand.person
-        
-        if person.instance_of? NaturalPerson
-          h1 "Persona física"
-          # attributes_table_for person do
-          #   row :date
-          #   row :name
-          #   row :last_name
-          #   row :second_last_name
-          #   row :nationality
-          #   row :phone_number
-          #   row :email
-          # end
-        elsif person.instance_of? LegalPerson
-          h1 "Persona moral"
-          attributes_table_for person do
-            row :date
-            row :denomination
-            row :rfc
-            row :phone_number
-            row :email
-          end
-        end
-        
-      end
-    
-    elsif application.application_type_id == ApplicationType::PATENT
-
-      panel "Información de Evidencia" do
-        application.proof_files.each do |file|
-          span do
-            link_to "Ver archivo #{File.basename(file.url)}", "/proof_files/#{application.id}/#{File.basename(file.url)}"
-          end
-        end
-      end
-
-      panel "Patente" do
-        attributes_table_for application.patent do
-          row :title
-          row :divulgation_date
-        end
-      end
-
-    elsif application.application_type_id == ApplicationType::COPYRIGHT
-
-      panel "Derechos de Autor" do
-        attributes_table_for application.copyright do
-          row :title
-          row :summary
-        end
-      end
-
-    end
-    active_admin_comments
-  end
-=end
-
   show do
     panel "Datos generales del o de los solicitantes" do
       render 'show', {application: application}
     end
-    active_admin_comments
+
+    panel "Observaciones" do
+      render 'observations', {application: application, observation: Observation.new}
+    end
   end
 
   controller do
@@ -177,13 +74,31 @@ ActiveAdmin.register Application do
       end
     end
 
+    def create_observation
+      observation = observation_params
+      # Ensure comment is for current application from show and from current user
+      if params[:id] == observation[:application_id] && current_admin_user.id == observation[:user_id].to_i
+        observation = Observation.create(observation)
+      else
+        flash[:error] = "Error al hacer comentario: Las IDs no concuerdan"
+      end
+
+      redirect_to admin_application_path(observation.application_id)
+    end
+
     def download_file
       path = "#{Rails.root}/private/proof_files/#{file_params[:id]}/#{file_params[:basename]}.#{file_params[:extension]}"
       send_file path, :x_sendfile=>true
     end
 
+    private
+
     def file_params
       params.permit(:id, :basename, :extension)
+    end
+
+    def observation_params
+      params.require(:observation).permit(:notes, :application_id, :user_id)
     end
   end
 end

@@ -10,8 +10,9 @@ class Application < ActiveRecord::Base
 
   has_one :data_general
   has_one :address_notification
+  has_one :reclaimed_priority
+  has_many :observations
   validates_presence_of :application_type, :applicant
-
 
   def self.statuses_t
     {

@@ -99,3 +99,33 @@ div.application_details {
     border-bottom: 2px solid #AFAFAF;
   }
 }
+
+div.observations{
+  clear: both;
+  padding: 1% 0;
+  div.author_data {
+    float: left;
+    width: 130px;
+    span {
+      font-size: 0.9em;
+      line-height: 0;
+    }
+    h4 {
+      margin: 0;
+    }
+    h4.admin_identifier {
+      font-size: 100%;
+      margin: 0;
+    }
+  }
+
+
+}
+
+div.new_observation {
+  width: 50%;
+  #observation_notes{
+    width: 100%;
+  }
+}
+
