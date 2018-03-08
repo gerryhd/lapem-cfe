@@ -11,22 +11,37 @@ function ApplicationService($http, AUTHENTICITY_TOKEN) {
     service.create = create;
     service.update = update;
     service.destroy = destroy;
+    service.general_information = general_information;
 
     return service;
 
-    function index(params) {
-        return $http.get(URL_ROOT + '.json', {timeout: TIMEOUT, params: params}).then();
+    function index() {
+        return $http.get(URL_ROOT + '.json', {timeout: TIMEOUT}).then();
     }
 
     function show(id) {
         return $http.get(URL_ROOT + '/' + id, {timeout: TIMEOUT}).then();
     }
 
-    function create(application) {
-        return $http.post(URL_ROOT, {
-            application: application,
+    function create(data, has_files) {
+        var options = {};
+        var values = {
+            application: data,
             authenticity_token: AUTHENTICITY_TOKEN
-        }).then();
+        };
+
+        if (has_files) {
+            options = {
+                headers: {
+                    'Content-Type': undefined
+                }
+            };
+
+            values = data;
+            values.append('authenticity_token', AUTHENTICITY_TOKEN);
+        }
+
+        return $http.post(URL_ROOT, values, options).then();
     }
 
     function update(application) {
@@ -34,6 +49,10 @@ function ApplicationService($http, AUTHENTICITY_TOKEN) {
             application: application,
             authenticity_token: AUTHENTICITY_TOKEN
         }).then();
+    }
+
+    function general_information() {
+        return $http.get(URL_ROOT + '/general_information.json', {timeout: TIMEOUT}).then();
     }
 
     function destroy(id) {

@@ -11,11 +11,11 @@
 <body ng-controller="LoginController">
 <style>
   html, body {
-    background: rgb(33, 150, 243) !important;
+    background: rgb(27, 128, 77) !important;
   }
 
   md-content.md-default-theme, md-content {
-    background: rgb(33, 150, 243) !important;
+    background: rgb(27, 128, 77) !important;
   }
 </style>
 
@@ -25,13 +25,17 @@
     <md-card>
       <md-card-title>
         <md-card-title-text>
-          <img style="width: 60%;margin-left: auto;margin-right: auto;" ng-src="<%= image_url('not_found.png') %>">
+          <img style="width:100%;margin-left: auto;margin-right: auto;" ng-src="<%= image_url('lapem-cfe.jpg') %>">
           <span style="text-align: center;" class="md-headline">Iniciar Sesión</span>
         </md-card-title-text>
       </md-card-title>
       <%= form_for(:session, url: login_path, html: {class: 'form-horizontal'}) do |f| %>
           <md-card-content>
-
+            <% if !flash[:notice].nil? %>
+                <md-toolbar class="md-warn text-center" style="min-height: 30px;">
+                  <%= flash[:notice] %>
+                </md-toolbar>
+            <% end %>
             <md-input-container class="md-block">
               <label>Usuario</label>
               <%= f.text_field :username, class: 'form-control' %>
@@ -41,31 +45,9 @@
               <label>Contraseña</label>
               <%= f.password_field :password, class: 'form-control' %>
             </md-input-container>
-
-            <div class="form-group">
-              <% if !flash[:notice].nil? %>
-                  <div class="alert alert-warning">
-                    <%= flash[:notice] %>
-                  </div>
-              <% end %>
-              <% if flash[:alert] %>
-                  <div class="alert alert-danger alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">×</span></button>
-                    <%= flash[:alert] %>
-                  </div>
-              <% end %>
-              <% if flash[:success] %>
-                  <div class="alert alert-success alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">×</span></button>
-                    <%= flash[:success] %>
-                  </div>
-              <% end %>
-            </div>
           </md-card-content>
           <md-card-actions layout="row" layout-align="center">
-            <md-button class="md-primary md-raised" type="submit"><%= t('layout.birthday_girl.log_in') %></md-button>
+            <md-button class="md-primary md-raised" type="submit">Iniciar Sesión</md-button>
           </md-card-actions>
       <% end %>
     </md-card>

@@ -12,6 +12,6 @@ Rails.application.config.assets.version = '1.0'
 
 Rails.application.config.assets.precompile += %w( login.js )
 
-%w(applicant/index).each do |controller|
+%w(applicant/index applicant/applications).each do |controller|
   Rails.application.config.assets.precompile += ["#{controller}.js", "#{controller}.css"]
 end

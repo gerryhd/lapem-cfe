@@ -1,4 +1,4 @@
-var ObjectModule = angular.module('ApplicantModule', ['ngMaterial', 'md.data.table']);
+var ObjectModule = angular.module('ApplicantModule', ['ngMaterial', 'md.data.table','lfNgMdFileInput']);
 
 ObjectModule.controller('MenuController', function ($scope, $timeout, $mdSidenav) {
 
@@ -12,6 +12,10 @@ ObjectModule.controller('MenuController', function ($scope, $timeout, $mdSidenav
     }
 });
 
-ObjectModule.config(function ($provide) {
+ObjectModule.config(function ($provide, $mdThemingProvider) {
     $provide.constant('AUTHENTICITY_TOKEN', eval($('#token').val()));
+
+    $mdThemingProvider.theme('default')
+        .primaryPalette('green')
+        .accentPalette('green');
 });

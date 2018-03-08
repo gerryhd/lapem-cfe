@@ -13,6 +13,7 @@
  *= require angular-material
  *= require md-data-table.min
  *= require sweetalert2
+ *= require lf-ng-md-file-input.min
  *= require_self
  */
 
@@ -60,4 +61,12 @@
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     margin: 0;
+}
+
+.item-menu {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-radius: 0;
 }

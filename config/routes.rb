@@ -10,9 +10,13 @@ Rails.application.routes.draw do
 
   namespace :applicant do
     get 'index' => 'index#index'
-    resources :applications
+    resources :applications do
+      collection do
+        get 'general_information'
+      end
+    end
   end
-    
+
   get '/admin/users/new/quick_add' => 'admin/users#quick_add', as: :admin_applicant_quick_add
   post '/admin/users/quick_create' => 'admin/users#quick_create', as: :admin_applicant_quick_create
 

@@ -16,7 +16,8 @@ class LoginController < ApplicationController
       log_in user
       enter
     else
-      render html: I18n.t('public.login.unauthorized')
+      flash[:notice] = "Usuario o contraseña incorrectas"
+      redirect_to root_path
     end
   end
 
