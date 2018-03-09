@@ -1,4 +1,5 @@
 ActiveAdmin.register Application do
+  menu label: "Solicitudes"
   permit_params :observation
 
   actions :index, :show

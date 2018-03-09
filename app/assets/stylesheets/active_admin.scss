@@ -8,6 +8,8 @@
 // $sidebar-width: 242px;
 
 // Active Admin's got SASS!
+$skinActiveColor: #1B804D;
+$panelHeaderBck: #1B804D;
 @import "active_admin/mixins";
 @import "active_admin/base";
 
@@ -63,7 +65,7 @@ p.inline-errors {
 
 // REGLAS PARA LA ACCIÓN SHOW DE ADMIN::APPLICATIONS
 div.application_header {
-  background-color: #3D3F3C;
+  background-color: $skinActiveColor;
   color: #FFFFFF;
   padding: 1%;
   text-align: center;
@@ -91,9 +93,10 @@ div.application_details {
     padding: 0 0 0 5px;
     display: inline;
     font-size: 150%;
+    color: $skinActiveColor;
+
   }
   label{
-    font-weight: lighter;
     font-size: 130%;
     margin: 0;
   }

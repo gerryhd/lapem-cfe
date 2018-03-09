@@ -129,10 +129,15 @@ div.panel
     p Datos del signo distintivo
   div.application_details
     - distinctive_sign = application.applicable
-    h2 Tipo de signo distintivo que solicita
-    p.sign_name= distinctive_sign.sign_type.name
-    h2 Tipo de marca
-    p.sign_name= distinctive_sign.brand_type.name
+    div.group_fields
+      div.field_block
+        label Tipo de signo distintivo que solicita:
+        p
+          = distinctive_sign.sign_type.name
+      div.field_block
+        label Tipo de marca
+        p
+          =distinctive_sign.brand_type.name
     div.group_fields
       div.field_block
         label Fecha de primer uso:
