@@ -23,14 +23,4 @@ class Application < ActiveRecord::Base
   def set_status
     self.status_application = StatusApplication.find(StatusApplication::PENDING)
   end
-
-
-  def self.statuses_t
-    {
-        "#{I18n.t('status.pending')}" => StatusApplication::PENDING,
-        "#{I18n.t('status.revision')}" => StatusApplication::OBSERVATIONS,
-        "#{I18n.t('status.rejected')}" => StatusApplication::REJECTED,
-        "#{I18n.t('status.approved')}" => StatusApplication::APPROVED
-    }
-  end
 end
