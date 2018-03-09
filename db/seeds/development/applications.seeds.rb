@@ -32,7 +32,7 @@ after "development:users" do
   app.applicable = DistinctiveSign.create(
                                       description: "Venta de motocicletas al 2x1 en menudeo jaja",
                                       first_date_use: DateTime.now.to_date,
-                                      not_used: true,
+                                      used_previous: false,
                                       class_sign: 34,
                                       denomination: "OTTO CYCLE",
                                       tags: "no se",

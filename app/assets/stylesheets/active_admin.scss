@@ -76,27 +76,33 @@ div.application_details {
   border: 2px solid #AFAFAF;
   text-align: center;
   padding: 0 0 2% 0;
+  div.field_block{
+    display: inline-block;
+    margin: 1%;
+    border-bottom: 2px dotted #AFAFAF;
+  }
   h1, h2, h3 {
     margin: 0;
     padding: 1%;
     background-color: #EEEFF1;
   }
   p{
-    margin: 0 40%;
-    padding: 1% 0 0 0;
-    border-bottom: 2px dotted #AFAFAF;
-
+    margin: 0;
+    padding: 0 0 0 5px;
+    display: inline;
+    font-size: 150%;
   }
   label{
     font-weight: lighter;
     font-size: 130%;
-    margin: 0 0 1% 0;
+    margin: 0;
   }
   p.sign_name {
     font-size: 150%;
     padding: 1% 0;
     margin: 0;
     border-bottom: 2px solid #AFAFAF;
+    display: block;
   }
 }
 
@@ -131,8 +137,11 @@ div.new_observation {
 
 div.status_button {
   display: inline-block;
-  padding: 0 1%;
-  a{
+  padding: 1% 1%;
+  label{
+    display: block;
+  }
+  .approve_circle{
     border-radius: 50%;
     display: inline-block;
     width: 50px;
@@ -141,14 +150,17 @@ div.status_button {
       padding: 15px 0;
       font-size: 200%;
     }
-  }
-  label{
-    display: block;
-  }
-  #approve_circle{
     background-color: #4CAF50;
   }
-  #reject_circle{
+  .reject_circle{
+    border-radius: 50%;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    i{
+      padding: 15px 0;
+      font-size: 200%;
+    }
     background-color: #F44336;
   }
 }
