@@ -4,4 +4,6 @@ class DistinctiveSign < ActiveRecord::Base
   has_one :application, as: :applicable
   has_one :establishment_location
 
+  accepts_nested_attributes_for :establishment_location
+
 end

@@ -10,6 +10,8 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
     $scope.application.address_notification.address_data = {};
     $scope.steps = [];
 
+    $scope.data = {}
+
     $scope.clearCountrySearchField = function () {
         $scope.countrySearchTerm = '';
     };
@@ -37,13 +39,13 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
         if ($scope.form_request.$valid) {
             $scope.application.data_general_attributes = $scope.application.data_general;
             $scope.application.data_general_attributes.person_attributes = $scope.application.data_general.person;
-            //$scope.application.applicable_attributes = $scope.application.distinctive_sign;
+            $scope.application.data_general_attributes.address_data_attributes = $scope.application.data_general.address_data;
             $scope.application.address_notification_attributes = $scope.application.address_notification;
             $scope.application.address_notification_attributes.address_data_attributes = $scope.application.address_notification.address_data;
-
+            $scope.application.distinctive_sign.establishment_location_attributes = $scope.application.distinctive_sign.establishment_location;
+            $scope.application.distinctive_sign.establishment_location_attributes.address_data_attributes = $scope.application.distinctive_sign.establishment_location.address_data;
 
             var data = $scope.application;
-
 
             if ($scope.application.distinctive_sign.brand_type_id != $scope.nominative_brand_type) {
                 has_file = true;
@@ -51,7 +53,9 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
                 data = new FormData();
             }
             ApplicationService.create(data, has_file).then(function (response) {
-                console.log(response)
+                if(response.data.status){
+                    swal('Se agrego la solicitud');
+                }
             }, function (error) {
                 console.log(error)
             });
@@ -103,4 +107,10 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
             });
         }
     });
+
+    $scope.$watch('data.same_address_notification',function (newVal) {
+        if(newVal){
+            $scope.application.address_notification.address_data = $scope.application.data_general.address_data;
+        }
+    })
 }]);

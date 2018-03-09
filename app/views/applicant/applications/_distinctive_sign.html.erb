@@ -175,6 +175,12 @@
 
 <script type="text/ng-template" id="address_notification">
   <div layout-gt-sm="row">
+    <md-checkbox class="md-primary" ng-model="data.same_address_notification">La
+      dirección es la misma que la del solicitante
+    </md-checkbox>
+  </div>
+
+  <div layout-gt-sm="row">
     <md-input-container class="md-block" flex-gt-sm>
       <label>Código Postal</label>
       <input required name="notification_address_zip_code" ng-model="application.address_notification.address_data.zip_code">
@@ -218,7 +224,7 @@
   <div layout-gt-sm="row">
     <md-input-container class="md-block" flex-gt-sm>
       <label>Localidad</label>
-      <input ng-model="application.address_notification.address_data.locality" name="notification_address_locality" required>
+      <input ng-model="application.address_notification.address_data.location" name="notification_address_locality" required>
       <span class="error-field" ng-show="form_request_data.notification_address_locality.$error.required && form_request_data.notification_address_locality.$touched">Este campo es obligatorio</span>
     </md-input-container>
 
@@ -246,7 +252,8 @@
                    class="header-searchbox">
           </md-input-container>
         </md-select-header>
-        <md-option ng-repeat="country in countries | filter:countrySearchTerm">{{ country.name }}
+        <md-option ng-value="{{country.id}}" ng-repeat="country in countries | filter:countrySearchTerm">{{ country.name
+          }}
         </md-option>
       </md-select>
       <span class="error-field" ng-show="form_request_data.notification_address_country.$error.required && form_request_data.notification_address_country.$touched">Este campo es obligatorio</span>
@@ -304,10 +311,6 @@
   </div>
 
   <div layout-gt-sm="row">
-
-  </div>
-
-  <div layout-gt-sm="row">
     <md-input-container class="md-block" flex-gt-sm>
       <label>{{ application.distinctive_sign.sign_type_id == <%= SignType::COMMERCIAL_NAME %> ? 'Descripción de Giro
         Preponderante' : 'Descripción de Productos o Servicios' }}</label>
@@ -328,31 +331,31 @@
   </div>
 
   <div layout-gt-sm="row" ng-if="application.distinctive_sign.used_previous">
-      <div class="md-block" flex-gt-sm>
-        <md-toolbar>
-          <h2 class="md-toolbar-tools text-center">
-            <span>Ubicación del establecimiento</span>
-          </h2>
-        </md-toolbar>
-      </div>
+    <div class="md-block" flex-gt-sm>
+      <md-toolbar>
+        <h2 class="md-toolbar-tools text-center">
+          <span>Ubicación del establecimiento</span>
+        </h2>
+      </md-toolbar>
+    </div>
   </div>
 
   <div layout-gt-sm="row" ng-if="application.distinctive_sign.used_previous">
     <md-input-container class="md-block" flex-gt-sm>
       <label>Código Postal</label>
-      <input required name="establishment_location_address_zip_code" ng-model="application.establishment_location.address_data.zip_code">
+      <input required name="establishment_location_address_zip_code" ng-model="application.distinctive_sign.establishment_location.address_data.zip_code">
       <span class="error-field" ng-show="form_request_data.establishment_location_address_zip_code.$error.required && form_request_data.establishment_location_address_zip_code.$touched">Este campo es obligatorio</span>
     </md-input-container>
 
     <md-input-container class="md-block" flex-gt-sm>
       <label>Calle</label>
-      <input required name="establishment_location_address_street" ng-model="application.establishment_location.address_data.street">
+      <input required name="establishment_location_address_street" ng-model="application.distinctive_sign.establishment_location.address_data.street">
       <span class="error-field" ng-show="form_request_data.establishment_location_address_street.$error.required && form_request_data.establishment_location_address_street.$touched">Este campo es obligatorio</span>
     </md-input-container>
 
     <md-input-container class="md-block" flex-gt-sm>
       <label>Número exterior</label>
-      <input required name="establishment_location_address_external_number" ng-model="application.establishment_location.address_data.external_number">
+      <input required name="establishment_location_address_external_number" ng-model="application.distinctive_sign.establishment_location.address_data.external_number">
       <span class="error-field" ng-show="form_request_data.establishment_location_address_external_number.$error.required && form_request_data.establishment_location_address_external_number.$touched">Este campo es obligatorio</span>
     </md-input-container>
   </div>
@@ -361,19 +364,19 @@
   <div layout-gt-sm="row" ng-if="application.distinctive_sign.used_previous">
     <md-input-container class="md-block" flex-gt-sm>
       <label>Número interno</label>
-      <input name="establishment_location_address_internal_number" ng-model="application.establishment_location.address_data.internal_number" required>
+      <input name="establishment_location_address_internal_number" ng-model="application.distinctive_sign.establishment_location.address_data.internal_number" required>
       <span class="error-field" ng-show="form_request_data.establishment_location_address_internal_number.$error.required && form_request_data.establishment_location_address_internal_number.$touched">Este campo es obligatorio</span>
     </md-input-container>
 
     <md-input-container class="md-block" flex-gt-sm>
       <label>Colonia</label>
-      <input ng-model="application.establishment_location.address_data.colony" name="establishment_location_address_colony" required>
+      <input ng-model="application.distinctive_sign.establishment_location.address_data.colony" name="establishment_location_address_colony" required>
       <span class="error-field" ng-show="form_request_data.establishment_location_address_colony.$error.required && form_request_data.establishment_location_address_colony.$touched">Este campo es obligatorio</span>
     </md-input-container>
 
     <md-input-container class="md-block" flex-gt-sm>
       <label>Municipio</label>
-      <input name="establishment_location_address_municipality" ng-model="application.establishment_location.address_data.municipality" required>
+      <input name="establishment_location_address_municipality" ng-model="application.distinctive_sign.establishment_location.address_data.municipality" required>
       <span class="error-field" ng-show="form_request_data.establishment_location_address_municipality.$error.required && form_request_data.establishment_location_address_municipality.$touched">Este campo es obligatorio</span>
     </md-input-container>
   </div>
@@ -381,26 +384,26 @@
   <div layout-gt-sm="row" ng-if="application.distinctive_sign.used_previous">
     <md-input-container class="md-block" flex-gt-sm>
       <label>Localidad</label>
-      <input ng-model="application.establishment_location.address_data.locality" name="establishment_location_address_locality" required>
+      <input ng-model="application.distinctive_sign.establishment_location.address_data.locality" name="establishment_location_address_locality" required>
       <span class="error-field" ng-show="form_request_data.establishment_location_address_locality.$error.required && form_request_data.establishment_location_address_locality.$touched">Este campo es obligatorio</span>
     </md-input-container>
 
     <md-input-container class="md-block" flex-gt-sm>
       <label>Entidad Federativa</label>
-      <input name="establishment_location_address_federal_entity" ng-model="application.establishment_location.address_data.federal_entity" required>
+      <input name="establishment_location_address_federal_entity" ng-model="application.distinctive_sign.establishment_location.address_data.federal_entity" required>
       <span class="error-field" ng-show="form_request_data.establishment_location_address_federal_entity.$error.required && form_request_data.establishment_location_address_federal_entity.$touched">Este campo es obligatorio</span>
     </md-input-container>
 
     <md-input-container class="md-block" flex-gt-sm>
       <label>Entre Calles</label>
-      <input ng-model="application.establishment_location.address_data.between_streets">
+      <input ng-model="application.distinctive_sign.establishment_location.address_data.between_streets">
     </md-input-container>
   </div>
 
   <div layout-gt-sm="row" ng-if="application.distinctive_sign.used_previous">
     <md-input-container class="md-block" flex-gt-sm>
       <label>Pais</label>
-      <md-select id="state_select" required name="establishment_location_address_country" ng-model="application.establishment_location.address_data.country_id" md-on-close="clearCountrySearchField()">
+      <md-select id="state_select" required name="establishment_location_address_country" ng-model="application.distinctive_sign.establishment_location.address_data.country_id" md-on-close="clearCountrySearchField()">
         <md-select-header>
           <md-input-container>
             <input ng-model="countrySearchTerm"
@@ -409,14 +412,15 @@
                    class="header-searchbox">
           </md-input-container>
         </md-select-header>
-        <md-option ng-repeat="country in countries | filter:countrySearchTerm">{{ country.name }}
+        <md-option ng-value="{{country.id}}" ng-repeat="country in countries | filter:countrySearchTerm">{{ country.name
+          }}
         </md-option>
       </md-select>
       <span class="error-field" ng-show="form_request_data.establishment_location_address_country.$error.required && form_request_data.establishment_location_address_country.$touched">Este campo es obligatorio</span>
     </md-input-container>
     <md-input-container class="md-block" flex-gt-sm>
       <label>Calle posterior</label>
-      <input ng-model="application.establishment_location.address_data.back_street">
+      <input ng-model="application.distinctive_sign.establishment_location.address_data.back_street">
     </md-input-container>
   </div>
 

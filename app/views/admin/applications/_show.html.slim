@@ -100,7 +100,7 @@ div.panel
     p.sign_name= distinctive_sign.sign_type.name
     h2 Tipo de marca
     p.sign_name= distinctive_sign.brand_type.name
-    - if distinctive_sign.not_used
+    - if distinctive_sign.used_previous
       p Sin primer uso
     - else
       p= distinctive_sign.first_date_use

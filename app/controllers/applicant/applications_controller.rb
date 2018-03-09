@@ -50,10 +50,10 @@ class Applicant::ApplicationsController < ApplicationController
   end
 
   def application_params
-    params.require(:application).permit(:application_type_id, data_general_attributes: [:name, :nationality, :state, person_attributes: [:curp, :name, :first_last_name, :second_last_name, :nationality, :phone, :email, :social_reason, :rfc, :gender, :birth_date, :birth_location, :cell_phone, :participation_percent, :participation_type, :type_person_id]], address_notification_attributes: [address_data_attributes: [:zip_code, :street, :external_number, :internal_number, :colony, :municipality, :location, :federal_entity, :between_street, :back_street, :country_id]])
+    params.require(:application).permit(:application_type_id, data_general_attributes: [:name, :nationality, :state, address_data_attributes: [:zip_code, :street, :external_number, :internal_number, :colony, :municipality, :location, :federal_entity, :between_streets, :back_street, :country_id], person_attributes: [:curp, :name, :first_last_name, :second_last_name, :nationality, :phone, :email, :social_reason, :rfc, :gender, :birth_date, :birth_location, :cell_phone, :participation_percent, :participation_type, :type_person_id]], address_notification_attributes: [address_data_attributes: [:zip_code, :street, :external_number, :internal_number, :colony, :municipality, :location, :federal_entity, :between_streets, :back_street, :country_id]])
   end
 
   def distinctive_sign_params
-    params.require(:application).require(:distinctive_sign).permit(:file_sign, :sign_type_id, :brand_type_id, :distinctive_sign, :class_sign, :description, :tags)
+    params.require(:application).require(:distinctive_sign).permit(:file_sign, :sign_type_id, :brand_type_id, :distinctive_sign, :class_sign, :description, :tags, :used_previous, establishment_location_attributes: [address_data_attributes: [:zip_code, :street, :external_number, :internal_number, :colony, :municipality, :location, :federal_entity, :between_streets, :back_street, :country_id]])
   end
 end
