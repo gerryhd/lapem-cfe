@@ -77,7 +77,8 @@ ActiveAdmin.register Application do
       # Ensure comment is for current application from show and from current user
       if params[:id] == observation[:application_id] && current_admin_user.id == observation[:user_id].to_i
         observation = Observation.create(observation)
-        app = Application.find(observation[:application_id]).status_application_id = StatusApplication::OBSERVATIONS
+        app = Application.find(observation[:application_id])
+        app.status_application_id = StatusApplication::OBSERVATIONS
         app.save
       else
         flash[:error] = "Error al hacer comentario: Las IDs no concuerdan"
