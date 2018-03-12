@@ -44,13 +44,10 @@ ActiveAdmin.register Application do
       if query.blank?
         super
       else
-
         # If query matches any of the statuses, return the collection scoped to said status
-        (I18n.t :status).each do |k,s|
-          if s.casecmp(query) == 0
-            status = s
-            query_is_status = true
-            return eval("super.#{k.to_s}")
+        StatusApplication.all.each do |status|
+          if status.name.casecmp(query) == 0
+            return super.where(status_application_id: status.id)
           end
         end
   
@@ -85,17 +82,6 @@ ActiveAdmin.register Application do
       end
 
       redirect_to admin_application_path(observation.application_id)
-    end
-
-    def download_file
-      path = "#{Rails.root}/private/proof_files/#{file_params[:id]}/#{file_params[:basename]}.#{file_params[:extension]}"
-      send_file path, :x_sendfile=>true
-    end
-
-    private
-
-    def file_params
-      params.permit(:id, :basename, :extension)
     end
 
     def observation_params
