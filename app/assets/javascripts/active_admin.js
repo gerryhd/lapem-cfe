@@ -21,4 +21,7 @@ $( document ).ready( ()=>{
         password_fields.toggle(500);
     } );
 
+    $('a.cancel_confirm').on("click", () => {
+        $.fancybox.close();
+    })
 })

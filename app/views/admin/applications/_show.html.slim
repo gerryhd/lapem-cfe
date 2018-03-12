@@ -199,6 +199,8 @@ div.panel
         p
           = establishment.country.name
 
+
+
 div.panel
   div.application_header
     p Estado de la solicitud
@@ -207,11 +209,11 @@ div.panel
     - pending_or_observations = app_status == StatusApplication::PENDING || app_status == StatusApplication::OBSERVATIONS
     - if pending_or_observations
       div.status_button
-        a.approve_circle href=admin_application_approve_path(application)
+        a.approve_circle(data-fancybox data-src="#approve_confirm" href="javascript:;")
           i class="fa fa-check"
         label= "Aprobar"
       div.status_button
-        a.reject_circle href=admin_application_reject_path(application)
+        a.reject_circle(data-fancybox data-src="#reject_confirm" href="javascript:;")
           i class="fa fa-times"
         label= "Rechazar"
     - elsif app_status == StatusApplication::APPROVED
@@ -225,5 +227,21 @@ div.panel
           i class="fa fa-times"
         label="Rechazada"
 
+div.confirm id="approve_confirm"
+  h2 Confirmación de aprobación
+  p Está a punto de aprobar la solicitud. Si está seguro de aprobar la solicitud, presione el botón de "aprobar". De lo contrario, presione el botón de "cancelar".
+  div.confirm_buttons
+    a.confirm_approve href=admin_application_approve_path(application)
+      label Aprobar
+    a.cancel_confirm
+      label Cancelar
 
+div.confirm id="reject_confirm"
+  h2 Confirmación de rechazo
+  p Está a punto de rechazar la solicitud. Si está seguro de rechazar la solicitud, presione el botón de "rechazar". De lo contrario, presione el botón de "cancelar".
 
+  div.confirm_buttons
+    a.confirm_reject href=admin_application_reject_path(application)
+      label Rechazar
+    a.cancel_confirm
+      label Cancelar

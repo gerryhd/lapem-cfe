@@ -50,8 +50,7 @@ ActiveAdmin.register Application do
             return super.where(status_application_id: status.id)
           end
         end
-  
-        super.joins(:applicant).where('name LIKE :search OR last_name LIKE :search OR name LIKE :search OR last_name LIKE :search', search: "%#{params[:search]}%")
+        super.joins(:applicant).where('name LIKE :search OR last_name LIKE :search', search: "%#{params[:search]}%")
       end
     end
 

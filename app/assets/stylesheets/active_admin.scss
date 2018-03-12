@@ -168,3 +168,29 @@ div.status_button {
   }
 }
 
+div.confirm {
+  display: none;
+
+  a.confirm_approve{
+    font-size: 150%;
+    color: white;
+    padding: 1%;
+    background-color: #4CAF50;
+    margin-right: 1%;
+  }
+  a.confirm_reject {
+    font-size: 150%;
+    color: white;
+    padding: 1%;
+    background-color: #F44336;
+    margin-right: 1%;
+  }
+  a.cancel_confirm {
+    font-size: 150%;
+    color: white;
+    padding: 1%;
+    background-color: #5d5b5b;
+    margin-left: 1%;
+  }
+}
+
