@@ -5,14 +5,14 @@ ActiveAdmin.register User do
   actions :index, :show, :update, :edit
 
   index do
-    column :email do |user|
+    column 'Correo electrónico', :email do |user|
       user.applicant.email
     end
-    column :username
-    column :name do |user|
+    column 'Usuario', :username
+    column 'Nombre', :name do |user|
       user.applicant.name
     end
-    column :last_name do |user|
+    column 'Apellidos', :last_name do |user|
       user.applicant.last_name
     end
     actions
@@ -25,24 +25,44 @@ ActiveAdmin.register User do
 
   form do |f|
     f.inputs 'Solicitante' do
-      input :username
+      input :username, label: 'Nombre de usuario'
       f.inputs class: "change_password" do
         f.input :change_password, label: 'Cambiar contraseña', as: :boolean
       end
       f.inputs class: "password_fields" do
-        input :password
-        input :password_confirmation
+        input :password, label: 'Contraseña'
+        input :password_confirmation, label: 'Confirmación de la contraseña'
       end
-      f.has_many :applicant, new_record: false, allow_destroy: false do |a|
-        a.input :email
-        a.input :name
-        a.input :last_name
+      f.has_many :applicant, heading: 'Datos del usuario', new_record: false, allow_destroy: false do |a|
+        a.input :email, label: 'Correo electrónico'
+        a.input :name, label: 'Nombre'
+        a.input :last_name, label: 'Apellido'
       end
 
     end
     
     f.actions
 
+  end
+
+  show do
+    attributes_table title: 'Detalles del solicitante' do
+      row 'Usuario' do |user|
+        user.username
+      end
+      row 'Contraseña' do |user|
+        user.password
+      end
+      row 'Correo electrónico' do |user|
+        user.applicant.email
+      end
+      row 'Nombre' do |user|
+        user.applicant.name
+      end
+      row 'Apellido' do |user|
+        user.applicant.last_name
+      end
+    end
   end
   controller do
     let :admin, :all

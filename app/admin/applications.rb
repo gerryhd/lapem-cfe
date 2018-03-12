@@ -11,13 +11,13 @@ ActiveAdmin.register Application do
 
 
   index do
-    column :applicant do |application|
+    column 'Solicitante', :applicant do |application|
       link_to application.applicant.full_name, admin_user_path(application.applicant.user_id)
     end
-    column :status do |application|
+    column 'Estado', :status do |application|
       application.status_application.name
     end
-    column :application_type do |application|
+    column 'Tipo de solicitud', :application_type do |application|
       application.application_type.name
     end
     column "Creado el", :created_at
