@@ -1,4 +1,3 @@
-<input type="hidden" ng-init="nominative_brand_type = <%= BrandType::NOMINATIVE %>">
 <md-content>
   <md-tabs md-dynamic-height="true" md-center-tabs="true" md-swipe-content md-border-bottom>
     <md-tab label="{{step.title}}" ng-repeat="step in steps track by $index" ng-disabled="step.disabled">
@@ -16,7 +15,6 @@
     </md-tab>
   </md-tabs>
 </md-content>
-
 
 <script type="text/ng-template" id="general_data_applicants">
   <md-radio-group ng-model="application.data_general.person.type_person_id" required>

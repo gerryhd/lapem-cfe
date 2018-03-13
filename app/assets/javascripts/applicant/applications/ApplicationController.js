@@ -51,13 +51,11 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
             }
 
             var data = $scope.application;
-
-            /*if ($scope.application.distinctive_sign.brand_type_id != $scope.nominative_brand_type) {
+            if (data.distinctive_sign.brand_type_id != $scope.nominative_brand_type) {
                 has_file = true;
                 //Se manda un archivo
                 data = new FormData();
-            }*/
-            console.log(data);
+            }
             ApplicationService.create(data, has_file).then(function (response) {
                 if (response.data.status) {
                     swal({
