@@ -23,6 +23,10 @@ $panelHeaderBck: #1B804D;
 // For example, to change the default status-tag color:
 //
 //   .status_tag { background: #6090DB; }
+h1#site_title {
+  height: 100% !important;
+}
+
 form.applicant .has_many_remove {
   display: none;
 }
