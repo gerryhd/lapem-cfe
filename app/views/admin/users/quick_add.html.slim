@@ -2,7 +2,7 @@ doctype html
 html
   body
     #modal
-      h2 Nuevo Solicitanteee
+      h2 Nuevo Solicitante
       p.modal-description Agregar nuevo solicitante
 
       section#quick-errors
@@ -10,14 +10,14 @@ html
       section.form-fluid
         = simple_form_for(@user, url: admin_applicant_quick_create_path, remote: true) do |f|
           .form-inputs
-            = f.input :username, label_html: {class: 'label'}, wrapper_html: {class: 'separated'}
-            = f.input :password, label_html: {class: 'label'}, wrapper_html: {class: 'separated'}
-            = f.input :password_confirmation, label_html: {class: 'label'}, wrapper_html: {class: 'separated'}
+            = f.input :username, label: "Nombre de usuario", label_html: {class: 'label'}, wrapper_html: {class: 'separated'}
+            = f.input :password, label: "Contraseña", label_html: {class: 'label'}, wrapper_html: {class: 'separated'}
+            = f.input :password_confirmation, label: "Confirmación de la contraseña" label_html: {class: 'label'}, wrapper_html: {class: 'separated'}
 
 
             = f.simple_fields_for :applicant do |a|
               .form-inputs
-                = a.input :email, label_html: {class: 'label'}, wrapper_html: {class: 'separated'}
-                = a.input :name, label_html: {class: 'label'}, wrapper_html: {class: 'separated'}
-                = a.input :last_name, label_html: {class: 'label'}, wrapper_html: {class: 'separated'}
+                = a.input :email, label: "Correo electrónico", label_html: {class: 'label'}, wrapper_html: {class: 'separated'}
+                = a.input :name, label: "Nombre", label_html: {class: 'label'}, wrapper_html: {class: 'separated'}
+                = a.input :last_name, label: "Apellido", label_html: {class: 'label'}, wrapper_html: {class: 'separated'}
             = f.submit 'Crear', class: 'separated'
