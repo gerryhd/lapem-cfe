@@ -5,7 +5,7 @@ ActiveAdmin.setup do |config|
   # for each of the active admin pages.
   #
   config.site_title = "LAPEM-CFE"
-  config.site_title_image = "small-lapem-cfe"
+  #config.site_title_image = "small-lapem-cfe"
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
@@ -298,4 +298,6 @@ ActiveAdmin.setup do |config|
       menu.add label: "Salir", url: '/logout', priority: 11
     end
   end
+
+  config.register_javascript 'https://www.google.com/jsapi'
 end
