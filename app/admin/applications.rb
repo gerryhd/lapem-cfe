@@ -10,7 +10,7 @@ ActiveAdmin.register Application do
   scope "Derechos de autor", :copyrights
 
 
-  index do
+  index title: "Solicitudes" do
     column 'Solicitante', :applicant do |application|
       link_to application.applicant.full_name, admin_user_path(application.applicant.user_id)
     end
@@ -25,8 +25,8 @@ ActiveAdmin.register Application do
     actions
   end
 
-  show do
-    panel "Datos generales del o de los solicitantes" do
+  show title: proc{"Solicitud ##{resource.id}"} do
+    panel "Datos de la solicitud" do
       render 'show', {application: application}
     end
 
@@ -74,7 +74,7 @@ ActiveAdmin.register Application do
       if params[:id] == observation[:application_id] && current_admin_user.id == observation[:user_id].to_i
         observation = Observation.create(observation)
         app = Application.find(observation[:application_id])
-        app.status_application_id = StatusApplication::OBSERVATIONS
+        app.status_application_id = StatusApplication::OBSERVATIONS if app.status_application_id == StatusApplication::PENDING
         app.save
       else
         flash[:error] = "Error al hacer comentario: Las IDs no concuerdan"
