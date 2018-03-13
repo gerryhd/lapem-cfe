@@ -44,6 +44,9 @@ gem 'action_access'
 gem 'activeadmin'
 gem 'active_admin_flat_skin', git: 'https://github.com/gerryhd/active_admin_flat_skin.git', branch: 'master'
 
+# Gema para mostrar gráficas
+gem "chartkick"
+
 gem 'font-awesome-sass', '~> 4.7.0'
 
 # Gem to add folder support for seeders

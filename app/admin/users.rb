@@ -4,7 +4,14 @@ ActiveAdmin.register User do
   
   actions :index, :show, :update, :edit
 
-  index do
+  config.clear_action_items!
+
+  action_item :edit, only: :show do
+    link_to 'Editar solicitante', edit_admin_user_path(user)
+  end
+
+
+  index title: "Solicitantes" do
     column 'Correo electrónico', :email do |user|
       user.applicant.email
     end
@@ -23,7 +30,7 @@ ActiveAdmin.register User do
   end
 
 
-  form do |f|
+  form title: "Editar solicitante" do |f|
     f.inputs 'Solicitante' do
       input :username, label: 'Nombre de usuario'
       f.inputs class: "change_password" do
@@ -41,7 +48,9 @@ ActiveAdmin.register User do
 
     end
     
-    f.actions
+    f.actions do
+      f.action :submit, label: 'Guardar cambios'
+    end
 
   end
 
@@ -49,9 +58,6 @@ ActiveAdmin.register User do
     attributes_table title: 'Detalles del solicitante' do
       row 'Usuario' do |user|
         user.username
-      end
-      row 'Contraseña' do |user|
-        user.password
       end
       row 'Correo electrónico' do |user|
         user.applicant.email

@@ -153,51 +153,53 @@ div.panel
         label Leyendas o figuras no reservables:
         p
           = distinctive_sign.tags
-    h2 Ubicación del establecimiento
-    - establishment = distinctive_sign.establishment_location.address_data
-    div.group_fields
-      div.field_block
-        label Código postal:
-        p
-          = establishment.zip_code
-      div.field_block
-        label Calle:
-        p
-          = establishment.street
-      div.field_block
-        label Número exterior:
-        p
-          = establishment.external_number
-    div.group_fields
-      div.field_block
-        label Número interior:
-        p
-          = establishment.internal_number
-      div.field_block
-        label Colonia:
-        p
-          = establishment.colony
-      div.field_block
-        label Municipio o demarcación territorial:
-        p
-          = establishment.municipality
-    div.group_fields
-      div.field_block
-        label Localidad:
-        p
-          = establishment.location
-      div.field_block
-        label Entidad federativa:
-        p
-          = establishment.federal_entity
-      div.field_block
-        label Calle posterior:
-        p
-          = establishment.back_street
-      div.field_block
-        label País:
-        p
-          = establishment.country.name
+
+    - if distinctive_sign.used_previous || distinctive_sign.sign_type_id == SignType::COMMERCIAL_NAME
+      h2 Ubicación del establecimiento
+      - establishment = distinctive_sign.establishment_location.address_data
+      div.group_fields
+        div.field_block
+          label Código postal:
+          p
+            = establishment.zip_code
+        div.field_block
+          label Calle:
+          p
+            = establishment.street
+        div.field_block
+          label Número exterior:
+          p
+            = establishment.external_number
+      div.group_fields
+        div.field_block
+          label Número interior:
+          p
+            = establishment.internal_number
+        div.field_block
+          label Colonia:
+          p
+            = establishment.colony
+        div.field_block
+          label Municipio o demarcación territorial:
+          p
+            = establishment.municipality
+      div.group_fields
+        div.field_block
+          label Localidad:
+          p
+            = establishment.location
+        div.field_block
+          label Entidad federativa:
+          p
+            = establishment.federal_entity
+        div.field_block
+          label Calle posterior:
+          p
+            = establishment.back_street
+        div.field_block
+          label País:
+          p
+            = establishment.country.name
 
 
 

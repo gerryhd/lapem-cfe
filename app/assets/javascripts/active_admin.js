@@ -6,6 +6,7 @@
 //= require active_admin/base
 //= require active_admin_flat_skin
 //= require jquery.fancybox.min.js
+//= require chartkick
 
 $(
     () => $('a.fancybox').fancybox({type: 'ajax'})
