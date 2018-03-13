@@ -9,8 +9,9 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
     $scope.application.address_notification = {};
     $scope.application.address_notification.address_data = {};
     $scope.steps = [];
+    $scope.submitted = [];
 
-    $scope.data = {}
+    $scope.data = {};
 
     $scope.clearCountrySearchField = function () {
         $scope.countrySearchTerm = '';
@@ -42,18 +43,22 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
             $scope.application.data_general_attributes.address_data_attributes = $scope.application.data_general.address_data;
             $scope.application.address_notification_attributes = $scope.application.address_notification;
             $scope.application.address_notification_attributes.address_data_attributes = $scope.application.address_notification.address_data;
-            $scope.application.distinctive_sign.establishment_location_attributes = $scope.application.distinctive_sign.establishment_location;
-            $scope.application.distinctive_sign.establishment_location_attributes.address_data_attributes = $scope.application.distinctive_sign.establishment_location.address_data;
+
+            if ($scope.application.distinctive_sign.used_previous) {
+                $scope.application.distinctive_sign.establishment_location_attributes = $scope.application.distinctive_sign.establishment_location;
+                $scope.application.distinctive_sign.establishment_location_attributes.address_data_attributes = $scope.application.distinctive_sign.establishment_location.address_data;
+            }
 
             var data = $scope.application;
 
-            if ($scope.application.distinctive_sign.brand_type_id != $scope.nominative_brand_type) {
+            /*if ($scope.application.distinctive_sign.brand_type_id != $scope.nominative_brand_type) {
                 has_file = true;
                 //Se manda un archivo
                 data = new FormData();
-            }
+            }*/
+            console.log(data);
             ApplicationService.create(data, has_file).then(function (response) {
-                if(response.data.status){
+                if (response.data.status) {
                     swal('Se agrego la solicitud');
                 }
             }, function (error) {
@@ -67,6 +72,7 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
         $scope.steps[$index - 1].disabled = false;
     }
     $scope.nextSection = function ($index, form_request_data) {
+        $scope.submitted[$index] = true;
         if (form_request_data.$valid) {
             $scope.steps[$index].disabled = true;
             $scope.steps[$index + 1].disabled = false;
@@ -108,8 +114,8 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
         }
     });
 
-    $scope.$watch('data.same_address_notification',function (newVal) {
-        if(newVal){
+    $scope.$watch('data.same_address_notification', function (newVal) {
+        if (newVal) {
             $scope.application.address_notification.address_data = $scope.application.data_general.address_data;
         }
     })

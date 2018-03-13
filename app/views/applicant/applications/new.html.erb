@@ -12,7 +12,8 @@
       <md-input-container class="md-block" flex-gt-sm>
         <label>Tipo de solicitud</label>
         <md-select required name="application_type" ng-model="application.application_type_id">
-          <md-option ng-value="application_type.id" ng-repeat="application_type in application_types">{{ application_type.name }}
+          <md-option ng-value="application_type.id" ng-repeat="application_type in application_types">{{
+            application_type.name }}
           </md-option>
         </md-select>
       </md-input-container>
@@ -24,7 +25,16 @@
 
     <br>
 
-    <%= render 'applicant/applications/distinctive_sign' %>
+    <form name="form_request" class="form-horizontal" novalidate>
+      <div ng-if="application.application_type_id == <%= ApplicationType::BRAND %>">
+        <%= render 'applicant/applications/distinctive_sign' %>
+      </div>
+      <div ng-if="application.application_type_id == <%= ApplicationType::PATENT %>">
+        <%= render 'applicant/applications/industrial_property' %>
+      </div>
+
+
+    </form>
 
   </md-card-content>
 
