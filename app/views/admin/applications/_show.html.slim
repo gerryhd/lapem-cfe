@@ -142,9 +142,13 @@ div.panel
       div.field_block
         label Fecha de primer uso:
         - if distinctive_sign.used_previous
-          p= distinctive_sign.first_date_use
+          p= distinctive_sign.first_date_use.strftime("%d/%m/%Y") unless distinctive_sign.first_date_use.nil?
         - else
           p Sin uso previo
+      div.field_block
+        label Signo distintivo:
+        p
+          = distinctive_sign.distinctive_sign
       div.field_block
         label Denominación:
         p
