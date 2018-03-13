@@ -35,7 +35,8 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
         });
     });
 
-    $scope.saveRequest = function () {
+    $scope.saveRequest = function ($index, form_request_data) {
+        $scope.submitted[$index] = true;
         var has_file = false;
         if ($scope.form_request.$valid) {
             $scope.application.data_general_attributes = $scope.application.data_general;
@@ -59,7 +60,17 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
             console.log(data);
             ApplicationService.create(data, has_file).then(function (response) {
                 if (response.data.status) {
-                    swal('Se agrego la solicitud');
+                    swal({
+                        title: "Exito",
+                        text: "La solicitud fue creada exitosamente",
+                        type: 'success',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false
+                    }).then(function () {
+                        location.href = "/";
+                    }, function (dismmiss) {
+
+                    })
                 }
             }, function (error) {
                 console.log(error)
