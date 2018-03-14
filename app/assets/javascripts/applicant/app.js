@@ -1,4 +1,4 @@
-var ObjectModule = angular.module('ApplicantModule', ['ngMaterial', 'md.data.table','lfNgMdFileInput']);
+var ObjectModule = angular.module('ApplicantModule', ['ngMaterial', 'md.data.table','lfNgMdFileInput','object-to-form-data']);
 
 ObjectModule.controller('MenuController', function ($scope, $timeout, $mdSidenav) {
 

@@ -50,7 +50,7 @@
     </md-input-container>
     <md-input-container class="md-block" flex-gt-sm>
       <label>Denominacion social</label>
-      <input name="general_data_person_social_reason" ng-required="application.data_general.person.type_person_id == <%= TypePerson::MORAL_PERSON %>" ng-model="application.data_general.person.rfc" ng-model="application.data_general.person.social_reason">
+      <input name="general_data_person_social_reason" ng-required="application.data_general.person.type_person_id == <%= TypePerson::MORAL_PERSON %>" ng-model="application.data_general.person.social_reason" ng-model="application.data_general.person.social_reason">
       <span class="error-field" ng-show="(form_request_data.general_data_person_social_reason.$error.required && form_request_data.general_data_person_social_reason.$touched) || (submitted[$index] && form_request_data.general_data_person_social_reason.$error.required)">Este campo es obligatorio</span>
     </md-input-container>
   </div>
@@ -154,10 +154,10 @@
             <input ng-model="countrySearchTerm"
                    type="search"
                    placeholder="Pais"
-                   class="header-searchbox">
+                   class="header-search-box">
           </md-input-container>
         </md-select-header>
-        <md-option ng-value="{{country.id}}" ng-repeat="country in countries | filter:countrySearchTerm">{{ country.name
+        <md-option ng-value="{{country.id}}" ng-repeat="country in countries | orderBy:'name' | filter:countrySearchTerm">{{ country.name
           }}
         </md-option>
       </md-select>
@@ -246,10 +246,10 @@
             <input ng-model="countrySearchTerm"
                    type="search"
                    placeholder="Pais"
-                   class="header-searchbox">
+                   class="header-search-box">
           </md-input-container>
         </md-select-header>
-        <md-option ng-value="{{country.id}}" ng-repeat="country in countries | filter:countrySearchTerm">{{ country.name
+        <md-option ng-value="{{country.id}}" ng-repeat="country in countries | orderBy:'name' | filter:countrySearchTerm">{{ country.name
           }}
         </md-option>
       </md-select>
@@ -410,10 +410,10 @@
             <input ng-model="countrySearchTerm"
                    type="search"
                    placeholder="Pais"
-                   class="header-searchbox">
+                   class="header-search-box">
           </md-input-container>
         </md-select-header>
-        <md-option ng-value="{{country.id}}" ng-repeat="country in countries | filter:countrySearchTerm">{{ country.name
+        <md-option ng-value="{{country.id}}" ng-repeat="country in countries | orderBy:'name' | filter:countrySearchTerm">{{ country.name
           }}
         </md-option>
       </md-select>

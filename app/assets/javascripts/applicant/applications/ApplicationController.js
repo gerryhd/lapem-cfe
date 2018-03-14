@@ -1,5 +1,5 @@
 ObjectModule.factory('ApplicationService', ApplicationService);
-ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService', function ($scope, ApplicationService) {
+ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService', 'ObjectToFormData', function ($scope, ApplicationService, ObjectToFormData) {
     $scope.application_types = [];
     $scope.application = {};
     $scope.application.distinctive_sign = {};
@@ -52,9 +52,14 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
 
             var data = $scope.application;
             if (data.distinctive_sign.brand_type_id != $scope.nominative_brand_type) {
+                delete $scope.application.data_general;
+                delete $scope.application.address_notification;
                 has_file = true;
-                //Se manda un archivo
-                data = new FormData();
+                var file = $scope.application.distinctive_sign.file_sign[0].lfFile;
+                delete $scope.application.distinctive_sign.file_sign[0];
+                $scope.application.distinctive_sign.file_sign = file;
+                data = ObjectToFormData({application: data});
+
             }
             ApplicationService.create(data, has_file).then(function (response) {
                 if (response.data.status) {
@@ -112,14 +117,29 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
             angular.forEach($scope.application_types, function (application_type) {
                 if (application_type.id == newVal) {
                     $scope.steps = JSON.parse(application_type.steps);
-                    $('.header-searchbox').on('click', function (ev) {
-                        ev.stopPropagation();
-                    });
-                    $('.header-searchbox').on('keydown', function (ev) {
-                        ev.stopPropagation();
-                    });
+                    setTimeout(function () {
+                        $('.header-search-box').on('click', function (ev) {
+                            ev.stopPropagation();
+                        });
+                        $('.header-search-box').on('keydown', function (ev) {
+                            ev.stopPropagation();
+                        });
+                    }, 2000);
                 }
             });
+        }
+    });
+
+    $scope.$watch('application.distinctive_sign.used_previous', function (newVal) {
+        if (newVal != undefined && newVal) {
+            setTimeout(function () {
+                $('.header-search-box').on('click', function (ev) {
+                    ev.stopPropagation();
+                });
+                $('.header-search-box').on('keydown', function (ev) {
+                    ev.stopPropagation();
+                });
+            }, 2000);
         }
     });
 
