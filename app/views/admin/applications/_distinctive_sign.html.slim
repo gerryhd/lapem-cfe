@@ -1,0 +1,233 @@
+div.panel
+  div.application_header
+    p Datos generales del o de los solicitante(s)
+  div.application_details
+    - general_data = application.data_general
+    - person = general_data.person
+    - if person.type_person_id == TypePerson::PHYSICAL_PERSON
+      h1 Persona física
+      div.grouped_fields
+        div.field_block
+          label CURP:
+          p
+            = person.curp
+        div.field_block
+          label Nombre(s):
+          p
+            = person.name
+        div.field_block
+          label Primer apellido:
+          p
+            = person.first_last_name
+        div.field_block
+          label Segundo apellido:
+          p
+            = person.second_last_name
+      div.grouped_fields
+        div.field_block
+          label Nacionalidad:
+          p
+            = person.nationality
+        div.field_block
+          label Teléfono:
+          p
+            = person.phone
+        div.field_block
+          label Correo electrónico:
+          p
+            = person.email
+
+    - elsif person.type_person_id == TypePerson::MORAL_PERSON
+      h1 Persona moral
+      div.grouped_fields
+        div.field_block
+          label RFC
+          p
+            = person.rfc
+        div.field_block
+          label Denominación o razón social
+          p
+            = person.social_reason
+      div.grouped_fields
+        div.field_block
+          label Nacionalidad
+          p
+            = person.nationality
+        div.field_block
+          label Teléfono
+          p
+            = person.cell_phone
+        div.field_block
+          label Correo electrónico
+          p
+            = person.email
+div.panel
+  div.application_header
+    p Domicilio del solicitante
+  div.application_details
+    - address = general_data.address_data
+    div.grouped_fields
+      div.field_block
+        label Código postal:
+        p
+          = address.zip_code
+      div.field_block
+        label Calle:
+        p
+          = address.street
+      div.field_block
+        label Número exterior:
+        p
+          = address.external_number
+    div.grouped_fields
+      div.field_block
+        label Número interior:
+        p
+          = address.internal_number
+      div.field_block
+        label Colonia:
+        p
+          = address.colony
+      div.field_block
+        label Municipio o demarcación territorial:
+        p
+          = address.municipality
+    div.grouped_fields
+      div.field_block
+        label Localidad:
+        p
+          = address.location
+      div.field_block
+        label Entidad federativa:
+        p
+          = address.federal_entity
+      div.field_block
+        label Calle posterior:
+        p
+          = address.back_street
+div.panel
+  div.application_header
+    p Domicilio para oír y recibir notificaciones
+  div.application_details
+    - notifications_address = application.address_notification.address_data
+    div.grouped_fields
+      div.field_block
+        label Código postal:
+        p
+          = address.zip_code
+      div.field_block
+        label Calle:
+        p
+          = address.street
+      div.field_block
+        label Número exterior:
+        p
+          = address.external_number
+    div.group_fields
+      div.field_block
+        label Número interior:
+        p
+          = address.internal_number
+      div.field_block
+        label Colonia:
+        p
+          = address.colony
+      div.field_block
+        label Municipio o demarcación territorial:
+        p
+          = address.municipality
+    div.group_fields
+      div.field_block
+        label Localidad:
+        p
+          = address.location
+      div.field_block
+        label Entidad federativa:
+        p
+          = address.federal_entity
+      div.field_block
+        label Calle posterior:
+        p
+          = address.back_street
+div.panel
+  div.application_header
+    p Datos del signo distintivo
+  div.application_details
+    - distinctive_sign = application.applicable
+    div.group_fields
+      div.field_block
+        label Tipo de signo distintivo que solicita:
+        p
+          = distinctive_sign.sign_type.name
+      div.field_block
+        label Tipo de marca
+        p
+          =distinctive_sign.brand_type.name
+    div.group_fields
+      div.field_block
+        label Fecha de primer uso:
+        - if distinctive_sign.used_previous
+          p= distinctive_sign.first_date_use.strftime("%d/%m/%Y") unless distinctive_sign.first_date_use.nil?
+        - else
+          p Sin uso previo
+      div.field_block
+        label Signo distintivo:
+        p
+          = distinctive_sign.distinctive_sign
+      div.field_block
+        label Denominación:
+        p
+          = distinctive_sign.denomination
+      div.field_block
+        label Leyendas o figuras no reservables:
+        p
+          = distinctive_sign.tags
+
+    - if distinctive_sign.used_previous || distinctive_sign.sign_type_id == SignType::COMMERCIAL_NAME
+      h2 Ubicación del establecimiento
+      - establishment = distinctive_sign.establishment_location.address_data
+      div.group_fields
+        div.field_block
+          label Código postal:
+          p
+            = establishment.zip_code
+        div.field_block
+          label Calle:
+          p
+            = establishment.street
+        div.field_block
+          label Número exterior:
+          p
+            = establishment.external_number
+      div.group_fields
+        div.field_block
+          label Número interior:
+          p
+            = establishment.internal_number
+        div.field_block
+          label Colonia:
+          p
+            = establishment.colony
+        div.field_block
+          label Municipio o demarcación territorial:
+          p
+            = establishment.municipality
+      div.group_fields
+        div.field_block
+          label Localidad:
+          p
+            = establishment.location
+        div.field_block
+          label Entidad federativa:
+          p
+            = establishment.federal_entity
+        div.field_block
+          label Calle posterior:
+          p
+            = establishment.back_street
+        div.field_block
+          label País:
+          p
+            = establishment.country.name
+
+
