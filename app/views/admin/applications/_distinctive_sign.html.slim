@@ -92,6 +92,10 @@ div.panel
         label Municipio o demarcación territorial:
         p
           = address.municipality
+      div.field_block
+        label País:
+        p
+          = address.country.name
     div.grouped_fields
       div.field_block
         label Localidad:
@@ -136,6 +140,10 @@ div.panel
         label Municipio o demarcación territorial:
         p
           = address.municipality
+      div.field_block
+        label País:
+        p
+          = address.country.name
     div.group_fields
       div.field_block
         label Localidad:
@@ -178,6 +186,10 @@ div.panel
           - else
             = link_to "Descargar", distinctive_sign.file_sign.url, target: :_blank
       div.field_block
+        label Descripción de giro preponderante:
+        p
+          = distinctive_sign.description
+      div.field_block
         label Denominación:
         p
           = distinctive_sign.denomination
@@ -185,7 +197,10 @@ div.panel
         label Leyendas o figuras no reservables:
         p
           = distinctive_sign.tags
-
+      div.field_block
+        label Clase
+        p
+          = distinctive_sign.class_sign
     - if distinctive_sign.used_previous || distinctive_sign.sign_type_id == SignType::COMMERCIAL_NAME
       h2 Ubicación del establecimiento
       - establishment = distinctive_sign.establishment_location.address_data
