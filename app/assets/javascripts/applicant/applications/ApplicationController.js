@@ -8,6 +8,8 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
     $scope.application.data_general.address_data = {};
     $scope.application.address_notification = {};
     $scope.application.address_notification.address_data = {};
+
+    $scope.application.industrial_property = {};
     $scope.steps = [];
     $scope.submitted = [];
 
@@ -30,6 +32,8 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
             $scope.countries = data.countries;
             $scope.sign_types = data.sign_types;
             $scope.brand_types = data.brand_types;
+            $scope.type_requests = data.type_requests;
+            $scope.design_types = data.design_types;
         }, function (error) {
 
         });
@@ -84,33 +88,14 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
     $scope.previousSection = function ($index, form_request_data) {
         $scope.steps[$index].disabled = true;
         $scope.steps[$index - 1].disabled = false;
-    }
+    };
     $scope.nextSection = function ($index, form_request_data) {
         $scope.submitted[$index] = true;
         if (form_request_data.$valid) {
             $scope.steps[$index].disabled = true;
             $scope.steps[$index + 1].disabled = false;
         }
-
-        /*var nextStep = false;
-        if (nextStep) {
-            if($scope.event_id != null){
-                $scope.tabs[$index].disabled = true;
-                $scope.tabs[$index + 1].disabled = false;
-            }
-            else{
-                $scope.tabs_multiple_events[$index].disabled = true;
-                $scope.tabs_multiple_events[$index + 1].disabled = false;
-                if($scope.tabs_multiple_events_ticket_exist.length-1 > $index){
-                    $scope.tabs_multiple_events_ticket_exist[$index].disabled = true;
-                    $scope.tabs_multiple_events_ticket_exist[$index + 1].disabled = false;
-                }
-            }
-            $scope.currentIndexWizard = $index + 1;
-        } else {
-            $scope.invalid_form[$index] = true;
-        }*/
-    }
+    };
 
     $scope.$watch('application.application_type_id', function (newVal) {
         if (newVal != undefined) {
@@ -147,5 +132,13 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
         if (newVal) {
             $scope.application.address_notification.address_data = $scope.application.data_general.address_data;
         }
-    })
+    });
+
+    $scope.$watch('data.applicant_is_inventor', function (newVal) {
+        if (newVal) {
+            $scope.application.industrial_property.data_inventor = $scope.application.industrial_property.data_general;
+        }
+    });
+
+
 }]);

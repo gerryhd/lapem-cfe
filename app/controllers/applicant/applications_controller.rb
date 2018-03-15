@@ -32,7 +32,9 @@ class Applicant::ApplicationsController < ApplicationController
         type_persons: TypePerson.all,
         countries: Country.all,
         sign_types: SignType.all,
-        brand_types: BrandType.all
+        brand_types: BrandType.all,
+        design_types: DesignType.all,
+        type_requests: TypeRequest.all,
     }
   end
 
@@ -54,6 +56,6 @@ class Applicant::ApplicationsController < ApplicationController
   end
 
   def distinctive_sign_params
-    params.require(:application).require(:distinctive_sign).permit(:file_sign, :sign_type_id, :brand_type_id, :distinctive_sign, :class_sign, :description, :tags, :used_previous, establishment_location_attributes: [address_data_attributes: [:zip_code, :street, :external_number, :internal_number, :colony, :municipality, :location, :federal_entity, :between_streets, :back_street, :country_id]])
+    params.require(:application).require(:distinctive_sign).permit(:file_sign, :sign_type_id, :brand_type_id, :distinctive_sign, :class_sign, :description, :tags, :first_date_use, :used_previous, establishment_location_attributes: [address_data_attributes: [:zip_code, :street, :external_number, :internal_number, :colony, :municipality, :location, :federal_entity, :between_streets, :back_street, :country_id]])
   end
 end

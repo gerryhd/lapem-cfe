@@ -25,7 +25,7 @@
         <tbody md-body>
         <!-- we can let ng-repeat sort the columns for us -->
         <tr md-row ng-repeat="application in applications track by $index">
-          <td md-cell>{{application.created_at | date:'yyyy-mm-dd'}}</td>
+          <td md-cell>{{application.created_at | date:'dd/MMM/yyyy'}}</td>
           <td md-cell>{{application.application_type.name}}</td>
           <td md-cell>{{application.status_application.name}}</td>
           <td md-cell>

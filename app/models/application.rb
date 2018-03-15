@@ -5,7 +5,7 @@ class Application < ActiveRecord::Base
   has_one :data_general, dependent: :destroy
   has_one :address_notification, dependent: :destroy
 
-  belongs_to :applicable, polymorphic: true
+  belongs_to :applicable, polymorphic: true, dependent: :destroy
 
   scope :brands, -> {where(application_type_id: ApplicationType::BRAND)}
   scope :patents, -> {where(application_type_id: ApplicationType::PATENT)}

@@ -313,8 +313,7 @@
 
   <div layout-gt-sm="row">
     <md-input-container class="md-block" flex-gt-sm>
-      <label>{{ application.distinctive_sign.sign_type_id == <%= SignType::COMMERCIAL_NAME %> ? 'Descripción de Giro
-        Preponderante' : 'Descripción de Productos o Servicios' }}</label>
+      <label>{{ application.distinctive_sign.sign_type_id == <%= SignType::COMMERCIAL_NAME %> ? 'Descripción de Giro Preponderante' : 'Descripción de Productos o Servicios' }}</label>
       <textarea ng-model="application.distinctive_sign.description" md-maxlength="4000" rows="5" md-select-on-focus></textarea>
     </md-input-container>
   </div>
