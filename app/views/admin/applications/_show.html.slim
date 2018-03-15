@@ -1,7 +1,7 @@
 - if application.application_type_id == ApplicationType::BRAND
-  = render :distinctive_sign, {application: application}
+  = render partial: 'distinctive_sign', locals: {application: application}
 - elsif application.application_type_id == ApplicationType::PATENT
-  = render :industrial_property, {application: application}
+  = render partial: 'industrial_property', locals: {application: application}
 div.panel
   div.application_header
     p Estado de la solicitud
