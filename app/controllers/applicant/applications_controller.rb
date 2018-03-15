@@ -12,7 +12,15 @@ class Applicant::ApplicationsController < ApplicationController
   def create
     application = Application.new(application_params)
     application.applicant = current_user.applicant
-    application.applicable = DistinctiveSign.new(distinctive_sign_params)
+    case application.application_type.id
+      when ApplicationType::BRAND
+        application.applicable = DistinctiveSign.new(distinctive_sign_params)
+      when ApplicationType::PATENT
+        application.applicable = IndustrialProperty.new(industrial_property_params)
+      when ApplicationType::COPYRIGHT
+        application.applicable = Copyright.new(distinctive_sign_params)
+    end
+
     if application.save
       render json: {status: true}
     else
@@ -57,5 +65,9 @@ class Applicant::ApplicationsController < ApplicationController
 
   def distinctive_sign_params
     params.require(:application).require(:distinctive_sign).permit(:file_sign, :sign_type_id, :brand_type_id, :distinctive_sign, :class_sign, :description, :tags, :first_date_use, :used_previous, establishment_location_attributes: [address_data_attributes: [:zip_code, :street, :external_number, :internal_number, :colony, :municipality, :location, :federal_entity, :between_streets, :back_street, :country_id]])
+  end
+
+  def industrial_property_params
+    params.require(:application).require(:industrial_property).permit(:is_applicant_invention, :title, :previous_release_date, :divisional_number, :divisional_legal_concept, :divisional_date, :design_type_id, :type_request_id, data_inventor_attributes: [:nationality, :phone, :fax, address_data_attributes:[:zip_code, :street, :external_number, :internal_number, :colony, :municipality, :location, :federal_entity, :between_streets, :back_street, :country_id]], data_owner_attributes: [:nationality, :phone, :fax,:rgp, address_data_attributes:[:zip_code, :street, :external_number, :internal_number, :colony, :municipality, :location, :federal_entity, :between_streets, :back_street, :country_id]])
   end
 end

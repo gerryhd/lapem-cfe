@@ -9,7 +9,7 @@
             <div layout="row" layout-align="space-between end" style="margin-top: 30px;">
               <md-button class="md-primary md-raised" style="position:absolute;left: 0" ng-click="previousSection($index,form_request_data)" ng-if="!$first">Anterior</md-button>
               <md-button class="md-primary md-raised" style="position:absolute;right: 0" ng-click="nextSection($index,form_request_data)" ng-if="!$last">Siguiente</md-button>
-              <md-button class="md-primary md-raised" style="position:absolute;right: 0" ng-click="saveRequest()" ng-if="$last">Guardar</md-button>
+              <md-button class="md-primary md-raised" style="position:absolute;right: 0" ng-click="saveIndustrialProperty()" ng-if="$last">Guardar</md-button>
             </div>
           </ng-form>
         </md-content>
@@ -23,19 +23,19 @@
   <div layout-gt-sm="row">
     <md-input-container class="md-block" flex-gt-sm>
       <label>Nombre</label>
-      <input required name="data_general_name" ng-model="application.industrial_property.data_general.name">
+      <input required name="data_general_name" ng-model="application.data_general.name">
       <span class="error-field" ng-show="form_request_data.data_general_name.$error.required && form_request_data.data_general_name.$touched || (submitted[$index] && form_request_data.data_general_name.$error.required)">Este campo es obligatorio</span>
     </md-input-container>
 
     <md-input-container class="md-block" flex-gt-sm>
       <label>Nacionalidad</label>
-      <input required name="data_general_nationality" ng-model="application.industrial_property.data_general.nationality">
+      <input required name="data_general_nationality" ng-model="application.data_general.nationality">
       <span class="error-field" ng-show="form_request_data.data_general_nationality.$error.required && form_request_data.data_general_nationality.$touched || (submitted[$index] && form_request_data.data_general_nationality.$error.required)">Este campo es obligatorio</span>
     </md-input-container>
 
     <md-input-container class="md-block" flex-gt-sm>
       <label>Calle</label>
-      <input required name="data_general_address_data_street" ng-model="application.industrial_property.data_general.address_data.street">
+      <input required name="data_general_address_data_street" ng-model="application.data_general.address_data.street">
       <span class="error-field" ng-show="form_request_data.data_general_address_data_street.$error.required && form_request_data.data_general_address_data_street.$touched || (submitted[$index] && form_request_data.data_general_address_data_street.$error.required)">Este campo es obligatorio</span>
     </md-input-container>
   </div>
@@ -44,19 +44,19 @@
   <div layout-gt-sm="row">
     <md-input-container class="md-block" flex-gt-sm>
       <label>Numero</label>
-      <input required name="data_general_address_data_number" ng-model="application.industrial_property.data_general.address_data.internal_number">
+      <input required name="data_general_address_data_number" ng-model="application.data_general.address_data.internal_number">
       <span class="error-field" ng-show="form_request_data.data_general_address_data_number.$error.required && form_request_data.data_general_address_data_number.$touched || (submitted[$index] && form_request_data.data_general_address_data_number.$error.required)">Este campo es obligatorio</span>
     </md-input-container>
 
     <md-input-container class="md-block" flex-gt-sm>
       <label>Colonia</label>
-      <input required name="data_general_address_data_colony" ng-model="application.industrial_property.data_general.address_data.colony">
+      <input required name="data_general_address_data_colony" ng-model="application.data_general.address_data.colony">
       <span class="error-field" ng-show="form_request_data.data_general_address_data_colony.$error.required && form_request_data.data_general_address_data_colony.$touched || (submitted[$index] && form_request_data.data_general_address_data_colony.$error.required)">Este campo es obligatorio</span>
     </md-input-container>
 
     <md-input-container class="md-block" flex-gt-sm>
       <label>Codigo Postal</label>
-      <input required name="data_general_address_data_zip_code" ng-model="application.industrial_property.data_general.address_data.zip_code">
+      <input required name="data_general_address_data_zip_code" ng-model="application.data_general.address_data.zip_code">
       <span class="error-field" ng-show="form_request_data.data_general_address_data_zip_code.$error.required && form_request_data.data_general_address_data_zip_code.$touched || (submitted[$index] && form_request_data.data_general_address_data_zip_code.$error.required)">Este campo es obligatorio</span>
     </md-input-container>
   </div>
@@ -64,13 +64,13 @@
   <div layout-gt-sm="row">
     <md-input-container class="md-block" flex-gt-sm>
       <label>Población</label>
-      <input required name="data_general_address_data_federal_entity" ng-model="application.industrial_property.data_general.address_data.federal_entity">
+      <input required name="data_general_address_data_federal_entity" ng-model="application.data_general.address_data.federal_entity">
       <span class="error-field" ng-show="form_request_data.data_general_address_data_federal_entity.$error.required && form_request_data.data_general_address_data_federal_entity.$touched || (submitted[$index] && form_request_data.data_general_address_data_federal_entity.$error.required)">Este campo es obligatorio</span>
     </md-input-container>
 
     <md-input-container class="md-block" flex-gt-sm>
       <label>Pais</label>
-      <md-select id="state_select" required name="data_general_address_data_country" ng-model="application.industrial_property.data_general.address_data.country_id" md-on-close="clearCountrySearchField()">
+      <md-select id="state_select" required name="data_general_address_data_country" ng-model="application.data_general.address_data.country_id" md-on-close="clearCountrySearchField()">
         <md-select-header>
           <md-input-container>
             <input ng-model="countrySearchTerm"
@@ -89,7 +89,7 @@
 
     <md-input-container class="md-block" flex-gt-sm>
       <label>Estado</label>
-      <input required name="data_general_address_data_state" ng-model="application.industrial_property.data_general.address_data.state">
+      <input required name="data_general_address_data_state" ng-model="application.data_general.address_data.state">
       <span class="error-field" ng-show="form_request_data.data_general_address_data_state.$error.required && form_request_data.data_general_address_data_state.$touched || (submitted[$index] && form_request_data.data_general_address_data_state.$error.required)">Este campo es obligatorio</span>
     </md-input-container>
 
@@ -98,13 +98,13 @@
   <div layout-gt-sm="row">
     <md-input-container class="md-block" flex-gt-sm>
       <label>Telefono</label>
-      <input required name="data_general_phone" ng-model="application.industrial_property.data_general.phone">
+      <input required name="data_general_phone" ng-model="application.data_general.phone">
       <span class="error-field" ng-show="form_request_data.data_general_phone.$error.required && form_request_data.data_general_phone.$touched || (submitted[$index] && form_request_data.data_general_phone.$error.required)">Este campo es obligatorio</span>
     </md-input-container>
 
     <md-input-container class="md-block" flex-gt-sm>
       <label>Fax</label>
-      <input required name="data_general_fax" ng-model="application.industrial_property.data_general.fax">
+      <input required name="data_general_fax" ng-model="application.data_general.fax">
       <span class="error-field" ng-show="form_request_data.data_general_fax.$error.required && form_request_data.data_general_fax.$touched || (submitted[$index] && form_request_data.data_general_fax.$error.required)">Este campo es obligatorio</span>
     </md-input-container>
 

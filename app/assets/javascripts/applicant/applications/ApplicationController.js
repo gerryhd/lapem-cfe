@@ -85,6 +85,38 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
         }
     };
 
+    $scope.saveIndustrialProperty = function ($index,form_request_data) {
+        $scope.submitted[$index] = true;
+        if ($scope.form_request.$valid) {
+            $scope.application.data_general_attributes = $scope.application.data_general;
+            $scope.application.data_general_attributes.address_data_attributes = $scope.application.data_general.address_data;
+
+            $scope.application.industrial_property.data_inventor_attributes = $scope.application.industrial_property.data_inventor;
+            $scope.application.industrial_property.data_inventor_attributes.address_data_attributes = $scope.application.industrial_property.data_inventor.address_data;
+
+            $scope.application.industrial_property.data_owner_attributes = $scope.application.industrial_property.data_owner;
+            $scope.application.industrial_property.data_owner_attributes.address_data_attributes = $scope.application.industrial_property.data_owner.address_data;
+
+            ApplicationService.create($scope.application, false).then(function (response) {
+                if (response.data.status) {
+                    swal({
+                        title: "Exito",
+                        text: "La solicitud fue creada exitosamente",
+                        type: 'success',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false
+                    }).then(function () {
+                        location.href = "/";
+                    }, function (dismmiss) {
+
+                    })
+                }
+            }, function (error) {
+                console.log(error)
+            });
+        }
+    };
+
     $scope.previousSection = function ($index, form_request_data) {
         $scope.steps[$index].disabled = true;
         $scope.steps[$index - 1].disabled = false;
@@ -136,7 +168,7 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
 
     $scope.$watch('data.applicant_is_inventor', function (newVal) {
         if (newVal) {
-            $scope.application.industrial_property.data_inventor = $scope.application.industrial_property.data_general;
+            $scope.application.industrial_property.data_inventor = $scope.application.data_general;
         }
     });
 
