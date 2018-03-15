@@ -22,3 +22,4 @@
 //= require sweetalert2
 //= require sweet-alert2-rails
 //= require lf-ng-md-file-input.min
+//= require object-to-form-data

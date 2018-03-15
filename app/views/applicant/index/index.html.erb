@@ -1,5 +1,5 @@
 <md-card ng-controller="IndexController">
-  <input type="hidden" ng-init="applications = <%= current_user.applicant.applications.to_json(include: [:status_application]) %>">
+  <input type="hidden" ng-init="applications = <%= current_user.applicant.applications.to_json(include: [:status_application,:application_type]) %>">
   <md-card-header>
     <md-card-header-text>
       <span class="md-title">Solicitudes</span>
@@ -8,7 +8,7 @@
   </md-card-header>
 
   <md-card-actions layout="row">
-    <md-button ng-href="<%= new_applicant_application_path %>" class="md-primary">Nueva solicitud</md-button>
+    <md-button ng-href="<%= new_applicant_application_path %>" class="md-primary md-raised">Nueva solicitud</md-button>
   </md-card-actions>
 
 
@@ -18,6 +18,7 @@
         <thead md-head md-order="myOrder">
         <!--<th md-column md-order-by="date_creation">Fecha de creacion</th>-->
         <th md-column>Fecha de creacion</th>
+        <th md-column>Tipo de solicitud</th>
         <th md-column>Estatus</th>
         <th md-column>Operaciones</th>
         </thead>
@@ -25,6 +26,7 @@
         <!-- we can let ng-repeat sort the columns for us -->
         <tr md-row ng-repeat="application in applications track by $index">
           <td md-cell>{{application.created_at | date:'yyyy-mm-dd'}}</td>
+          <td md-cell>{{application.application_type.name}}</td>
           <td md-cell>{{application.status_application.name}}</td>
           <td md-cell>
             <a href="#" ng-click="delete(application.id,$index)">eliminar</a>

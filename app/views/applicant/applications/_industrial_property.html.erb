@@ -1,0 +1,364 @@
+<form name="form_request" class="form-horizontal" novalidate>
+  <md-content>
+    <md-tabs md-dynamic-height="true" md-center-tabs="true" md-swipe-content md-border-bottom>
+      <md-tab label="{{step.title}}" ng-repeat="step in steps track by $index" ng-disabled="step.disabled">
+        <input type="hidden" ng-init="submitted[$index]=false">
+        <md-content class="md-padding">
+          <ng-form name="form_request_data">
+            <ng-include class="container-fluid" src="step.template"></ng-include>
+            <div layout="row" layout-align="space-between end">
+              <md-button class="md-primary md-raised" ng-click="previousSection($index,form_request_data)" ng-if="!$first">Anterior</md-button>
+              <md-button class="md-primary md-raised" ng-click="nextSection($index,form_request_data)" ng-if="!$last">Siguiente</md-button>
+              <md-button class="md-primary md-raised" ng-click="saveRequest()" ng-if="$last">Guardar</md-button>
+            </div>
+          </ng-form>
+        </md-content>
+      </md-tab>
+    </md-tabs>
+  </md-content>
+
+</form>
+
+<script type="text/ng-template" id="general_data_applicants_industrial_property">
+
+</script>
+
+<script type="text/ng-template" id="data_inventors_industrial_property">
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Código Postal</label>
+      <input required name="data_general_address_zip_code" ng-model="application.industrial_property.data_owner.address_data.zip_code">
+      <span class="error-field" ng-show="form_request_data.data_general_address_zip_code.$error.required && form_request_data.data_general_address_zip_code.$touched || (submitted[$index] && form_request_data.ganeral_data_person_curp.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Calle</label>
+      <input required name="data_general_address_street" ng-model="application.industrial_property.data_owner.address_data.street">
+      <span class="error-field" ng-show="form_request_data.data_general_address_street.$error.required && form_request_data.data_general_address_street.$touched || (submitted[$index] && form_request_data.ganeral_data_person_curp.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Número exterior</label>
+      <input required name="data_general_address_external_number" ng-model="application.industrial_property.data_owner.address_data.external_number">
+      <span class="error-field" ng-show="form_request_data.data_general_address_external_number.$error.required && form_request_data.data_general_address_external_number.$touched || (submitted[$index] && form_request_data.ganeral_data_person_curp.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+  </div>
+
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Número interno</label>
+      <input name="data_general_address_internal_number" ng-model="application.industrial_property.data_owner.address_data.internal_number" required>
+      <span class="error-field" ng-show="form_request_data.data_general_address_internal_number.$error.required && form_request_data.data_general_address_internal_number.$touched || (submitted[$index] && form_request_data.ganeral_data_person_curp.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Colonia</label>
+      <input ng-model="application.industrial_property.data_owner.address_data.colony" name="data_general_address_colony" required>
+      <span class="error-field" ng-show="form_request_data.data_general_address_colony.$error.required && form_request_data.data_general_address_colony.$touched || (submitted[$index] && form_request_data.ganeral_data_person_curp.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Municipio</label>
+      <input name="data_general_address_municipality" ng-model="application.industrial_property.data_owner.address_data.municipality" required>
+      <span class="error-field" ng-show="form_request_data.data_general_address_municipality.$error.required && form_request_data.data_general_address_municipality.$touched">Este campo es obligatorio</span>
+    </md-input-container>
+  </div>
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Localidad</label>
+      <input ng-model="application.industrial_property.data_owner.address_data.location" name="data_general_address_location" required>
+      <span class="error-field" ng-show="form_request_data.data_general_address_location.$error.required && form_request_data.data_general_address_location.$touched">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Entidad Federativa</label>
+      <input name="data_general_address_federal_entity" ng-model="application.industrial_property.data_owner.address_data.federal_entity" required>
+      <span class="error-field" ng-show="form_request_data.data_general_address_federal_entity.$error.required && form_request_data.data_general_address_federal_entity.$touched">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Entre Calles</label>
+      <input name="data_general_address_between_streets" ng-model="application.industrial_property.data_owner.address_data.between_streets">
+    </md-input-container>
+  </div>
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Pais</label>
+      <md-select id="state_select" required name="data_general_address_country" ng-model="application.industrial_property.data_owner.address_data.country_id" md-on-close="clearCountrySearchField()">
+        <md-select-header>
+          <md-input-container>
+            <input ng-model="countrySearchTerm"
+                   type="search"
+                   placeholder="Pais"
+                   class="header-searchbox">
+          </md-input-container>
+        </md-select-header>
+        <md-option ng-value="{{country.id}}" ng-repeat="country in countries | filter:countrySearchTerm">{{ country.name
+          }}
+        </md-option>
+      </md-select>
+      <span class="error-field" ng-show="form_request_data.data_general_address_country.$error.required && form_request_data.data_general_address_country.$touched">Este campo es obligatorio</span>
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Calle posterior</label>
+      <input ng-model="application.industrial_property.data_owner.address_data.back_street">
+    </md-input-container>
+  </div>
+</script>
+
+<script type="text/ng-template" id="data_owner_industrial_property">
+  <div layout-gt-sm="row">
+    <md-checkbox class="md-primary" ng-model="data.same_address_notification">La
+      dirección es la misma que la del solicitante
+    </md-checkbox>
+  </div>
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Código Postal</label>
+      <input required name="notification_address_zip_code" ng-model="application.address_notification.address_data.zip_code">
+      <span class="error-field" ng-show="form_request_data.notification_address_zip_code.$error.required && form_request_data.notification_address_zip_code.$touched">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Calle</label>
+      <input required name="notification_address_street" ng-model="application.address_notification.address_data.street">
+      <span class="error-field" ng-show="form_request_data.notification_address_street.$error.required && form_request_data.notification_address_street.$touched">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Número exterior</label>
+      <input required name="notification_address_external_number" ng-model="application.address_notification.address_data.external_number">
+      <span class="error-field" ng-show="form_request_data.notification_address_external_number.$error.required && form_request_data.notification_address_external_number.$touched">Este campo es obligatorio</span>
+    </md-input-container>
+  </div>
+
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Número interno</label>
+      <input name="notification_address_internal_number" ng-model="application.address_notification.address_data.internal_number" required>
+      <span class="error-field" ng-show="form_request_data.notification_address_internal_number.$error.required && form_request_data.notification_address_internal_number.$touched">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Colonia</label>
+      <input ng-model="application.address_notification.address_data.colony" name="notification_address_colony" required>
+      <span class="error-field" ng-show="form_request_data.notification_address_colony.$error.required && form_request_data.notification_address_colony.$touched">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Municipio</label>
+      <input name="notification_address_municipality" ng-model="application.address_notification.address_data.municipality" required>
+      <span class="error-field" ng-show="form_request_data.notification_address_municipality.$error.required && form_request_data.notification_address_municipality.$touched">Este campo es obligatorio</span>
+    </md-input-container>
+  </div>
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Localidad</label>
+      <input ng-model="application.address_notification.address_data.location" name="notification_address_locality" required>
+      <span class="error-field" ng-show="form_request_data.notification_address_locality.$error.required && form_request_data.notification_address_locality.$touched">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Entidad Federativa</label>
+      <input name="notification_address_federal_entity" ng-model="application.address_notification.address_data.federal_entity" required>
+      <span class="error-field" ng-show="form_request_data.notification_address_federal_entity.$error.required && form_request_data.notification_address_federal_entity.$touched">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Entre Calles</label>
+      <input ng-model="application.address_notification.address_data.between_streets">
+    </md-input-container>
+  </div>
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Pais</label>
+      <md-select id="state_select" required name="notification_address_country" ng-model="application.address_notification.address_data.country_id" md-on-close="clearCountrySearchField()">
+        <md-select-header>
+          <md-input-container>
+            <input ng-model="countrySearchTerm"
+                   type="search"
+                   placeholder="Pais"
+                   class="header-searchbox">
+          </md-input-container>
+        </md-select-header>
+        <md-option ng-value="{{country.id}}" ng-repeat="country in countries | filter:countrySearchTerm">{{ country.name
+          }}
+        </md-option>
+      </md-select>
+      <span class="error-field" ng-show="form_request_data.notification_address_country.$error.required && form_request_data.notification_address_country.$touched">Este campo es obligatorio</span>
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Calle posterior</label>
+      <input ng-model="application.address_notification.address_data.back_street">
+    </md-input-container>
+  </div>
+</script>
+
+<script type="text/ng-template" id="data_patent_industrial_property">
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Tipo de signo distintivo</label>
+      <md-select required name="sign_type" ng-model="application.distinctive_sign.sign_type_id">
+        <md-option ng-value="{{sign_type.id}}" ng-repeat="sign_type in sign_types track by $index">{{ sign_type.name }}
+        </md-option>
+      </md-select>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Tipo de marca</label>
+      <md-select required name="brand_type" ng-model="application.distinctive_sign.brand_type_id">
+        <md-option ng-value="{{brand_type.id}}" ng-repeat="brand_type in brand_types track by $index">
+          {{ brand_type.name }}
+        </md-option>
+      </md-select>
+    </md-input-container>
+
+    <div class="md-block" flex-gt-sm>
+      <lf-ng-md-file-input lf-files='application.distinctive_sign.file_sign' ng-if="application.distinctive_sign.brand_type_id != <%= BrandType::NOMINATIVE %>"></lf-ng-md-file-input>
+      <md-input-container class="md-block" ng-required="application.distinctive_sign.brand_type_id != <%= BrandType::NOMINATIVE %>" flex-gt-sm ng-if="application.distinctive_sign.brand_type_id == <%= BrandType::NOMINATIVE %>">
+        <label>Signo Distintivo</label>
+        <input ng-required="application.distinctive_sign.brand_type_id == <%= BrandType::NOMINATIVE %>" ng-model="application.distinctive_sign.distinctive_sign">
+      </md-input-container>
+    </div>
+  </div>
+
+  <div layout-gt-sm="row">
+    <div class="md-block" flex-gt-sm>
+      <md-checkbox ng-click="application.date_first_use = undefined" class="md-primary" ng-model="application.distinctive_sign.used_previous">Se
+        ha usado anteriormente
+      </md-checkbox>
+    </div>
+    <div class="md-block" flex-gt-sm ng-show="application.distinctive_sign.not_use">
+      <md-datepicker ng-required="application.distinctive_sign.not_use" name="date_first_use" ng-model="application.distinctive_sign.first_date_use" md-placeholder="Enter date" md-open-on-focus></md-datepicker>
+    </div>
+    <div class="md-block" flex-gt-sm>
+      <md-input-container>
+        <label>Clase</label>
+        <input ng-model="application.distinctive_sign.class_sign">
+      </md-input-container>
+    </div>
+  </div>
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>{{ application.distinctive_sign.sign_type_id == <%= SignType::COMMERCIAL_NAME %> ? 'Descripción de Giro
+        Preponderante' : 'Descripción de Productos o Servicios' }}</label>
+      <textarea ng-model="application.distinctive_sign.description" md-maxlength="4000" rows="5" md-select-on-focus></textarea>
+    </md-input-container>
+  </div>
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm ng-if="application.distinctive_sign.brand_type_id == <%= BrandType::DENOMINATION_AND_DESIGN %> || application.distinctive_sign.brand_type_id == <%= BrandType::DENOMINATION_AND_3D %> || application.distinctive_sign.brand_type_id == <%= BrandType::MIXED %>">
+      <label>Denominación</label>
+      <input ng-model="application.distinctive_sign.denomination">
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Leyendas o Figuras no reservables</label>
+      <textarea ng-model="application.distinctive_sign.tags" md-maxlength="4000" rows="5" md-select-on-focus></textarea>
+    </md-input-container>
+  </div>
+
+  <div layout-gt-sm="row" ng-if="application.distinctive_sign.used_previous || application.distinctive_sign.sign_type_id == <%= SignType::COMMERCIAL_NAME %>">
+    <div class="md-block" flex-gt-sm>
+      <md-toolbar>
+        <h2 class="md-toolbar-tools text-center">
+          <span>Ubicación del establecimiento</span>
+        </h2>
+      </md-toolbar>
+    </div>
+  </div>
+
+  <div layout-gt-sm="row" ng-if="application.distinctive_sign.used_previous || application.distinctive_sign.sign_type_id == <%= SignType::COMMERCIAL_NAME %>">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Código Postal</label>
+      <input required name="establishment_location_address_zip_code" ng-model="application.distinctive_sign.establishment_location.address_data.zip_code">
+      <span class="error-field" ng-show="form_request_data.establishment_location_address_zip_code.$error.required && form_request_data.establishment_location_address_zip_code.$touched">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Calle</label>
+      <input required name="establishment_location_address_street" ng-model="application.distinctive_sign.establishment_location.address_data.street">
+      <span class="error-field" ng-show="form_request_data.establishment_location_address_street.$error.required && form_request_data.establishment_location_address_street.$touched">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Número exterior</label>
+      <input required name="establishment_location_address_external_number" ng-model="application.distinctive_sign.establishment_location.address_data.external_number">
+      <span class="error-field" ng-show="form_request_data.establishment_location_address_external_number.$error.required && form_request_data.establishment_location_address_external_number.$touched">Este campo es obligatorio</span>
+    </md-input-container>
+  </div>
+
+
+  <div layout-gt-sm="row" ng-if="application.distinctive_sign.used_previous || application.distinctive_sign.sign_type_id == <%= SignType::COMMERCIAL_NAME %>">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Número interno</label>
+      <input name="establishment_location_address_internal_number" ng-model="application.distinctive_sign.establishment_location.address_data.internal_number" required>
+      <span class="error-field" ng-show="form_request_data.establishment_location_address_internal_number.$error.required && form_request_data.establishment_location_address_internal_number.$touched">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Colonia</label>
+      <input ng-model="application.distinctive_sign.establishment_location.address_data.colony" name="establishment_location_address_colony" required>
+      <span class="error-field" ng-show="form_request_data.establishment_location_address_colony.$error.required && form_request_data.establishment_location_address_colony.$touched">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Municipio</label>
+      <input name="establishment_location_address_municipality" ng-model="application.distinctive_sign.establishment_location.address_data.municipality" required>
+      <span class="error-field" ng-show="form_request_data.establishment_location_address_municipality.$error.required && form_request_data.establishment_location_address_municipality.$touched">Este campo es obligatorio</span>
+    </md-input-container>
+  </div>
+
+  <div layout-gt-sm="row" ng-if="application.distinctive_sign.used_previous || application.distinctive_sign.sign_type_id == <%= SignType::COMMERCIAL_NAME %>">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Localidad</label>
+      <input ng-model="application.distinctive_sign.establishment_location.address_data.locality" name="establishment_location_address_locality" required>
+      <span class="error-field" ng-show="form_request_data.establishment_location_address_locality.$error.required && form_request_data.establishment_location_address_locality.$touched">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Entidad Federativa</label>
+      <input name="establishment_location_address_federal_entity" ng-model="application.distinctive_sign.establishment_location.address_data.federal_entity" required>
+      <span class="error-field" ng-show="form_request_data.establishment_location_address_federal_entity.$error.required && form_request_data.establishment_location_address_federal_entity.$touched">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Entre Calles</label>
+      <input ng-model="application.distinctive_sign.establishment_location.address_data.between_streets">
+    </md-input-container>
+  </div>
+
+  <div layout-gt-sm="row" ng-if="application.distinctive_sign.used_previous || application.distinctive_sign.sign_type_id == <%= SignType::COMMERCIAL_NAME %>">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Pais</label>
+      <md-select id="state_select" required name="establishment_location_address_country" ng-model="application.distinctive_sign.establishment_location.address_data.country_id" md-on-close="clearCountrySearchField()">
+        <md-select-header>
+          <md-input-container>
+            <input ng-model="countrySearchTerm"
+                   type="search"
+                   placeholder="Pais"
+                   class="header-searchbox">
+          </md-input-container>
+        </md-select-header>
+        <md-option ng-value="{{country.id}}" ng-repeat="country in countries | filter:countrySearchTerm">{{ country.name
+          }}
+        </md-option>
+      </md-select>
+      <span class="error-field" ng-show="form_request_data.establishment_location_address_country.$error.required && form_request_data.establishment_location_address_country.$touched">Este campo es obligatorio</span>
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Calle posterior</label>
+      <input ng-model="application.distinctive_sign.establishment_location.address_data.back_street">
+    </md-input-container>
+  </div>
+
+
+</script>

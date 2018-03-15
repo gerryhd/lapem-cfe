@@ -1,5 +1,5 @@
 ObjectModule.factory('ApplicationService', ApplicationService);
-ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService', function ($scope, ApplicationService) {
+ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService', 'ObjectToFormData', function ($scope, ApplicationService, ObjectToFormData) {
     $scope.application_types = [];
     $scope.application = {};
     $scope.application.distinctive_sign = {};
@@ -9,8 +9,9 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
     $scope.application.address_notification = {};
     $scope.application.address_notification.address_data = {};
     $scope.steps = [];
+    $scope.submitted = [];
 
-    $scope.data = {}
+    $scope.data = {};
 
     $scope.clearCountrySearchField = function () {
         $scope.countrySearchTerm = '';
@@ -34,7 +35,8 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
         });
     });
 
-    $scope.saveRequest = function () {
+    $scope.saveRequest = function ($index, form_request_data) {
+        $scope.submitted[$index] = true;
         var has_file = false;
         if ($scope.form_request.$valid) {
             $scope.application.data_general_attributes = $scope.application.data_general;
@@ -42,19 +44,36 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
             $scope.application.data_general_attributes.address_data_attributes = $scope.application.data_general.address_data;
             $scope.application.address_notification_attributes = $scope.application.address_notification;
             $scope.application.address_notification_attributes.address_data_attributes = $scope.application.address_notification.address_data;
-            $scope.application.distinctive_sign.establishment_location_attributes = $scope.application.distinctive_sign.establishment_location;
-            $scope.application.distinctive_sign.establishment_location_attributes.address_data_attributes = $scope.application.distinctive_sign.establishment_location.address_data;
+
+            if ($scope.application.distinctive_sign.used_previous) {
+                $scope.application.distinctive_sign.establishment_location_attributes = $scope.application.distinctive_sign.establishment_location;
+                $scope.application.distinctive_sign.establishment_location_attributes.address_data_attributes = $scope.application.distinctive_sign.establishment_location.address_data;
+            }
 
             var data = $scope.application;
-
-            if ($scope.application.distinctive_sign.brand_type_id != $scope.nominative_brand_type) {
+            if (data.distinctive_sign.brand_type_id != $scope.nominative_brand_type) {
+                delete $scope.application.data_general;
+                delete $scope.application.address_notification;
                 has_file = true;
-                //Se manda un archivo
-                data = new FormData();
+                var file = $scope.application.distinctive_sign.file_sign[0].lfFile;
+                delete $scope.application.distinctive_sign.file_sign[0];
+                $scope.application.distinctive_sign.file_sign = file;
+                data = ObjectToFormData({application: data});
+
             }
             ApplicationService.create(data, has_file).then(function (response) {
-                if(response.data.status){
-                    swal('Se agrego la solicitud');
+                if (response.data.status) {
+                    swal({
+                        title: "Exito",
+                        text: "La solicitud fue creada exitosamente",
+                        type: 'success',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false
+                    }).then(function () {
+                        location.href = "/";
+                    }, function (dismmiss) {
+
+                    })
                 }
             }, function (error) {
                 console.log(error)
@@ -67,6 +86,7 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
         $scope.steps[$index - 1].disabled = false;
     }
     $scope.nextSection = function ($index, form_request_data) {
+        $scope.submitted[$index] = true;
         if (form_request_data.$valid) {
             $scope.steps[$index].disabled = true;
             $scope.steps[$index + 1].disabled = false;
@@ -97,19 +117,34 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
             angular.forEach($scope.application_types, function (application_type) {
                 if (application_type.id == newVal) {
                     $scope.steps = JSON.parse(application_type.steps);
-                    $('.header-searchbox').on('click', function (ev) {
-                        ev.stopPropagation();
-                    });
-                    $('.header-searchbox').on('keydown', function (ev) {
-                        ev.stopPropagation();
-                    });
+                    setTimeout(function () {
+                        $('.header-search-box').on('click', function (ev) {
+                            ev.stopPropagation();
+                        });
+                        $('.header-search-box').on('keydown', function (ev) {
+                            ev.stopPropagation();
+                        });
+                    }, 2000);
                 }
             });
         }
     });
 
-    $scope.$watch('data.same_address_notification',function (newVal) {
-        if(newVal){
+    $scope.$watch('application.distinctive_sign.used_previous', function (newVal) {
+        if (newVal != undefined && newVal) {
+            setTimeout(function () {
+                $('.header-search-box').on('click', function (ev) {
+                    ev.stopPropagation();
+                });
+                $('.header-search-box').on('keydown', function (ev) {
+                    ev.stopPropagation();
+                });
+            }, 2000);
+        }
+    });
+
+    $scope.$watch('data.same_address_notification', function (newVal) {
+        if (newVal) {
             $scope.application.address_notification.address_data = $scope.application.data_general.address_data;
         }
     })

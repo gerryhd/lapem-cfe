@@ -6,4 +6,7 @@ class DistinctiveSign < ActiveRecord::Base
 
   accepts_nested_attributes_for :establishment_location
 
+  mount_uploader :file_sign, DistinctiveFileUploader
+
+  validates :sign_type, :brand_type, presence: true
 end
