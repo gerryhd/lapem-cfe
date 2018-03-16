@@ -54,4 +54,31 @@ steps_patent = [
 ]
 patent = ApplicationType.create(id: ApplicationType::PATENT, name: "Registro de Patente, Registro de Modelo de Utilidad y Registro de Diseño Industrial.", steps: steps_patent.to_json)
 
-copyright = ApplicationType.create(id: ApplicationType::COPYRIGHT, name: "Registro de derechos de autor")
+steps_copyright = [
+    {
+        title: "Datos Generales",
+        order: 0,
+        template: 'general_data_copyright',
+        disabled: false
+    },
+    {
+        title: "Titular de la obra",
+        order: 1,
+        template: 'owner_work_copyright',
+        disabled: true
+    },
+    {
+        title: "Representante legal",
+        order: 2,
+        template: 'legal_representative_copyright',
+        disabled: true
+    },
+    {
+        title: "Datos de la obra",
+        order: 3,
+        template: 'data_wor_copyright',
+        disabled: true
+    }
+]
+
+copyright = ApplicationType.create(id: ApplicationType::COPYRIGHT, name: "Registro de derechos de autor" , steps: steps_copyright.to_json)

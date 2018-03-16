@@ -40,7 +40,7 @@ after "development:users" do
                                       brand_type_id: BrandType::NOMINATIVE
   )
 
-  app.applicable.establishment_location = EstablishmentLocation.create();
+  app.applicable.establishment_location = EstablishmentLocation.create()
   app.applicable.establishment_location.address_data = address.dup
 
   app.observations << Observation.create(user_id: Administrator.first.user.id, notes: "Esto está todo mal")

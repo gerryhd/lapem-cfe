@@ -172,5 +172,13 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
         }
     });
 
+    $scope.$watch('application.copyright.titular_is_author', function (newVal) {
+        if (newVal != undefined && newVal == 1) {
+            $scope.application.copyright.application.general_data_author = $scope.application.data_general.person;
+        }
+    });
+
+
+
 
 }]);

@@ -34,6 +34,9 @@
         <%= render 'applicant/applications/industrial_property' %>
       </div>
 
+      <div ng-if="application.application_type_id == <%= ApplicationType::COPYRIGHT %>">
+        <%= render 'applicant/applications/copyright' %>
+      </div>
 
     </form>
 
