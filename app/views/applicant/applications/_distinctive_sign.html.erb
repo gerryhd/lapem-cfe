@@ -5,7 +5,7 @@
       <md-content class="md-padding">
         <ng-form name="form_request_data">
           <ng-include class="container-fluid" src="step.template"></ng-include>
-          <div layout="row" layout-align="space-between end">
+          <div layout="row" layout-align="space-between end" style="margin-top: 30px;">
             <md-button class="md-primary md-raised" style="position:absolute;left: 0"  ng-click="previousSection($index,form_request_data)" ng-if="!$first">Anterior</md-button>
             <md-button class="md-primary md-raised" style="position:absolute;right: 0" ng-click="nextSection($index,form_request_data)" ng-if="!$last">Siguiente</md-button>
             <md-button class="md-primary md-raised" style="position:absolute;right: 0" ng-click="saveRequest($index,form_request_data)" ng-if="$last">Guardar</md-button>

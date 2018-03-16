@@ -34,6 +34,8 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
             $scope.brand_types = data.brand_types;
             $scope.type_requests = data.type_requests;
             $scope.design_types = data.design_types;
+            $scope.copyright_branches = data.copyright_branches;
+            $scope.derivation_types = data.derivation_types;
         }, function (error) {
 
         });
@@ -85,7 +87,7 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
         }
     };
 
-    $scope.saveIndustrialProperty = function ($index,form_request_data) {
+    $scope.saveIndustrialProperty = function ($index, form_request_data) {
         $scope.submitted[$index] = true;
         if ($scope.form_request.$valid) {
             $scope.application.data_general_attributes = $scope.application.data_general;
@@ -174,11 +176,12 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
 
     $scope.$watch('application.copyright.titular_is_author', function (newVal) {
         if (newVal != undefined && newVal == 1) {
-            $scope.application.copyright.application.general_data_author = $scope.application.data_general.person;
+            var data_general = $scope.application.data_general;
+            $scope.application.copyright.general_data_author = data_general.person;
+            $scope.application.copyright.general_data_author.phone = data_general.phone;
+            $scope.application.copyright.general_data_author.address_data = data_general.address_data;
         }
     });
-
-
 
 
 }]);

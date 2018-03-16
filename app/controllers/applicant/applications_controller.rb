@@ -43,6 +43,8 @@ class Applicant::ApplicationsController < ApplicationController
         brand_types: BrandType.all,
         design_types: DesignType.all,
         type_requests: TypeRequest.all,
+        copyright_branches: CopyrightBranch.all,
+        derivation_types: DerivationType.all
     }
   end
 
