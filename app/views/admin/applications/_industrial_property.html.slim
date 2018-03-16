@@ -21,6 +21,8 @@ div.panel
           = industrial_property.title
       div.field_block
         label Fecha de divulgación previa
+        p
+          = industrial_property.previous_release_date
 
 div.panel
   div.application_header
@@ -63,7 +65,8 @@ div.panel
           = person_address.federal_entity
       div.field_block
         label Estado:
-
+        p
+          = person_address.state
       div.field_block
         label País:
         p
@@ -122,7 +125,8 @@ div.panel
           = inventor_address.federal_entity
       div.field_block
         label Estado:
-
+        p
+          = inventor_address.state
       div.field_block
         label País:
         p
@@ -147,10 +151,6 @@ div.panel
         label Nombre:
         p
           = owner.name
-      div.field_block
-        label Nacionalidad:
-        p
-          = owner.nationality
       div.field_block
         label RGP:
         p
@@ -180,7 +180,8 @@ div.panel
           = owner_address.federal_entity
       div.field_block
         label Estado:
-
+        p
+          = owner_address.state
       div.field_block
         label País:
         p
