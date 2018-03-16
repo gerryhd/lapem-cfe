@@ -60,7 +60,7 @@ class Applicant::ApplicationsController < ApplicationController
   end
 
   def application_params
-    params.require(:application).permit(:application_type_id, data_general_attributes: [:name, :nationality, :state, address_data_attributes: [:zip_code, :street, :external_number, :internal_number, :colony, :municipality, :location, :federal_entity, :between_streets, :back_street, :country_id], person_attributes: [:curp, :name, :first_last_name, :second_last_name, :nationality, :phone, :email, :social_reason, :rfc, :gender, :birth_date, :birth_location, :cell_phone, :participation_percent, :participation_type, :type_person_id]], address_notification_attributes: [address_data_attributes: [:zip_code, :street, :external_number, :internal_number, :colony, :municipality, :location, :federal_entity, :between_streets, :back_street, :country_id]])
+    params.require(:application).permit(:application_type_id, data_general_attributes: [:phone, :fax, :name, :nationality, :state, address_data_attributes: [:zip_code, :street, :external_number, :internal_number, :colony, :municipality, :location, :federal_entity, :between_streets, :back_street, :country_id, :state], person_attributes: [:curp, :name, :first_last_name, :second_last_name, :nationality, :phone, :email, :social_reason, :rfc, :gender, :birth_date, :birth_location, :cell_phone, :participation_percent, :participation_type, :type_person_id]], address_notification_attributes: [address_data_attributes: [:zip_code, :street, :external_number, :internal_number, :colony, :municipality, :location, :federal_entity, :between_streets, :back_street, :country_id]])
   end
 
   def distinctive_sign_params
@@ -68,6 +68,6 @@ class Applicant::ApplicationsController < ApplicationController
   end
 
   def industrial_property_params
-    params.require(:application).require(:industrial_property).permit(:is_applicant_invention, :title, :previous_release_date, :divisional_number, :divisional_legal_concept, :divisional_date, :design_type_id, :type_request_id, data_inventor_attributes: [:nationality, :phone, :fax, address_data_attributes:[:zip_code, :street, :external_number, :internal_number, :colony, :municipality, :location, :federal_entity, :between_streets, :back_street, :country_id]], data_owner_attributes: [:nationality, :phone, :fax,:rgp, address_data_attributes:[:zip_code, :street, :external_number, :internal_number, :colony, :municipality, :location, :federal_entity, :between_streets, :back_street, :country_id]])
+    params.require(:application).require(:industrial_property).permit(:is_applicant_invention, :title, :previous_release_date, :divisional_number, :divisional_legal_concept, :divisional_date, :design_type_id, :type_request_id, data_inventor_attributes: [:nationality, :name, :phone, :fax, address_data_attributes: [:zip_code, :state, :street, :external_number, :internal_number, :colony, :municipality, :location, :federal_entity, :between_streets, :back_street, :country_id]], data_owner_attributes: [:nationality, :notification_people, :name, :phone, :fax, :rgp, address_data_attributes: [:zip_code, :street, :external_number, :internal_number, :colony, :municipality, :location, :federal_entity, :between_streets, :back_street, :country_id, :state]])
   end
 end
