@@ -14,24 +14,31 @@ div.panel
           label Tipo de diseño:
           p
             = industrial_property.design_type.name
+    div.group_fields
+      div.field_block
+        label Denominación o Título de la invención
+        p
+          = industrial_property.title
+      div.field_block
+        label Fecha de divulgación previa
 
 div.panel
   div.application_header
-    p Datos del (de los) solicitante(s) y el (los) inventor(es)
+    p Datos del (de los) solicitante(s)
   div.application_details
     h1 Datos del solicitante
     - applicant = application.applicant
-    - person = applicant.person
-    - person_address = applicant.data_general.address_data
+    - applicant_data = application.data_general
+    - person_address = application.data_general.address_data
     div.group_fields
       div.field_block
         label Nombre:
         p
-          = "#{person.name} #{person.first_last_name} #{person.second_last_name}"
+          = applicant_data.name
       div.field_block
         label Nacionalidad:
         p
-          = person.nationality
+          = applicant_data.nationality
     div.group_fields
       div.field_block
         label Calle:
@@ -40,7 +47,7 @@ div.panel
       div.field_block
         label Número:
         p
-          = person_address.external_number
+          = person_address.internal_number
       div.field_block
         label Colonia:
         p
@@ -51,13 +58,12 @@ div.panel
           = person_address.zip_code
     div.group_fields
       div.field_block
-        label Municipio:
+        label Población:
         p
-          = person_address.municipality
+          = person_address.federal_entity
       div.field_block
         label Estado:
-        p
-          = person_address.federal_entity or applicant.data_general.state
+
       div.field_block
         label País:
         p
@@ -66,63 +72,71 @@ div.panel
       div.field_block
         label Teléfono:
         p
-          = person.cell_phone
+          = applicant_data.phone
       div.field_block
         label Fax:
         p
-          = person.fax
+          = applicant_data.fax
+
+
+div.panel
+  div.application_header
+    p Datos de (de los) inventor(es)
+    - inventor = industrial_property.data_inventor
+  div.application_details
     - if industrial_property.is_applicant_invention
-      h1 Datos de (de los) inventor(es)
-      - inventor = industrial_property.data_inventor
-      div.group_fields
-        div.field_block
-          label Nombre:
-          p
-            = inventor.name
-        div.field_block
-          label Nacionalidad:
-          p
-            = inventor.nationality
-      div.group_fields
-        - inventor_address = inventor.address_data
-        div.field_block
-          label Nombre:
-          p
-            = inventor_address.street
-        div.field_block
-          label Número:
-          p
-            = inventor_address.external_number
-        div.field_block
-          label Colonia:
-          p
-            = inventor_address.colony
-        div.field_block
-          label Código postal:
-          p
-            = inventor_address.zip_code
-      div.group_fields
-        div.field_block
-          label Municipio:
-          p
-            = inventor_address.municipality
-        div.field_block
-          label Estado:
-          p
-            = inventor_address.federal_entity
-        div.field_block
-          label País:
-          p
-            = inventor_address.country.name
-        div.group_fields
-          div.field_block
-            label Teléfono:
-            p
-              = inventor.phone
-          div.field_block
-            label Fax:
-            p
-              = inventor.fax
+      h1 El solicitante es el inventor
+    - else
+      h1 El solicitante es el causahabiente
+    div.group_fields
+      div.field_block
+        label Nombre:
+        p
+          = inventor.name
+      div.field_block
+        label Nacionalidad:
+        p
+          = inventor.nationality
+    div.group_fields
+      - inventor_address = inventor.address_data
+      div.field_block
+        label Nombre:
+        p
+          = inventor_address.street
+      div.field_block
+        label Número:
+        p
+          = inventor_address.internal_number
+      div.field_block
+        label Colonia:
+        p
+          = inventor_address.colony
+      div.field_block
+        label Código postal:
+        p
+          = inventor_address.zip_code
+    div.group_fields
+      div.field_block
+        label Población:
+        p
+          = inventor_address.federal_entity
+      div.field_block
+        label Estado:
+
+      div.field_block
+        label País:
+        p
+          = inventor_address.country.name
+    div.group_fields
+      div.field_block
+        label Teléfono:
+        p
+          = inventor.phone
+      div.field_block
+        label Fax:
+        p
+          = inventor.fax
+
 div.panel
   div.application_header
     p Datos del apoderado
@@ -137,49 +151,52 @@ div.panel
         label Nacionalidad:
         p
           = owner.nationality
-      div.group_fields
-        - owner_address = owner.address_data
-        div.field_block
-          label Nombre:
-          p
-            = owner_address.street
-        div.field_block
-          label Número:
-          p
-            = owner_address.external_number
-        div.field_block
-          label Colonia:
-          p
-            = owner_address.colony
-        div.field_block
-          label Código postal:
-          p
-            = owner_address.zip_code
-      div.group_fields
-        div.field_block
-          label Municipio:
-          p
-            = owner_address.municipality
-        div.field_block
-          label Estado:
-          p
-            = owner_address.federal_entity
-        div.field_block
-          label País:
-          p
-            = owner_address.country.name
-        div.group_fields
-          div.field_block
-            label Teléfono:
-            p
-              = owner_address.phone
-          div.field_block
-            label Fax:
-            p
-              = owner_address.fax
-        h1 Personas autorizadas para recibir notificaciones
-        div.group_fields
-          div.field_block
-          p
-            = owner_address.notificated_people
+      div.field_block
+        label RGP:
+        p
+          = owner.rgp
+    div.group_fields
+      - owner_address = owner.address_data
+      div.field_block
+        label Nombre:
+        p
+          = owner_address.street
+      div.field_block
+        label Número:
+        p
+          = owner_address.internal_number
+      div.field_block
+        label Colonia:
+        p
+          = owner_address.colony
+      div.field_block
+        label Código postal:
+        p
+          = owner_address.zip_code
+    div.group_fields
+      div.field_block
+        label Población:
+        p
+          = owner_address.federal_entity
+      div.field_block
+        label Estado:
+
+      div.field_block
+        label País:
+        p
+          = owner_address.country.name
+    div.group_fields
+      div.field_block
+        label Teléfono:
+        p
+          = owner.phone
+      div.field_block
+        label Fax:
+        p
+          = owner.fax
+    h1 Personas autorizadas para recibir notificaciones
+    div.group_fields
+      div.field_block
+        p
+          = owner.notification_people
 
