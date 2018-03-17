@@ -78,7 +78,7 @@
 
     <md-input-container class="md-block" flex-gt-sm>
       <label>Porcentaje de participación</label>
-      <input name="general_data_participation_percent" required ng-model="application.data_general.person.participation_percent">
+      <input name="general_data_participation_percent" type="number" required ng-model="application.data_general.person.participation_percent">
       <span class="error-field" ng-show="(form_request_data.general_data_participation_percent.$error.required && form_request_data.general_data_participation_percent.$touched) || (submitted[$index] && form_request_data.general_data_participation_percent.$error.required)">Este campo es obligatorio</span>
     </md-input-container>
   </div>
@@ -259,7 +259,7 @@
 
     <md-input-container class="md-block" flex-gt-sm>
       <label>Porcentaje de participación</label>
-      <input name="general_data_author_participation_percent" required ng-model="application.copyright.general_data_author.participation_percent">
+      <input name="general_data_author_participation_percent" type="number" required ng-model="application.copyright.general_data_author.participation_percent">
       <span class="error-field" ng-show="(form_request_data.general_data_author_participation_percent.$error.required && form_request_data.general_data_author_participation_percent.$touched) || (submitted[$index] && form_request_data.general_data_author_participation_percent.$error.required)">Este campo es obligatorio</span>
     </md-input-container>
   </div>

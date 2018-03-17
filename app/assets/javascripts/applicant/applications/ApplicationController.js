@@ -133,7 +133,7 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
             $scope.application.data_general_attributes.address_data_attributes = $scope.application.data_general.address_data;
             $scope.application.data_general_attributes.person_attributes = $scope.application.data_general.person;
 
-            $scope.application.copyright.data_copyright_attributes =$scope.application.copyright.data_copyrights;
+            $scope.application.copyright.data_copyrights_attributes =$scope.application.copyright.data_copyrights;
             $scope.application.copyright.person_notification_attributes = $scope.application.copyright.person_notification;
             $scope.application.copyright.general_data_author_attributes = $scope.application.copyright.general_data_author;
             $scope.application.copyright.general_data_author_attributes.address_data_attributes = $scope.application.copyright.general_data_author.address_data;
