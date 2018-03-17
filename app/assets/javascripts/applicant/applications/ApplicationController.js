@@ -8,6 +8,13 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
     $scope.application.data_general.address_data = {};
     $scope.application.address_notification = {};
     $scope.application.address_notification.address_data = {};
+    $scope.application.copyright = {};
+    $scope.application.copyright.person_notification = {};
+    $scope.application.copyright.legal_representative = {};
+    $scope.application.copyright.data_copyrights = [{
+        title: '',
+        author: ''
+    }];
 
     $scope.application.industrial_property = {};
     $scope.steps = [];
@@ -119,6 +126,41 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
         }
     };
 
+    $scope.saveCopyright = function ($index,form_request_data) {
+        $scope.submitted[$index] = true;
+        if ($scope.form_request.$valid) {
+            $scope.application.data_general_attributes = $scope.application.data_general;
+            $scope.application.data_general_attributes.address_data_attributes = $scope.application.data_general.address_data;
+            $scope.application.data_general_attributes.person_attributes = $scope.application.data_general.person;
+
+            $scope.application.copyright.data_copyright_attributes =$scope.application.copyright.data_copyrights;
+            $scope.application.copyright.person_notification_attributes = $scope.application.copyright.person_notification;
+            $scope.application.copyright.general_data_author_attributes = $scope.application.copyright.general_data_author;
+            $scope.application.copyright.general_data_author_attributes.address_data_attributes = $scope.application.copyright.general_data_author.address_data;
+
+            $scope.application.copyright.legal_representative_attributes = $scope.application.copyright.legal_representative;
+            $scope.application.copyright.legal_representative_attributes.address_data_attributes = $scope.application.copyright.legal_representative.address_data;
+
+            ApplicationService.create($scope.application, false).then(function (response) {
+                if (response.data.status) {
+                    swal({
+                        title: "Exito",
+                        text: "La solicitud fue creada exitosamente",
+                        type: 'success',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false
+                    }).then(function () {
+                        location.href = "/";
+                    }, function (dismmiss) {
+
+                    })
+                }
+            }, function (error) {
+                console.log(error)
+            });
+        }
+    };
+
     $scope.previousSection = function ($index, form_request_data) {
         $scope.steps[$index].disabled = true;
         $scope.steps[$index - 1].disabled = false;
@@ -182,6 +224,19 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
             $scope.application.copyright.general_data_author.address_data = data_general.address_data;
         }
     });
+
+    $scope.validateDataCopyright = function () {
+        var last_index = $scope.application.copyright.data_copyrights.length - 1;
+        var last_element = $scope.application.copyright.data_copyrights[last_index];
+        if (last_element.title != "" && last_element.author != "") {
+            $scope.application.copyright.data_copyrights.push({
+                title: '',
+                author: ''
+            })
+        } else {
+            swal("Titulo y autor son obligatorios");
+        }
+    }
 
 
 }]);

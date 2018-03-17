@@ -18,13 +18,13 @@ class Applicant::ApplicationsController < ApplicationController
       when ApplicationType::PATENT
         application.applicable = IndustrialProperty.new(industrial_property_params)
       when ApplicationType::COPYRIGHT
-        application.applicable = Copyright.new(distinctive_sign_params)
+        application.applicable = Copyright.new(copyright_params)
     end
 
     if application.save
-      render json: {status: true}
+      render json: {status: false}
     else
-      render json: {status: true, errors: application.errors.full_messages}
+      render json: {status: false, errors: application.errors.full_messages}
     end
   end
 
@@ -71,5 +71,9 @@ class Applicant::ApplicationsController < ApplicationController
 
   def industrial_property_params
     params.require(:application).require(:industrial_property).permit(:is_applicant_invention, :title, :previous_release_date, :divisional_number, :divisional_legal_concept, :divisional_date, :design_type_id, :type_request_id, data_inventor_attributes: [:nationality, :name, :phone, :fax, address_data_attributes: [:zip_code, :state, :street, :external_number, :internal_number, :colony, :municipality, :location, :federal_entity, :between_streets, :back_street, :country_id]], data_owner_attributes: [:nationality, :notification_people, :name, :phone, :fax, :rgp, address_data_attributes: [:zip_code, :street, :external_number, :internal_number, :colony, :municipality, :location, :federal_entity, :between_streets, :back_street, :country_id, :state]])
+  end
+
+  def copyright_params
+    params.require(:application).require(:copyright).permit(:titular_is_author, :title, :copyright_branch_id, :derivation_type_id, :summary, :know_public, :publication_date, :is_derivated, general_data_author_attributes: [:nationality, :name, :first_last_name, :second_last_name, :email, :curp, :rfc, :gender, :birth_date, :birth_location, :cell_phone, :participation_percent, :participation_type, :phone, :fax, address_data_attributes: [:zip_code, :state, :street, :external_number, :internal_number, :colony, :municipality, :location, :federal_entity, :between_streets, :back_street, :country_id]], person_notification_attributes: [:curp, :rfc, :name, :first_last_name, :second_last_name], data_copyright_attributes: [:title, :author], legal_representative_attributes: [:name, :first_last_name, :second_last_name, :phone, :email, :curp, :rfc, :cell_phone, :name_representative, address_data_attributes: [:zip_code, :street, :external_number, :internal_number, :colony, :municipality, :location, :federal_entity, :between_streets, :back_street, :country_id, :state]])
   end
 end

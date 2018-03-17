@@ -429,7 +429,7 @@
 
     <md-input-container class="md-block" flex-gt-sm>
       <label>¿A quién representa?</label>
-      <input name="legal_representative_name_representantive" ng-model="application.copyright.legal_representative.name_representantive" required>
+      <input name="legal_representative_name_representantive" ng-model="application.copyright.legal_representative.name_representative" required>
       <span class="error-field" ng-show="(form_request_data.legal_representative_name_representantive.$error.required && form_request_data.legal_representative_name_representantive.$touched) || (submitted[$index] && form_request_data.legal_representative_name_representantive.$error.required)">Este campo es obligatorio</span>
     </md-input-container>
   </div>
@@ -585,37 +585,66 @@
 
     <div class="md-block" flex-gt-sm>
       <label>¿Se ha dado a conocer?</label>
-      <md-radio-group ng-model="application.copyright.known_public">
+      <md-radio-group required name="data_work_know_public" ng-model="application.copyright.known_public">
         <md-radio-button value="1">Si</md-radio-button>
         <md-radio-button value="0">No</md-radio-button>
       </md-radio-group>
+      <span class="error-field" ng-show="form_request_data.data_work_know_public.$error.required && form_request_data.data_work_know_public.$touched || (submitted[$index] && form_request_data.data_work_know_public.$error.required)">Este campo es obligatorio</span>
     </div>
 
     <div class="md-block" ng-if="application.copyright.known_public == 1" flex-gt-sm>
       <label>
         <small>Fecha de publicación:</small>
       </label>
-      <md-datepicker name="general_data_birth_date" ng-model="application.copyright.publication_date" md-placeholder="Seleccione Fecha" md-open-on-focus></md-datepicker>
+      <md-datepicker name="data_work_publication_date" ng-required="application.copyright.known_public == 1" ng-model="application.copyright.publication_date" md-placeholder="Seleccione Fecha" md-open-on-focus></md-datepicker>
+      <p class="error-field" ng-show="form_request_data.data_work_publication_date.$error.required && form_request_data.data_work_publication_date.$touched || (submitted[$index] && form_request_data.data_work_publication_date.$error.required)">Este
+        campo es obligatorio</p>
     </div>
 
   </div>
 
   <div layout-gt-sm="row">
     <div class="md-block" flex-gt-sm>
-      <md-radio-group ng-model="application.copyright.is_derivated">
+      <md-radio-group required name="data_work_is_derivated" ng-model="application.copyright.is_derivated">
         <md-radio-button value="0">Es primigenia</md-radio-button>
         <md-radio-button value="1">Es derivada</md-radio-button>
       </md-radio-group>
+      <span class="error-field" ng-show="form_request_data.data_work_is_derivated.$error.required && form_request_data.data_work_is_derivated.$touched || (submitted[$index] && form_request_data.data_work_is_derivated.$error.required)">Este campo es obligatorio</span>
     </div>
 
     <md-input-container class="md-block" flex-gt-sm ng-if="application.copyright.is_derivated == 1">
       <label>Tipo de derivación</label>
-      <md-select required name="data_work_copyright_branch" ng-model="application.copyright.copyright_branch_id">
+      <md-select ng-required="application.copyright.is_derivated == 1" name="data_work_copyright_derivated_type" ng-model="application.copyright.derivation_type_id">
         <md-option ng-value="{{derivation_type.id}}" ng-repeat="derivation_type in derivation_types | orderBy:'name' ">{{derivation_type.name}}
         </md-option>
       </md-select>
-      <span class="error-field" ng-show="form_request_data.data_work_copyright_branch.$error.required && form_request_data.data_work_copyright_branch.$touched || (submitted[$index] && form_request_data.data_work_copyright_branch.$error.required)">Este campo es obligatorio</span>
+      <span class="error-field" ng-show="form_request_data.data_work_copyright_derivated_type.$error.required && form_request_data.data_work_copyright_derivated_type.$touched || (submitted[$index] && form_request_data.data_work_copyright_derivated_type.$error.required)">Este campo es obligatorio</span>
     </md-input-container>
+  </div>
+
+  <div layout-gt-sm="row" ng-if="application.copyright.is_derivated == 1">
+    <div class="md-block" flex-gt-sm>
+      <md-toolbar>
+        <h2 class="md-toolbar-tools text-center">
+          <span>Datos de la obra primigenia</span>
+        </h2>
+      </md-toolbar>
+    </div>
+  </div>
+
+  <div ng-if="application.copyright.is_derivated == 1">
+    <md-button class="md-primary md-raised" ng-click="validateDataCopyright()">Nueva obra</md-button>
+
+    <div layout-gt-sm="row" ng-repeat="data_copyright in application.copyright.data_copyrights track by $index">
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Titulo</label>
+        <input ng-model="data_copyright.title">
+      </md-input-container>
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Autor</label>
+        <input ng-model="data_copyright.author">
+      </md-input-container>
+    </div>
   </div>
 
 
