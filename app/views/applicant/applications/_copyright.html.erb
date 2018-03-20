@@ -53,8 +53,8 @@
 
     <div class="md-block" flex-gt-sm>
       <md-radio-group name="general_data_gender" required ng-model="application.data_general.person.gender">
-        <md-radio-button value="true">Masculino</md-radio-button>
-        <md-radio-button value="false">Femenino</md-radio-button>
+        <md-radio-button value="Masculino">Masculino</md-radio-button>
+        <md-radio-button value="Femenino">Femenino</md-radio-button>
       </md-radio-group>
       <span class="error-field" ng-show="(form_request_data.general_data_gender.$error.required && form_request_data.general_data_gender.$touched) || (submitted[$index] && form_request_data.general_data_gender.$error.required)">Este campo es obligatorio</span>
     </div>

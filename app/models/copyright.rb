@@ -1,6 +1,7 @@
 class Copyright < ActiveRecord::Base
   belongs_to :application
   belongs_to :copyright_branch
+  belongs_to :derivation_type
   has_one :legal_representative, dependent: :destroy
   has_one :person_notification, dependent: :destroy
   has_many :data_copyrights, dependent: :destroy

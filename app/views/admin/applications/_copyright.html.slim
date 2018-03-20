@@ -1,0 +1,350 @@
+- copyright = application.applicable
+div.panel
+  div.application_header
+    p Datos generales del solicitante
+  div.application_details
+    - applicant = application.data_general.person
+    - applicant_address = application.data_general.address_data
+    div.group_fields
+      div.field_block
+        label CURP:
+        p
+          = applicant.curp
+      div.field_block
+        label RFC:
+        p
+          = applicant.rfc
+    div.group_fields
+      div.field_block
+        label Nombre:
+        p
+          = applicant.name
+      div.field_block
+        label Primer apellido:
+        p
+          = applicant.first_last_name
+      div.field_block
+        label Segundo apellido:
+        p
+          = applicant.second_last_name
+    div.group_fields
+      div.field_block
+        label Sexo:
+        p
+          = applicant.gender
+      div.field_block
+        label Fecha de nacimiento:
+        p
+          = applicant.birth_date
+      div.field_block
+        label Lugar de nacimiento:
+        p
+          = applicant.birth_location
+    div.group_fields
+      div.field_block
+        label Nacionalidad:
+        p
+          = applicant.nationality
+      div.field_block
+        label Porcentaje y tipo de participación:
+        p
+          = "#{applicant.participation_percent}% #{applicant.participation_type}"
+    div.group_fields
+      div.field_block
+        label Teléfono:
+        p
+          = applicant.phone
+      div.field_block
+        label Celular:
+        p
+          = applicant.cell_phone
+      div.field_block
+        label Correo electrónico:
+        p
+          = applicant.email
+    h1 Domicilio particular
+    div.group_fields
+      div.field_block
+        label Código postal:
+        p
+          = applicant_address.zip_code
+      div.field_block
+        label Calle:
+        p
+          = applicant_address.street
+      div.field_block
+        label Número exterior:
+        p
+          = applicant_address.external_number
+      div.field_block
+        label Número interior:
+        p
+          = applicant_address.internal_number
+    div.group_fields
+      div.field_block
+        label Colonia:
+        p
+          = applicant_address.colony
+      div.field_block
+        label Municipio:
+        p
+          = applicant_address.municipality
+      div.field_block
+        label Estado:
+        p
+          = applicant_address.state
+      div.field_block
+        label País:
+        p
+          = applicant_address.country.name
+
+div.panel
+  div.application_header
+    p Datos del titular de la obra
+  div.application_details
+    - author = application.applicable.general_data_author
+    - author_address = author.address_data
+    div.group_fields
+      div.field_block
+        label CURP:
+        p
+          = author.curp
+      div.field_block
+        label RFC:
+        p
+          = author.rfc
+    div.group_fields
+      div.field_block
+        label Nombre:
+        p
+          = author.name
+      div.field_block
+        label Primer apellido:
+        p
+          = author.first_last_name
+      div.field_block
+        label Segundo apellido:
+        p
+          = author.second_last_name
+    div.group_fields
+      div.field_block
+        label Sexo:
+        p
+          = author.gender
+      div.field_block
+        label Fecha de nacimiento:
+        p
+          = author.birth_date
+      div.field_block
+        label Lugar de nacimiento:
+        p
+          = author.birth_location
+    div.group_fields
+      div.field_block
+        label Nacionalidad:
+        p
+          = author.nationality
+      div.field_block
+        label Porcentaje y tipo de participación:
+        p
+          = "#{author.participation_percent}% #{author.participation_type}"
+    div.group_fields
+      div.field_block
+        label Teléfono:
+        p
+          = author.phone
+      div.field_block
+        label Celular:
+        p
+          = author.cell_phone
+      div.field_block
+        label Correo electrónico:
+        p
+          = author.email
+    h1 Domicilio particular
+    div.group_fields
+      div.field_block
+        label Código postal:
+        p
+          = author_address.zip_code
+      div.field_block
+        label Calle:
+        p
+          = author_address.street
+      div.field_block
+        label Número exterior:
+        p
+          = author_address.external_number
+      div.field_block
+        label Número interior:
+        p
+          = author_address.internal_number
+    div.group_fields
+      div.field_block
+        label Colonia:
+        p
+          = author_address.colony
+      div.field_block
+        label Municipio:
+        p
+          = author_address.municipality
+      div.field_block
+        label Estado:
+        p
+          = author_address.state
+      div.field_block
+        label País:
+        p
+          = author_address.country.name
+
+div.panel
+  div.application_header
+    p Datos del representante legal
+  div.application_details
+    - legal = application.applicable.legal_representative
+    - legal_address = legal.address_data
+    div.group_fields
+      div.field_block
+        label CURP:
+        p
+          = legal.curp
+      div.field_block
+        label RFC:
+        p
+          = legal.rfc
+    div.group_fields
+      div.field_block
+        label Nombre:
+        p
+          = legal.name
+      div.field_block
+        label Primer apellido:
+        p
+          = legal.first_last_name
+      div.field_block
+        label Segundo apellido:
+        p
+          = legal.second_last_name
+    div.group_fields
+      div.field_block
+        label Teléfono:
+        p
+          = legal.phone
+      div.field_block
+        label Celular:
+        p
+          = legal.cell_phone
+      div.field_block
+        label Correo electrónico:
+        p
+          = legal.email
+      div.field_block
+        label Representa a:
+        p
+          = legal.name_representative
+    h1 Domicilio particular
+    div.group_fields
+      div.field_block
+        label Código postal:
+        p
+          = legal_address.zip_code
+      div.field_block
+        label Calle:
+        p
+          = legal_address.street
+      div.field_block
+        label Número exterior:
+        p
+          = legal_address.external_number
+      div.field_block
+        label Número interior:
+        p
+          = legal_address.internal_number
+    div.group_fields
+      div.field_block
+        label Colonia:
+        p
+          = legal_address.colony
+      div.field_block
+        label Municipio:
+        p
+          = legal_address.municipality
+      div.field_block
+        label Estado:
+        p
+          = legal_address.state
+      div.field_block
+        label País:
+        p
+          = legal_address.country.name
+
+div.panel
+  div.application_header
+    p Persona para recibir notificaciones
+  div.application_details
+    - notification = application.applicable.person_notification
+    div.group_fields
+      div.field_block
+        label CURP:
+        p
+          = notification.curp
+      div.field_block
+        label RFC:
+        p
+          = notification.rfc
+      div.group_fields
+        div.field_block
+          label Nombre:
+          p
+            = notification.name
+        div.field_block
+          label Primer apellido:
+          p
+            = notification.first_last_name
+        div.field_block
+          label Segundo apellido:
+          p
+            = notification.second_last_name
+
+div.panel
+  div.application_header
+    p Datos de la obra
+  div.application_details
+    - copyrighted = application.applicable
+    h1 Título
+    div.field_block
+      p
+        = copyrighted.title
+    h1 Síntesis
+    div.field_block
+      p
+        = copyrighted.summary
+    div.group_fields
+      div.field_block
+        label Rama:
+        p
+          = copyrighted.copyright_branch.name
+      div.field_block
+        label Fecha de publicación:
+        - if copyrighted.known_public
+          p
+            = copyrighted.publication_date
+        - else
+          p La obra no se ha dado a conocer
+      div.field_block
+    - if copyrighted.is_derivated
+      div.group_fields
+        div.field_block
+          label Tipo de derivación:
+          p
+            = copyrighted.derivation_type.name
+      - copyrighted.data_copyrights.each do |work|
+        div.group_fields
+          div.field_block
+            label Título de la obra:
+            p
+              = work.title
+          div.field_block
+            label Autor de la obra:
+            p
+              = work.author
