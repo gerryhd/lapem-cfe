@@ -1,0 +1,651 @@
+<md-content>
+  <md-tabs md-dynamic-height="true" md-center-tabs="true" md-swipe-content md-border-bottom>
+    <md-tab label="{{step.title}}" ng-repeat="step in steps track by $index" ng-disabled="step.disabled">
+      <input type="hidden" ng-init="submitted[$index]=false">
+      <md-content class="md-padding">
+        <ng-form name="form_request_data">
+          <ng-include class="container-fluid" src="step.template"></ng-include>
+          <div layout="row" layout-align="space-between end" style="margin-top: 30px;">
+            <md-button class="md-primary md-raised" style="position:absolute;left: 0" ng-click="previousSection($index,form_request_data)" ng-if="!$first">Anterior</md-button>
+            <md-button class="md-primary md-raised" style="position:absolute;right: 0" ng-click="nextSection($index,form_request_data)" ng-if="!$last">Siguiente</md-button>
+            <md-button class="md-primary md-raised" style="position:absolute;right: 0" ng-click="saveCopyright($index,form_request_data)" ng-if="$last">Guardar</md-button>
+          </div>
+        </ng-form>
+      </md-content>
+    </md-tab>
+  </md-tabs>
+</md-content>
+
+
+<script type="text/ng-template" id="general_data_copyright">
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Curp</label>
+      <input name="general_data_curp" ng-model="application.data_general.person.curp">
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>RFC</label>
+      <input name="general_data_rfc" required ng-model="application.data_general.person.rfc">
+      <span class="error-field" ng-show="(form_request_data.general_data_rfc.$error.required && form_request_data.general_data_rfc.$touched) || (submitted[$index] && form_request_data.general_data_rfc.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Nombre</label>
+      <input name="general_data_name" ng-model="application.data_general.person.name" required>
+      <span class="error-field" ng-show="(form_request_data.general_data_name.$error.required && form_request_data.general_data_name.$touched) || (submitted[$index] && form_request_data.general_data_name.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+  </div>
+
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Primer apellido</label>
+      <input name="general_data_first_last_name" required ng-model="application.data_general.person.first_last_name">
+      <span class="error-field" ng-show="(form_request_data.general_data_first_last_name.$error.required && form_request_data.general_data_first_last_name.$touched) || (submitted[$index] && form_request_data.general_data_first_last_name.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Segundo apellido</label>
+      <input name="general_data_second_last_name" required ng-model="application.data_general.person.second_last_name">
+      <span class="error-field" ng-show="(form_request_data.general_data_second_last_name.$error.required && form_request_data.general_data_second_last_name.$touched) || (submitted[$index] && form_request_data.general_data_second_last_name.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <div class="md-block" flex-gt-sm>
+      <md-radio-group name="general_data_gender" required ng-model="application.data_general.person.gender">
+        <md-radio-button value="Masculino">Masculino</md-radio-button>
+        <md-radio-button value="Femenino">Femenino</md-radio-button>
+      </md-radio-group>
+      <span class="error-field" ng-show="(form_request_data.general_data_gender.$error.required && form_request_data.general_data_gender.$touched) || (submitted[$index] && form_request_data.general_data_gender.$error.required)">Este campo es obligatorio</span>
+    </div>
+  </div>
+
+
+  <div layout-gt-sm="row">
+    <div class="md-block" flex-gt-sm>
+      <label>
+        <small>Fecha de nacimiento:</small>
+      </label>
+      <md-datepicker name="general_data_birth_date" required ng-model="application.data_general.person.birth_date" md-placeholder="Seleccione una fecha" md-open-on-focus></md-datepicker>
+      <span class="error-field" ng-show="form_request_data.general_data_birth_date.$error.required && form_request_data.general_data_birth_date.$touched || (submitted[$index] && form_request_data.general_data_birth_date.$error.required)">Este campo es obligatorio</span>
+    </div>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Lugar de nacimiento</label>
+      <input name="general_data_place_birth_date" required ng-model="application.data_general.person.birth_location">
+      <span class="error-field" ng-show="(form_request_data.general_data_place_birth_date.$error.required && form_request_data.general_data_place_birth_date.$touched) || (submitted[$index] && form_request_data.general_data_place_birth_date.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Porcentaje de participación</label>
+      <input name="general_data_participation_percent" type="number" required ng-model="application.data_general.person.participation_percent">
+      <span class="error-field" ng-show="(form_request_data.general_data_participation_percent.$error.required && form_request_data.general_data_participation_percent.$touched) || (submitted[$index] && form_request_data.general_data_participation_percent.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+  </div>
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Tipo de participación:</label>
+      <input name="general_data_participation_type" required ng-model="application.data_general.person.participation_type">
+      <span class="error-field" ng-show="form_request_data.general_data_participation_type.$error.required && form_request_data.general_data_participation_type.$touched || (submitted[$index] && form_request_data.general_data_participation_type.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Telefono</label>
+      <input ng-model="application.data_general.phone">
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Celular</label>
+      <input ng-model="application.data_general.person.cell_phone">
+    </md-input-container>
+  </div>
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Correo</label>
+      <input type="email" name="email_person" ng-model="application.data_general.person.email">
+      <span class="error-field" ng-show="(form_request_data.email_person.$error.email && form_request_data.email_person.$touched) || (submitted[$index] && form_request_data.email_person.$error.email)">Formato de correo incorrecto</span>
+    </md-input-container>
+    <div class="md-block" flex-gt-sm></div>
+  </div>
+
+  <div layout-gt-sm="row">
+    <div class="md-block" flex-gt-sm>
+      <md-toolbar>
+        <h2 class="md-toolbar-tools text-center">
+          <span>Domicilio Particular</span>
+        </h2>
+      </md-toolbar>
+    </div>
+  </div>
+
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Codigo Postal</label>
+      <input name="general_data_address_zip_code" required ng-model="application.data_general.address_data.zip_code">
+      <span class="error-field" ng-show="form_request_data.general_data_address_zip_code.$error.required && form_request_data.general_data_address_zip_code.$touched || (submitted[$index] && form_request_data.general_data_address_zip_code.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Calle</label>
+      <input name="general_data_address_street" required ng-model="application.data_general.address_data.street">
+      <span class="error-field" ng-show="form_request_data.general_data_address_street.$error.required && form_request_data.general_data_address_street.$touched || (submitted[$index] && form_request_data.general_data_address_street.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Numero exterior</label>
+      <input name="general_data_address_external_number" required ng-model="application.data_general.address_data.external_number">
+      <span class="error-field" ng-show="form_request_data.general_data_address_external_number.$error.required && form_request_data.general_data_address_external_number.$touched || (submitted[$index] && form_request_data.general_data_address_external_number.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Numero interno</label>
+      <input ng-model="application.data_general.address_data.internal_number">
+    </md-input-container>
+  </div>
+
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Colonia</label>
+      <input name="general_data_address_colony" required ng-model="application.data_general.address_data.colony">
+      <span class="error-field" ng-show="form_request_data.general_data_address_colony.$error.required && form_request_data.general_data_address_colony.$touched || (submitted[$index] && form_request_data.general_data_address_colony.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Municipio/Delegación</label>
+      <input name="general_data_address_municipality" required ng-model="application.data_general.address_data.municipality">
+      <span class="error-field" ng-show="form_request_data.general_data_address_municipality.$error.required && form_request_data.general_data_address_municipality.$touched || (submitted[$index] && form_request_data.general_data_address_municipality.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Estado</label>
+      <input name="general_data_state" required ng-model="application.data_general.address_data.state">
+      <span class="error-field" ng-show="form_request_data.general_data_state.$error.required && form_request_data.general_data_state.$touched || (submitted[$index] && form_request_data.general_data_state.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Pais</label>
+      <md-select required name="general_data_address_country" ng-model="application.data_general.address_data.country_id">
+        <md-select-header>
+          <md-input-container>
+            <input ng-model="countrySearchTerm"
+                   type="search"
+                   placeholder="Pais"
+                   class="header-search-box">
+          </md-input-container>
+        </md-select-header>
+        <md-option ng-value="{{country.id}}" ng-repeat="country in countries | orderBy:'name' | filter:countrySearchTerm">{{
+          country.name
+          }}
+        </md-option>
+      </md-select>
+      <span class="error-field" ng-show="form_request_data.general_data_address_country.$error.required && form_request_data.general_data_address_country.$touched || (submitted[$index] && form_request_data.general_data_address_country.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+  </div>
+
+</script>
+
+<script type="text/ng-template" id="owner_work_copyright">
+
+  <div layout-gt-sm="row">
+    <div class="md-block" flex-gt-sm>
+      <label>¿El titular es el mismo autor?</label>
+      <md-radio-group ng-model="application.copyright.titular_is_author">
+        <md-radio-button value="1">Si</md-radio-button>
+        <md-radio-button value="0">No</md-radio-button>
+      </md-radio-group>
+    </div>
+  </div>
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Curp</label>
+      <input name="general_data_author_curp" ng-model="application.copyright.general_data_author.curp">
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>RFC</label>
+      <input name="general_data_author_rfc" required ng-model="application.copyright.general_data_author.rfc">
+      <span class="error-field" ng-show="(form_request_data.general_data_author_rfc.$error.required && form_request_data.general_data_author_rfc.$touched) || (submitted[$index] && form_request_data.general_data_author_rfc.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Nombre</label>
+      <input name="general_data_author_name" ng-model="application.copyright.general_data_author.name" required>
+      <span class="error-field" ng-show="(form_request_data.general_data_author_name.$error.required && form_request_data.general_data_author_name.$touched) || (submitted[$index] && form_request_data.general_data_author_name.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+  </div>
+
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Primer apellido</label>
+      <input name="general_data_author_first_last_name" required ng-model="application.copyright.general_data_author.first_last_name">
+      <span class="error-field" ng-show="(form_request_data.general_data_author_first_last_name.$error.required && form_request_data.general_data_author_first_last_name.$touched) || (submitted[$index] && form_request_data.general_data_author_first_last_name.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Segundo apellido</label>
+      <input name="general_data_author_second_last_name" required ng-model="application.copyright.general_data_author.second_last_name">
+      <span class="error-field" ng-show="(form_request_data.general_data_author_second_last_name.$error.required && form_request_data.general_data_author_second_last_name.$touched) || (submitted[$index] && form_request_data.general_data_author_second_last_name.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <div class="md-block" flex-gt-sm>
+      <md-radio-group name="general_data_author_gender" required ng-model="application.copyright.general_data_author.gender">
+        <md-radio-button value="true">Masculino</md-radio-button>
+        <md-radio-button value="false">Femenino</md-radio-button>
+      </md-radio-group>
+      <span class="error-field" ng-show="(form_request_data.general_data_author_gender.$error.required && form_request_data.general_data_author_gender.$touched) || (submitted[$index] && form_request_data.general_data_author_gender.$error.required)">Este campo es obligatorio</span>
+    </div>
+  </div>
+
+
+  <div layout-gt-sm="row">
+    <div class="md-block" flex-gt-sm>
+      <label>
+        <small>Fecha de nacimiento:</small>
+      </label>
+      <md-datepicker name="general_data_author_birth_date" required ng-model="application.copyright.general_data_author.birth_date" md-placeholder="Seleccione una fecha" md-open-on-focus></md-datepicker>
+      <span class="error-field" ng-show="form_request_data.general_data_author_birth_date.$error.required && form_request_data.general_data_author_birth_date.$touched || (submitted[$index] && form_request_data.general_data_author_birth_date.$error.required)">Este campo es obligatorio</span>
+    </div>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Lugar de nacimiento</label>
+      <input name="general_data_author_place_birth_date" required ng-model="application.copyright.general_data_author.birth_location">
+      <span class="error-field" ng-show="(form_request_data.general_data_author_place_birth_date.$error.required && form_request_data.general_data_author_place_birth_date.$touched) || (submitted[$index] && form_request_data.general_data_author_place_birth_date.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Porcentaje de participación</label>
+      <input name="general_data_author_participation_percent" type="number" required ng-model="application.copyright.general_data_author.participation_percent">
+      <span class="error-field" ng-show="(form_request_data.general_data_author_participation_percent.$error.required && form_request_data.general_data_author_participation_percent.$touched) || (submitted[$index] && form_request_data.general_data_author_participation_percent.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+  </div>
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Tipo de participación:</label>
+      <input name="general_data_author_participation_type" required ng-model="application.copyright.general_data_author.participation_type">
+      <span class="error-field" ng-show="form_request_data.general_data_author_participation_type.$error.required && form_request_data.general_data_author_participation_type.$touched || (submitted[$index] && form_request_data.general_data_author_participation_type.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Telefono</label>
+      <input ng-model="application.copyright.general_data_author.phone">
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Celular</label>
+      <input ng-model="application.copyright.general_data_author.cell_phone">
+    </md-input-container>
+  </div>
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Correo</label>
+      <input type="email" name="email_general_data_author" ng-model="application.copyright.general_data_author.email">
+      <span class="error-field" ng-show="(form_request_data.email_general_data_author.$error.email && form_request_data.email_general_data_author.$touched) || (submitted[$index] && form_request_data.email_general_data_author.$error.email)">Formato de correo incorrecto</span>
+    </md-input-container>
+    <div class="md-block" flex-gt-sm></div>
+  </div>
+
+  <div layout-gt-sm="row">
+    <div class="md-block" flex-gt-sm>
+      <md-toolbar>
+        <h2 class="md-toolbar-tools text-center">
+          <span>Domicilio</span>
+        </h2>
+      </md-toolbar>
+    </div>
+  </div>
+
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Codigo Postal</label>
+      <input name="general_data_author_address_zip_code" required ng-model="application.copyright.general_data_author.address_data.zip_code">
+      <span class="error-field" ng-show="form_request_data.general_data_author_address_zip_code.$error.required && form_request_data.general_data_author_address_zip_code.$touched || (submitted[$index] && form_request_data.general_data_author_address_zip_code.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Calle</label>
+      <input name="general_data_author_address_street" required ng-model="application.copyright.general_data_author.address_data.street">
+      <span class="error-field" ng-show="form_request_data.general_data_author_address_street.$error.required && form_request_data.general_data_author_address_street.$touched || (submitted[$index] && form_request_data.general_data_author_address_street.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Numero exterior</label>
+      <input name="general_data_author_address_external_number" required ng-model="application.copyright.general_data_author.address_data.external_number">
+      <span class="error-field" ng-show="form_request_data.general_data_author_address_external_number.$error.required && form_request_data.general_data_author_address_external_number.$touched || (submitted[$index] && form_request_data.general_data_author_address_external_number.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Numero interno</label>
+      <input ng-model="application.copyright.general_data_author.address_data.internal_number">
+    </md-input-container>
+  </div>
+
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Colonia</label>
+      <input name="general_data_author_address_colony" required ng-model="application.copyright.general_data_author.address_data.colony">
+      <span class="error-field" ng-show="form_request_data.general_data_address_colony.$error.required && form_request_data.general_data_address_colony.$touched || (submitted[$index] && form_request_data.general_data_address_colony.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Municipio/Delegación</label>
+      <input name="general_data_author_address_municipality" required ng-model="application.copyright.general_data_author.address_data.municipality">
+      <span class="error-field" ng-show="form_request_data.general_data_author_address_municipality.$error.required && form_request_data.general_data_author_address_municipality.$touched || (submitted[$index] && form_request_data.general_data_author_address_municipality.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Estado</label>
+      <input name="general_data_author_state" required ng-model="application.copyright.general_data_author.address_data.state">
+      <span class="error-field" ng-show="form_request_data.general_data_author_state.$error.required && form_request_data.general_data_author_state.$touched || (submitted[$index] && form_request_data.general_data_author_state.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Pais</label>
+      <md-select required name="general_data_author_address_country" ng-model="application.copyright.general_data_author.address_data.country_id">
+        <md-select-header>
+          <md-input-container>
+            <input ng-model="countrySearchTerm"
+                   type="search"
+                   placeholder="Pais"
+                   class="header-search-box">
+          </md-input-container>
+        </md-select-header>
+        <md-option ng-value="{{country.id}}" ng-repeat="country in countries | orderBy:'name' | filter:countrySearchTerm">{{
+          country.name
+          }}
+        </md-option>
+      </md-select>
+      <span class="error-field" ng-show="form_request_data.general_data_author_address_country.$error.required && form_request_data.general_data_author_address_country.$touched || (submitted[$index] && form_request_data.general_data_author_address_country.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+  </div>
+</script>
+
+<script type="text/ng-template" id="legal_representative_copyright">
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Curp</label>
+      <input name="legal_representative_curp" ng-model="application.copyright.legal_representative.curp">
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>RFC</label>
+      <input name="legal_representative_rfc" required ng-model="application.copyright.legal_representative.rfc">
+      <span class="error-field" ng-show="(form_request_data.legal_representative_rfc.$error.required && form_request_data.legal_representative_rfc.$touched) || (submitted[$index] && form_request_data.legal_representative_rfc.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Nombre(s)</label>
+      <input name="legal_representative_name" ng-model="application.copyright.legal_representative.name" required>
+      <span class="error-field" ng-show="(form_request_data.legal_representative_name.$error.required && form_request_data.legal_representative_name.$touched) || (submitted[$index] && form_request_data.legal_representative_name.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+  </div>
+
+
+  <div layout-gt-sm="row">
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Primer Apellido</label>
+      <input name="legal_representative_first_last_name" required ng-model="application.copyright.legal_representative.first_last_name">
+      <span class="error-field" ng-show="(form_request_data.legal_representative_first_last_name.$error.required && form_request_data.legal_representative_first_last_name.$touched) || (submitted[$index] && form_request_data.legal_representative_first_last_name.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Segundo Apellido</label>
+      <input name="legal_representative_second_last_name" ng-model="application.copyright.legal_representative.second_last_name" required>
+      <span class="error-field" ng-show="(form_request_data.legal_representative_second_last_name.$error.required && form_request_data.legal_representative_second_last_name.$touched) || (submitted[$index] && form_request_data.legal_representative_second_last_name.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Telefono</label>
+      <input name="legal_representative_phone" ng-model="application.copyright.legal_representative.phone" required>
+      <span class="error-field" ng-show="(form_request_data.legal_representative_phone.$error.required && form_request_data.legal_representative_phone.$touched) || (submitted[$index] && form_request_data.legal_representative_phone.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+  </div>
+
+
+  <div layout-gt-sm="row">
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Celular</label>
+      <input name="legal_representative_cell_phone" required ng-model="application.copyright.legal_representative.cell_phone">
+      <span class="error-field" ng-show="(form_request_data.legal_representative_cell_phone.$error.required && form_request_data.legal_representative_cell_phone.$touched) || (submitted[$index] && form_request_data.legal_representative_cell_phone.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Correo</label>
+      <input name="legal_representative_email" type="email" ng-model="application.copyright.legal_representative.email" required>
+      <span class="error-field" ng-show="(form_request_data.legal_representative_email.$error.required && form_request_data.legal_representative_email.$touched) || (submitted[$index] && form_request_data.legal_representative_email.$error.required)">Este campo es obligatorio</span>
+      <span class="error-field" ng-show="(form_request_data.legal_representative_email.$error.email && form_request_data.legal_representative_email.$touched) || (submitted[$index] && form_request_data.legal_representative_email.$error.email)">Formato de correo incorrecto</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>¿A quién representa?</label>
+      <input name="legal_representative_name_representantive" ng-model="application.copyright.legal_representative.name_representative" required>
+      <span class="error-field" ng-show="(form_request_data.legal_representative_name_representantive.$error.required && form_request_data.legal_representative_name_representantive.$touched) || (submitted[$index] && form_request_data.legal_representative_name_representantive.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+  </div>
+
+  <div layout-gt-sm="row">
+    <div class="md-block" flex-gt-sm>
+      <md-toolbar>
+        <h2 class="md-toolbar-tools text-center">
+          <span>Domicilio</span>
+        </h2>
+      </md-toolbar>
+    </div>
+  </div>
+
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Codigo Postal</label>
+      <input name="legal_representative_address_zip_code" required ng-model="application.copyright.legal_representative.address_data.zip_code">
+      <span class="error-field" ng-show="form_request_data.legal_representative_address_zip_code.$error.required && form_request_data.legal_representative_address_zip_code.$touched || (submitted[$index] && form_request_data.legal_representative_address_zip_code.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Calle</label>
+      <input name="legal_representative_address_street" required ng-model="application.copyright.legal_representative.address_data.street">
+      <span class="error-field" ng-show="form_request_data.legal_representative_address_street.$error.required && form_request_data.legal_representative_address_street.$touched || (submitted[$index] && form_request_data.legal_representative_address_street.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Numero exterior</label>
+      <input name="legal_representative_address_external_number" required ng-model="application.copyright.legal_representative.address_data.external_number">
+      <span class="error-field" ng-show="form_request_data.legal_representative_address_external_number.$error.required && form_request_data.legal_representative_address_external_number.$touched || (submitted[$index] && form_request_data.legal_representative_address_external_number.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Numero interno</label>
+      <input ng-model="application.copyright.legal_representative.address_data.internal_number">
+    </md-input-container>
+  </div>
+
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Colonia</label>
+      <input name="legal_representative_address_colony" required ng-model="application.copyright.legal_representative.address_data.colony">
+      <span class="error-field" ng-show="form_request_data.legal_representative_address_colony.$error.required && form_request_data.legal_representative_address_colony.$touched || (submitted[$index] && form_request_data.legal_representative_address_colony.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Municipio/Delegación</label>
+      <input name="legal_representative_address_municipality" required ng-model="application.copyright.legal_representative.address_data.municipality">
+      <span class="error-field" ng-show="form_request_data.legal_representative_address_municipality.$error.required && form_request_data.legal_representative_address_municipality.$touched || (submitted[$index] && form_request_data.legal_representative_address_municipality.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Estado</label>
+      <input name="legal_representative_state" required ng-model="application.copyright.legal_representative.address_data.state">
+      <span class="error-field" ng-show="form_request_data.legal_representative_state.$error.required && form_request_data.legal_representative_state.$touched || (submitted[$index] && form_request_data.legal_representative_state.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Pais</label>
+      <md-select required name="legal_representative_address_country" ng-model="application.copyright.legal_representative.address_data.country_id">
+        <md-select-header>
+          <md-input-container>
+            <input ng-model="countrySearchTerm"
+                   type="search"
+                   placeholder="Pais"
+                   class="header-search-box">
+          </md-input-container>
+        </md-select-header>
+        <md-option ng-value="{{country.id}}" ng-repeat="country in countries | orderBy:'name' | filter:countrySearchTerm">{{
+          country.name
+          }}
+        </md-option>
+      </md-select>
+      <span class="error-field" ng-show="form_request_data.legal_representative_address_country.$error.required && form_request_data.legal_representative_address_country.$touched || (submitted[$index] && form_request_data.legal_representative_address_country.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+  </div>
+
+
+  <div layout-gt-sm="row">
+    <div class="md-block" flex-gt-sm>
+      <md-toolbar>
+        <h2 class="md-toolbar-tools text-center">
+          <span>Persona para recibir notificaciones</span>
+        </h2>
+      </md-toolbar>
+    </div>
+  </div>
+
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Curp</label>
+      <input name="person_notification_curp" ng-model="application.copyright.person_notification.curp">
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>RFC</label>
+      <input name="person_notification_rfc" ng-model="application.copyright.person_notification.rfc">
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Nombre(s)</label>
+      <input name="person_notification_name" ng-model="application.copyright.person_notification.name" required>
+      <span class="error-field" ng-show="(form_request_data.legal_representative_name.$error.required && form_request_data.legal_representative_name.$touched) || (submitted[$index] && form_request_data.legal_representative_name.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+  </div>
+
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Primer apellido</label>
+      <input name="person_notification_first_last_name" required ng-model="application.copyright.person_notification.second_last_name">
+      <span class="error-field" ng-show="(form_request_data.person_notification_first_last_name.$error.required && form_request_data.person_notification_first_last_name.$touched) || (submitted[$index] && form_request_data.person_notification_first_last_name.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Segundo Apellido</label>
+      <input name="person_notification_second_last_name" required ng-model="application.copyright.person_notification.first_last_name">
+      <span class="error-field" ng-show="(form_request_data.person_notification_second_last_name.$error.required && form_request_data.person_notification_second_last_name.$touched) || (submitted[$index] && form_request_data.person_notification_second_last_name.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+  </div>
+
+</script>
+
+<script type="text/ng-template" id="data_wor_copyright">
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Titulo</label>
+      <input name="data_work_title" required ng-model="application.copyright.title">
+      <span class="error-field" ng-show="(form_request_data.data_work_title.$error.required && form_request_data.data_work_title.$touched) || (submitted[$index] && form_request_data.data_work_title.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Sintesis</label>
+      <textarea name="data_work_summary" md-maxlength="4000" rows="5" required ng-model="application.copyright.summary"></textarea>
+      <span class="error-field" ng-show="(form_request_data.data_work_summary.$error.required && form_request_data.data_work_summary.$touched) || (submitted[$index] && form_request_data.data_work_summary.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+  </div>
+
+
+  <div layout-gt-sm="row">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Rama</label>
+      <md-select required name="data_work_copyright_branch" ng-model="application.copyright.copyright_branch_id">
+        <md-option ng-value="{{copyright_branch.id}}" ng-repeat="copyright_branch in copyright_branches | orderBy:'name' ">{{copyright_branch.name}}
+        </md-option>
+      </md-select>
+      <span class="error-field" ng-show="form_request_data.data_work_copyright_branch.$error.required && form_request_data.data_work_copyright_branch.$touched || (submitted[$index] && form_request_data.data_work_copyright_branch.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+
+    <div class="md-block" flex-gt-sm>
+      <label>¿Se ha dado a conocer?</label>
+      <md-radio-group required name="data_work_know_public" ng-model="application.copyright.known_public">
+        <md-radio-button value="1">Si</md-radio-button>
+        <md-radio-button value="0">No</md-radio-button>
+      </md-radio-group>
+      <span class="error-field" ng-show="form_request_data.data_work_know_public.$error.required && form_request_data.data_work_know_public.$touched || (submitted[$index] && form_request_data.data_work_know_public.$error.required)">Este campo es obligatorio</span>
+    </div>
+
+    <div class="md-block" ng-if="application.copyright.known_public == 1" flex-gt-sm>
+      <label>
+        <small>Fecha de publicación:</small>
+      </label>
+      <md-datepicker name="data_work_publication_date" ng-required="application.copyright.known_public == 1" ng-model="application.copyright.publication_date" md-placeholder="Seleccione Fecha" md-open-on-focus></md-datepicker>
+      <p class="error-field" ng-show="form_request_data.data_work_publication_date.$error.required && form_request_data.data_work_publication_date.$touched || (submitted[$index] && form_request_data.data_work_publication_date.$error.required)">Este
+        campo es obligatorio</p>
+    </div>
+
+  </div>
+
+  <div layout-gt-sm="row">
+    <div class="md-block" flex-gt-sm>
+      <md-radio-group required name="data_work_is_derivated" ng-model="application.copyright.is_derivated">
+        <md-radio-button value="0">Es primigenia</md-radio-button>
+        <md-radio-button value="1">Es derivada</md-radio-button>
+      </md-radio-group>
+      <span class="error-field" ng-show="form_request_data.data_work_is_derivated.$error.required && form_request_data.data_work_is_derivated.$touched || (submitted[$index] && form_request_data.data_work_is_derivated.$error.required)">Este campo es obligatorio</span>
+    </div>
+
+    <md-input-container class="md-block" flex-gt-sm ng-if="application.copyright.is_derivated == 1">
+      <label>Tipo de derivación</label>
+      <md-select ng-required="application.copyright.is_derivated == 1" name="data_work_copyright_derivated_type" ng-model="application.copyright.derivation_type_id">
+        <md-option ng-value="{{derivation_type.id}}" ng-repeat="derivation_type in derivation_types | orderBy:'name' ">{{derivation_type.name}}
+        </md-option>
+      </md-select>
+      <span class="error-field" ng-show="form_request_data.data_work_copyright_derivated_type.$error.required && form_request_data.data_work_copyright_derivated_type.$touched || (submitted[$index] && form_request_data.data_work_copyright_derivated_type.$error.required)">Este campo es obligatorio</span>
+    </md-input-container>
+  </div>
+
+  <div layout-gt-sm="row" ng-if="application.copyright.is_derivated == 1">
+    <div class="md-block" flex-gt-sm>
+      <md-toolbar>
+        <h2 class="md-toolbar-tools text-center">
+          <span>Datos de la obra primigenia</span>
+        </h2>
+      </md-toolbar>
+    </div>
+  </div>
+
+  <div ng-if="application.copyright.is_derivated == 1">
+    <md-button class="md-primary md-raised" ng-click="validateDataCopyright()">Nueva obra</md-button>
+
+    <div layout-gt-sm="row" ng-repeat="data_copyright in application.copyright.data_copyrights track by $index">
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Titulo</label>
+        <input ng-model="data_copyright.title">
+      </md-input-container>
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Autor</label>
+        <input ng-model="data_copyright.author">
+      </md-input-container>
+    </div>
+  </div>
+
+
+</script>

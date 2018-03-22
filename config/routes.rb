@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :applications do
       collection do
         get 'general_information'
+        get 'show/:id' => 'applications#show'
       end
     end
   end

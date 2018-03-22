@@ -1,6 +1,6 @@
 class Applicant::ApplicationsController < ApplicationController
   let :applicant, :all
-  before_action :set_application, only: [:show, :destroy, :update]
+  before_action :set_application, only: [:show, :destroy, :update, :edit]
 
   def new
 
@@ -50,6 +50,8 @@ class Applicant::ApplicationsController < ApplicationController
   end
 
   def show
+    byebug
+    @application = @application.as_json include: {data_general: {include: [:person, :address_data]}}
   end
 
   def general_information
