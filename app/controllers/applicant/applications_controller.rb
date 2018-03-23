@@ -32,8 +32,24 @@ class Applicant::ApplicationsController < ApplicationController
   end
 
   def show
-    byebug
-    @application = @application.as_json include: {data_general: {include: [:person, :address_data]}}
+    @application_json = @application.as_json include: {
+        data_general: {
+            include: [:person, :address_data]
+        },
+        address_notification: {
+            include: :address_data
+        }
+    }
+
+    if @application.application_type_id == ApplicationType::BRAND
+      @application_json["distinctive_sign"] = @application.applicable
+
+    elsif @application.application_type_id == ApplicationType::PATENT
+      @application_json["industrial_property"] = @application.applicable
+
+    elsif @application.application_type_id == ApplicationType::BRAND
+      @application_json["copyright"] = @application.applicable
+    end
   end
 
   def general_information
