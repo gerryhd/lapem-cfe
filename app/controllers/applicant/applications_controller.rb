@@ -65,7 +65,7 @@ class Applicant::ApplicationsController < ApplicationController
         }
       when ApplicationType::PATENT
         application[:industrial_property] = @application.applicable.as_json include: {
-            data_invertor: {include: [:address_data]},
+            data_inventor: {include: [:address_data]},
             data_owner: {include: [:address_data]},
         }
       when ApplicationType::COPYRIGHT
