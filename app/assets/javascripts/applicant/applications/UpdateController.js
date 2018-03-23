@@ -42,7 +42,6 @@ ObjectModule.controller('UpdateController',  ['$scope', 'ApplicationService', 'O
         ApplicationService.general_information().then(function (response) {
             var data = response.data;
             $scope.application_types = data.application_types;
-            $scope.type_persons = data.type_persons;
             $scope.countries = data.countries;
             $scope.sign_types = data.sign_types;
             $scope.brand_types = data.brand_types;
@@ -50,6 +49,44 @@ ObjectModule.controller('UpdateController',  ['$scope', 'ApplicationService', 'O
             $scope.design_types = data.design_types;
             $scope.copyright_branches = data.copyright_branches;
             $scope.derivation_types = data.derivation_types;
+
+
+            if($scope.application_original.industrial_property != undefined){
+                var date = $scope.application_original.industrial_property.previous_release_date.split('-');
+                $scope.application_original.industrial_property.previous_release_date = new Date(parseInt(date[0]),parseInt(date[1])-1,parseInt(date[2]));
+                if($scope.application_original.industrial_property.is_applicant_invention){
+                    $scope.application_original.industrial_property.is_applicant_invention = 'true';
+                }
+                else{
+                    $scope.application_original.industrial_property.is_applicant_invention = 'false';
+                }
+            }
+            if($scope.application_original.distinctive_sign != undefined){
+                if($scope.application_original.distinctive_sign.first_date_use != undefined){
+                    var date = $scope.application_original.distinctive_sign.first_date_use.split('-');
+                    $scope.application_original.distinctive_sign.first_date_use = new Date(parseInt(date[0]), parseInt(date[1])-1, parseInt(date[2]));
+                }
+            }
+            if($scope.application_original.copyright != undefined){
+                if($scope.application_original.data_general.person.birth_date != undefined){
+                    var date = $scope.application_original.data_general.person.birth_date.split('-');
+                    $scope.application_original.data_general.person.birth_date = new Date(parseInt(date[0]), parseInt(date[1])-1, parseInt(date[2]));
+                }
+                if($scope.application_original.copyright.general_data_author.birth_date != undefined){
+                    var date= $scope.application_original.copyright.general_data_author.birth_date.split('-');
+                    $scope.application_original.copyright.general_data_author.birth_date = new Date(parseInt(date[0]), parseInt(date[1])-1, parseInt(date[2]));
+                }
+                if($scope.application_original.copyright.publication_date != undefined){
+                    var date = $scope.application_original.copyright.publication_date.split('-');
+                    $scope.application_original.copyright.publication_date = new Date(parseInt(date[0]), parseInt(date[1])-1, parseInt(date[2]));
+                }
+                // if($scope.application_original.copyright.known_public){
+                //     $scope.application_original.copyright.known_public = "true";
+                // }
+                // else{
+                //     $scope.application_original.copyright.known_public = "false";
+                // }
+            }
 
             $scope.reset();
         }, function (error) {
@@ -89,13 +126,13 @@ ObjectModule.controller('UpdateController',  ['$scope', 'ApplicationService', 'O
 
             var data = $scope.application;
             if (data.distinctive_sign.brand_type_id != $scope.nominative_brand_type) {
-                delete $scope.application.data_general;
-                delete $scope.application.address_notification;
+                // delete $scope.application.data_general;
+                // delete $scope.application.address_notification;
                 has_file = true;
                 var file = $scope.application.distinctive_sign.file_sign[0].lfFile;
-                delete $scope.application.distinctive_sign.file_sign[0];
+                // delete $scope.application.distinctive_sign.file_sign[0];
                 $scope.application.distinctive_sign.file_sign = file;
-                data = ObjectToFormData({application: data});
+                // data = ObjectToFormData({application: data});
 
             }
             ApplicationService.update(data, has_file).then(function (response) {
@@ -165,7 +202,7 @@ ObjectModule.controller('UpdateController',  ['$scope', 'ApplicationService', 'O
             $scope.application.copyright.legal_representative_attributes = $scope.application.copyright.legal_representative;
             $scope.application.copyright.legal_representative_attributes.address_data_attributes = $scope.application.copyright.legal_representative.address_data;
 
-            ApplicationService.update($scope.application).then(function (response) {
+            ApplicationService.update($scope.application,false).then(function (response) {
                 if (response.data.status) {
                     swal({
                         title: "Exito",
@@ -206,7 +243,6 @@ ObjectModule.controller('UpdateController',  ['$scope', 'ApplicationService', 'O
     }
 
     $scope.$watch('application.application_type_id', function (newVal) {
-        console.log('iran');
         if (newVal != undefined) {
             angular.forEach($scope.application_types, function (application_type) {
                 if (application_type.id == newVal) {

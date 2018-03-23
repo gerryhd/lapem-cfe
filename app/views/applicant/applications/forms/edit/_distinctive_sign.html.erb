@@ -1,8 +1,14 @@
-<md-content>
-
-      <input type="hidden" ng-init="submitted[$index]=false">
-      <md-content class="md-padding">
+<md-content class="md-padding">
         <ng-form name="form_request_data">
+          <div layout-gt-sm="row">
+            <div class="md-block" flex-gt-sm>
+              <md-toolbar>
+                <h4 class="md-toolbar-tools text-center">
+                  <span>{{ steps[0].title }}</span>
+                </h4>
+              </md-toolbar>
+            </div>
+          </div>
 
           <md-radio-group ng-model="application.data_general.person.type_person_id" required>
             <md-radio-button ng-value="type_person.id" ng-repeat="type_person in type_persons" value="{{type_person.id}}" class="md-primary">{{type_person.name}}</md-radio-button>
@@ -67,6 +73,15 @@
               <span class="error-field" ng-show="(form_request_data.general_data_person_email.$error.required && form_request_data.general_data_person_email.$touched) || (submitted[$index] && form_request_data.general_data_person_email.$error.required)">Este campo es obligatorio</span>
               <span class="error-field" ng-show="(form_request_data.general_data_person_email.$error.email && form_request_data.general_data_person_email.$touched) || (submitted[$index] && form_request_data.general_data_person_email.$error.email)">Formato de correo incorrecto</span>
             </md-input-container>
+          </div>
+          <div layout-gt-sm="row">
+            <div class="md-block" flex-gt-sm>
+              <md-toolbar>
+                <h4 class="md-toolbar-tools text-center">
+                  <span>{{ steps[1].title }}</span>
+                </h4>
+              </md-toolbar>
+            </div>
           </div>
 
           <div layout-gt-sm="row">
@@ -154,10 +169,20 @@
           </div>
 
           <div layout-gt-sm="row">
-            <md-checkbox class="md-primary" ng-model="data.same_address_notification">La
-              dirección es la misma que la del solicitante
-            </md-checkbox>
+            <div class="md-block" flex-gt-sm>
+              <md-toolbar>
+                <h4 class="md-toolbar-tools text-center">
+                  <span>{{ steps[2].title }}</span>
+                </h4>
+              </md-toolbar>
+            </div>
           </div>
+
+          <!--<div layout-gt-sm="row">-->
+            <!--<md-checkbox class="md-primary" ng-model="data.same_address_notification">La-->
+              <!--dirección es la misma que la del solicitante-->
+            <!--</md-checkbox>-->
+          <!--</div>-->
 
           <div layout-gt-sm="row">
             <md-input-container class="md-block" flex-gt-sm>
@@ -242,6 +267,16 @@
               <input ng-model="application.address_notification.address_data.back_street">
             </md-input-container>
           </div>
+          <div layout-gt-sm="row">
+            <div class="md-block" flex-gt-sm>
+              <md-toolbar>
+                <h4 class="md-toolbar-tools text-center">
+                  <span>{{ steps[3].title }}</span>
+                </h4>
+              </md-toolbar>
+            </div>
+          </div>
+
           <div layout-gt-sm="row">
             <md-input-container class="md-block" flex-gt-sm>
               <label>Tipo de signo distintivo</label>
@@ -363,7 +398,7 @@
           <div layout-gt-sm="row" ng-if="application.distinctive_sign.used_previous || application.distinctive_sign.sign_type_id == <%= SignType::COMMERCIAL_NAME %>">
             <md-input-container class="md-block" flex-gt-sm>
               <label>Localidad</label>
-              <input ng-model="application.distinctive_sign.establishment_location.address_data.locality" name="establishment_location_address_locality" required>
+              <input ng-model="application.distinctive_sign.establishment_location.address_data.location" name="establishment_location_address_locality" required>
               <span class="error-field" ng-show="form_request_data.establishment_location_address_locality.$error.required && form_request_data.establishment_location_address_locality.$touched">Este campo es obligatorio</span>
             </md-input-container>
 
@@ -404,11 +439,10 @@
           </div>
 
           <div layout="row" layout-align="space-between end" style="margin-top: 30px;">
-            <md-button class="md-primary md-raised" style="position:absolute;left: 0"  ng-click="previousSection($index,form_request_data)" ng-if="!$first">Anterior</md-button>
-            <md-button class="md-primary md-raised" style="position:absolute;right: 0" ng-click="nextSection($index,form_request_data)" ng-if="!$last">Siguiente</md-button>
-            <md-button class="md-primary md-raised" style="position:absolute;right: 0" ng-click="saveRequest($index,form_request_data)" ng-if="$last">Guardar</md-button>
+            <!--<md-button class="md-primary md-raised" style="position:absolute;left: 0"  ng-click="previousSection($index,form_request_data)" ng-if="!$first">Anterior</md-button>-->
+            <!--<md-button class="md-primary md-raised" style="position:absolute;right: 0" ng-click="nextSection($index,form_request_data)" ng-if="!$last">Siguiente</md-button>-->
+            <md-button class="md-primary md-raised" style="position:absolute;left: 0" ng-href="{{<%= "\""+applicant_index_url+"\""  %>}}" >Cancelar</md-button>
+            <md-button class="md-primary md-raised" style="position:absolute;right: 0" ng-click="saveRequest($index,form_request_data)">Guardar</md-button>
           </div>
         </ng-form>
       </md-content>
-
-</md-content>

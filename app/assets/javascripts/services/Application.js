@@ -1,6 +1,6 @@
-ApplicationService.$inject = ['$http', 'AUTHENTICITY_TOKEN'];
+ApplicationService.$inject = ['$http', 'AUTHENTICITY_TOKEN', 'ObjectToFormData'];
 
-function ApplicationService($http, AUTHENTICITY_TOKEN) {
+function ApplicationService($http, AUTHENTICITY_TOKEN, ObjectToFormData) {
     var service = {};
     var TIMEOUT = 10000;
 
@@ -44,11 +44,24 @@ function ApplicationService($http, AUTHENTICITY_TOKEN) {
         return $http.post(URL_ROOT, values, options).then();
     }
 
-    function update(application) {
-        return $http.put(URL_ROOT + '/' + application.id, {
+    function update(application, has_files) {
+        var options = {};
+        var values = {
             application: application,
             authenticity_token: AUTHENTICITY_TOKEN
-        }).then();
+        };
+
+        if (has_files) {
+            options = {
+                headers: {
+                    'Content-Type': undefined
+                }
+            };
+
+            values = ObjectToFormData({application: application});
+            values.append('authenticity_token', AUTHENTICITY_TOKEN);
+        }
+        return $http.put(URL_ROOT + '/' + application.id, values, options).then();
     }
 
     function general_information() {
