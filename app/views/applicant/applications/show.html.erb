@@ -9,6 +9,20 @@
   </md-card-header>
 
   <md-card-content>
+    <md-grid-list md-cols-md="4">
+      <md-grid-title ng-repeat="observation in application_original.observations">
+
+      </md-grid-title>
+      <div class="container" ng-repeat="observation in application_original.observations">
+        <div class="">
+          <strong>{{ observation.user.username }}</strong><br>
+          <small>({{ observation.user.type_user.name }})</small>
+        </div>
+        <div class="">
+          <h4>{{ observation.notes }}</h4>
+        </div>
+      </div>
+    </md-grid-list>
     <div>
       <md-input-container class="md-block" flex-gt-sm>
         <label>Tipo de solicitud</label>

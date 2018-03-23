@@ -15,6 +15,14 @@ ObjectModule.controller('UpdateController',  ['$scope', 'ApplicationService', 'O
         author: ''
     }];
 
+    $scope.nextSection = function ($index, form_request_data) {
+        $scope.submitted[$index] = true;
+        if (form_request_data.$valid) {
+            $scope.steps[$index].disabled = true;
+            $scope.steps[$index + 1].disabled = false;
+        }
+    };
+
     $scope.application.industrial_property = {};
     $scope.steps = [];
     $scope.submitted = [];
@@ -34,6 +42,7 @@ ObjectModule.controller('UpdateController',  ['$scope', 'ApplicationService', 'O
         ApplicationService.general_information().then(function (response) {
             var data = response.data;
             $scope.application_types = data.application_types;
+            $scope.type_persons = data.type_persons;
             $scope.countries = data.countries;
             $scope.sign_types = data.sign_types;
             $scope.brand_types = data.brand_types;
@@ -58,6 +67,123 @@ ObjectModule.controller('UpdateController',  ['$scope', 'ApplicationService', 'O
         }
     };
 
+    $scope.previousSection = function ($index, form_request_data) {
+        $scope.steps[$index].disabled = true;
+        $scope.steps[$index - 1].disabled = false;
+    };
+
+    $scope.saveRequest = function ($index, form_request_data) {
+        $scope.submitted[$index] = true;
+        var has_file = false;
+        if ($scope.form_request.$valid) {
+            $scope.application.data_general_attributes = $scope.application.data_general;
+            $scope.application.data_general_attributes.person_attributes = $scope.application.data_general.person;
+            $scope.application.data_general_attributes.address_data_attributes = $scope.application.data_general.address_data;
+            $scope.application.address_notification_attributes = $scope.application.address_notification;
+            $scope.application.address_notification_attributes.address_data_attributes = $scope.application.address_notification.address_data;
+
+            if ($scope.application.distinctive_sign.used_previous) {
+                $scope.application.distinctive_sign.establishment_location_attributes = $scope.application.distinctive_sign.establishment_location;
+                $scope.application.distinctive_sign.establishment_location_attributes.address_data_attributes = $scope.application.distinctive_sign.establishment_location.address_data;
+            }
+
+            var data = $scope.application;
+            if (data.distinctive_sign.brand_type_id != $scope.nominative_brand_type) {
+                delete $scope.application.data_general;
+                delete $scope.application.address_notification;
+                has_file = true;
+                var file = $scope.application.distinctive_sign.file_sign[0].lfFile;
+                delete $scope.application.distinctive_sign.file_sign[0];
+                $scope.application.distinctive_sign.file_sign = file;
+                data = ObjectToFormData({application: data});
+
+            }
+            ApplicationService.update(data, has_file).then(function (response) {
+                if (response.data.status) {
+                    swal({
+                        title: "Exito",
+                        text: "La solicitud fue creada exitosamente",
+                        type: 'success',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false
+                    }).then(function () {
+                        location.href = "/";
+                    }, function (dismmiss) {
+
+                    })
+                }
+            }, function (error) {
+                console.log(error)
+            });
+        }
+    };
+
+    $scope.saveIndustrialProperty = function ($index, form_request_data) {
+        $scope.submitted[$index] = true;
+        if ($scope.form_request.$valid) {
+            $scope.application.data_general_attributes = $scope.application.data_general;
+            $scope.application.data_general_attributes.address_data_attributes = $scope.application.data_general.address_data;
+
+            $scope.application.industrial_property.data_inventor_attributes = $scope.application.industrial_property.data_inventor;
+            $scope.application.industrial_property.data_inventor_attributes.address_data_attributes = $scope.application.industrial_property.data_inventor.address_data;
+
+            $scope.application.industrial_property.data_owner_attributes = $scope.application.industrial_property.data_owner;
+            $scope.application.industrial_property.data_owner_attributes.address_data_attributes = $scope.application.industrial_property.data_owner.address_data;
+
+            ApplicationService.update($scope.application, false).then(function (response) {
+                if (response.data.status) {
+                    swal({
+                        title: "Exito",
+                        text: "La solicitud fue creada exitosamente",
+                        type: 'success',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false
+                    }).then(function () {
+                        location.href = "/";
+                    }, function (dismmiss) {
+
+                    })
+                }
+            }, function (error) {
+                console.log(error)
+            });
+        }
+    };
+
+    $scope.saveCopyright = function ($index,form_request_data) {
+        $scope.submitted[$index] = true;
+        if ($scope.form_request.$valid) {
+            $scope.application.data_general_attributes = $scope.application.data_general;
+            $scope.application.data_general_attributes.address_data_attributes = $scope.application.data_general.address_data;
+            $scope.application.data_general_attributes.person_attributes = $scope.application.data_general.person;
+
+            $scope.application.copyright.data_copyrights_attributes =$scope.application.copyright.data_copyrights;
+            $scope.application.copyright.person_notification_attributes = $scope.application.copyright.person_notification;
+            $scope.application.copyright.general_data_author_attributes = $scope.application.copyright.general_data_author;
+            $scope.application.copyright.general_data_author_attributes.address_data_attributes = $scope.application.copyright.general_data_author.address_data;
+
+            $scope.application.copyright.legal_representative_attributes = $scope.application.copyright.legal_representative;
+            $scope.application.copyright.legal_representative_attributes.address_data_attributes = $scope.application.copyright.legal_representative.address_data;
+
+            ApplicationService.update($scope.application).then(function (response) {
+                if (response.data.status) {
+                    swal({
+                        title: "Exito",
+                        text: "La solicitud fue creada exitosamente",
+                        type: 'success',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false
+                    }).then(function () {
+                        location.href = "/";
+                    }, function (dismmiss) {
+
+                    })
+                }
+            }, function (error) {
+                console.log(error)
+            });
+        }
+    };
 
 
     $scope.reset = function () {
