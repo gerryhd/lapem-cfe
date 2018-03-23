@@ -40,8 +40,9 @@ class Applicant::ApplicationsController < ApplicationController
       when ApplicationType::COPYRIGHT
         result = @application.applicable.update(copyright_params)
     end
-
     if result && @application.update(application_params)
+      @application.status_application_id = StatusApplication::PENDING if @application.status_application_id == StatusApplication::OBSERVATIONS
+      @application.save
       render json: {status: true}
     else
       render json: {status: false, errors: @application.errors.full_messages}
