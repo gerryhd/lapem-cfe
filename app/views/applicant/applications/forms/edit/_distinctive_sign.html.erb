@@ -38,7 +38,7 @@
           <div layout-gt-sm="row" ng-if="application.data_general.person.type_person_id == <%= TypePerson::MORAL_PERSON %>">
             <md-input-container class="md-block" flex-gt-sm>
               <label>RFC</label>
-              <input name=general_data_person_rfc" ng-required="application.data_general.person.type_person_id == <%= TypePerson::MORAL_PERSON %>" ng-model="application.data_general.person.rfc">
+              <input name="general_data_person_rfc" ng-required="application.data_general.person.type_person_id == <%= TypePerson::MORAL_PERSON %>" ng-model="application.data_general.person.rfc">
               <span class="error-field" ng-show="(form_request_data.general_data_person_rfc.$error.required && form_request_data.general_data_person_rfc.$touched) || (submitted[$index] && form_request_data.general_data_person_rfc.$error.required)">Este campo es obligatorio</span>
             </md-input-container>
             <md-input-container class="md-block" flex-gt-sm>

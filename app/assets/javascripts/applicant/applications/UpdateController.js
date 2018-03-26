@@ -95,6 +95,35 @@ ObjectModule.controller('UpdateController',  ['$scope', 'ApplicationService', 'O
 
     });
 
+    $scope.saveNewObservation = function(user_id){
+        if($scope.application.new_observation){
+            let new_observation = {
+                user_id: user_id.toString(),
+                notes: $scope.application.new_observation
+            };
+            $scope.application.observations_attributes = [new_observation];
+            $scope.application.application_type_id = $scope.application.application_type_id.toString();
+            //$scope.application.observations
+            ApplicationService.update($scope.application, false).then(function (response) {
+                if (response.data.status) {
+                    swal({
+                        title: "Éxito",
+                        text: "Tu comentario fue enviado.",
+                        type: 'success',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false
+                    }).then(function () {
+                        location.href = "/";
+                    }, function (dismmiss) {
+
+                    })
+                }
+            }, function (error) {
+                console.log(error)
+            });
+        }
+    }
+
     $scope.saveRequest = function ($index, form_request_data) {
         $scope.submitted[$index] = true;
         var has_file = false;
@@ -228,7 +257,6 @@ ObjectModule.controller('UpdateController',  ['$scope', 'ApplicationService', 'O
     };
     $scope.submitForm = function(){
         console.log(findDiff($scope.application, $scope.application_original));
-        debugger;
         // do w/e to save, then update the user to match the edit
     };
 
