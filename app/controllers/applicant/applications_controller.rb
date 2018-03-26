@@ -51,7 +51,7 @@ class Applicant::ApplicationsController < ApplicationController
   end
 
   def show
-    if @application.status_application.id != StatusApplication::OBSERVATIONS
+    if @application.status_application.id != StatusApplication::OBSERVATIONS || current_user.id != @application.applicant.user_id
       redirect_to applicant_index_url
     end
     application = @application.as_json include: {
