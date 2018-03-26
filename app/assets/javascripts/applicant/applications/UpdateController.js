@@ -88,41 +88,22 @@ ObjectModule.controller('UpdateController',  ['$scope', 'ApplicationService', 'O
 
 
     });
-
-    $scope.saveNewObservation = function(user_id){
+    $scope.saveAll = function($index){
         if($scope.application.new_observation){
             let new_observation = {
-                user_id: user_id.toString(),
+                user_id: $scope.application.applicant.user_id.toString(),
                 notes: $scope.application.new_observation
             };
             $scope.application.observations_attributes = [new_observation];
-            $scope.application.application_type_id = $scope.application.application_type_id.toString();
-            //$scope.application.observations
-            ApplicationService.update($scope.application, false).then(function (response) {
-                if (response.data.status) {
-                    swal({
-                        title: "Éxito",
-                        text: "Tu comentario fue enviado.",
-                        type: 'success',
-                        allowOutsideClick: false,
-                        allowEscapeKey: false
-                    }).then(function () {
-                        location.href = "/";
-                    }, function (dismmiss) {
-
-                    })
-                }
-            }, function (error) {
-                console.log(error)
-            });
         }
-    }
+        if($scope.application.application_type_id == $scope.application_types[0].id){
+            $scope.saveRequest($index);
 
-    $scope.saveRequest = function ($index, form_request_data) {
-        $scope.submitted[$index] = true;
-        var has_file = false;
+        }else if ($scope.application.application_type_id == $scope.application_types[1].id){
+            $scope.saveIndustrialProperty($index);
 
-        if ($scope.form_request.$valid) {
+        }else if($scope.application.application_type_id == $scope.application_types[2].id){
+            $scope.saveCopyright($index);
 
         }
     };
@@ -160,17 +141,7 @@ ObjectModule.controller('UpdateController',  ['$scope', 'ApplicationService', 'O
             }
             ApplicationService.update(data, has_file).then(function (response) {
                 if (response.data.status) {
-                    swal({
-                        title: "Exito",
-                        text: "La solicitud fue actualizada exitosamente",
-                        type: 'success',
-                        allowOutsideClick: false,
-                        allowEscapeKey: false
-                    }).then(function () {
-                        location.href = "/";
-                    }, function (dismmiss) {
-
-                    })
+                    successMessage();
                 }
             }, function (error) {
                 console.log(error)
@@ -192,17 +163,7 @@ ObjectModule.controller('UpdateController',  ['$scope', 'ApplicationService', 'O
 
             ApplicationService.update($scope.application, false).then(function (response) {
                 if (response.data.status) {
-                    swal({
-                        title: "Exito",
-                        text: "La solicitud fue actualizada exitosamente",
-                        type: 'success',
-                        allowOutsideClick: false,
-                        allowEscapeKey: false
-                    }).then(function () {
-                        location.href = "/";
-                    }, function (dismmiss) {
-
-                    })
+                    successMessage();
                 }
             }, function (error) {
                 console.log(error)
@@ -227,17 +188,7 @@ ObjectModule.controller('UpdateController',  ['$scope', 'ApplicationService', 'O
 
             ApplicationService.update($scope.application,false).then(function (response) {
                 if (response.data.status) {
-                    swal({
-                        title: "Exito",
-                        text: "La solicitud fue actualizada exitosamente",
-                        type: 'success',
-                        allowOutsideClick: false,
-                        allowEscapeKey: false
-                    }).then(function () {
-                        location.href = "/";
-                    }, function (dismmiss) {
-
-                    })
+                    successMessage();
                 }
             }, function (error) {
                 console.log(error)
@@ -262,6 +213,20 @@ ObjectModule.controller('UpdateController',  ['$scope', 'ApplicationService', 'O
             }
         }
         return diff;
+    }
+
+    function successMessage(){
+        swal({
+            title: "Éxito",
+            text: "La información de tu solicitud fue actualizada exitosamente",
+            type: 'success',
+            allowOutsideClick: false,
+            allowEscapeKey: false
+        }).then(function () {
+            location.reload();
+        }, function (dismmiss) {
+
+        })
     }
 
     $scope.$watch('application.application_type_id', function (newVal) {

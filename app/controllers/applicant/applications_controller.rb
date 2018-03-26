@@ -41,7 +41,7 @@ class Applicant::ApplicationsController < ApplicationController
         result = @application.applicable.update(copyright_params)
     end
     if result && @application.update(application_params)
-      @application.status_application_id = StatusApplication::PENDING if @application.status_application_id == StatusApplication::OBSERVATIONS
+      #@application.status_application_id = StatusApplication::PENDING if @application.status_application_id == StatusApplication::OBSERVATIONS
       @application.save
       render json: {status: true}
     else
@@ -55,6 +55,7 @@ class Applicant::ApplicationsController < ApplicationController
       redirect_to applicant_index_url
     end
     application = @application.as_json include: {
+        applicant: {include: [:user]},
         data_general: {include: [:person, :address_data]},
         address_notification: {include: [:address_data]},
         observations: {include: [user: {include: [:type_user], only: [:username]}]},
