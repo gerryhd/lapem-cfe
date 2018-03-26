@@ -296,8 +296,18 @@
               </md-select>
               <span class="error-field" ng-show="form_request_data.application_brand_type.$error.required && form_request_data.application_brand_type.$touched || (submitted[$index] && form_request_data.application_brand_type.$error.required)">Este campo es obligatorio</span>
             </md-input-container>
+          </div>
 
+          <div layout-gt-sm="row">
             <div class="md-block" flex-gt-sm>
+              <md-button class="md-primary md-raised" target="_blank" ng-href="{{ application_original.distinctive_sign.file_sign.url }}">Descargar Archivo</md-button>
+            </div>
+            <div class="md-block" flex-gt-sm>
+              <md-checkbox class="md-primary" style="padding-bottom: 10px" ng-model="application.distinctive_sign.new_file">
+                Subir nuevo archivo
+              </md-checkbox>
+            </div>
+            <div class="md-block" flex-gt-sm ng-show="application.distinctive_sign.new_file">
               <lf-ng-md-file-input lf-files='application.distinctive_sign.file_sign' ng-if="application.distinctive_sign.brand_type_id != <%= BrandType::NOMINATIVE %>"></lf-ng-md-file-input>
               <md-input-container class="md-block" ng-required="application.distinctive_sign.brand_type_id != <%= BrandType::NOMINATIVE %>" flex-gt-sm ng-if="application.distinctive_sign.brand_type_id == <%= BrandType::NOMINATIVE %>">
                 <label>Signo Distintivo</label>

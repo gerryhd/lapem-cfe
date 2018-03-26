@@ -80,12 +80,6 @@ ObjectModule.controller('UpdateController',  ['$scope', 'ApplicationService', 'O
                     var date = $scope.application_original.copyright.publication_date.split('-');
                     $scope.application_original.copyright.publication_date = new Date(parseInt(date[0]), parseInt(date[1])-1, parseInt(date[2]));
                 }
-                // if($scope.application_original.copyright.known_public){
-                //     $scope.application_original.copyright.known_public = "true";
-                // }
-                // else{
-                //     $scope.application_original.copyright.known_public = "false";
-                // }
             }
 
             $scope.reset();
@@ -125,7 +119,7 @@ ObjectModule.controller('UpdateController',  ['$scope', 'ApplicationService', 'O
             }
 
             var data = $scope.application;
-            if (data.distinctive_sign.brand_type_id != $scope.nominative_brand_type) {
+            if (data.distinctive_sign.brand_type_id != $scope.nominative_brand_type && $scope.application.distinctive_sign.new_file) {
                 // delete $scope.application.data_general;
                 // delete $scope.application.address_notification;
                 has_file = true;
