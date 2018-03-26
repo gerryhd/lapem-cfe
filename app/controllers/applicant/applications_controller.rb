@@ -76,6 +76,7 @@ class Applicant::ApplicationsController < ApplicationController
         }
     end
 
+    @comments = application[:observations]
     @application = application
   end
 
