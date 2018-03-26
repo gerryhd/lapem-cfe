@@ -139,6 +139,9 @@ ObjectModule.controller('UpdateController',  ['$scope', 'ApplicationService', 'O
                 // data = ObjectToFormData({application: data});
 
             }
+            else{
+                delete $scope.application.distinctive_sign.file_sign;
+            }
             ApplicationService.update(data, has_file).then(function (response) {
                 if (response.data.status) {
                     successMessage();
