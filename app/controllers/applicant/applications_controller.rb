@@ -51,6 +51,9 @@ class Applicant::ApplicationsController < ApplicationController
   end
 
   def show
+    if @application.status_application.id != StatusApplication::OBSERVATIONS
+      redirect_to applicant_index_url
+    end
     application = @application.as_json include: {
         data_general: {include: [:person, :address_data]},
         address_notification: {include: [:address_data]},

@@ -41,6 +41,11 @@ ObjectModule.controller('IndexController', ['$scope', 'ApplicationService', func
         }
     }
 
+    $scope.show = function(id){
+        var edit_link = $scope.url_edit.replace('id',id);
+        window.location = edit_link;
+    };
+
     $scope.delete = function (id, $index) {
         swal({
             title: 'Eliminar Registro',
