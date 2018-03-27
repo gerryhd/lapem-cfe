@@ -1,3 +1,31 @@
+<style>
+  .status_label {
+    text-align: center;
+    width: 100%;
+    display: inline-block;
+    padding: 10px;
+  }
+
+  .pending {
+    background-color: #e4e148;
+    color: #000000;
+  }
+
+  .observations {
+    background-color: #8dbfe1;
+    color: #000000;
+  }
+
+  .approved {
+    background-color: #80e27e;
+    color: #000000;
+  }
+
+  .rejected {
+    background-color: #e75f52;
+    color: #000000;
+  }
+</style>
 <md-card ng-controller="IndexController">
   <input type="hidden" ng-init="applications = <%= current_user.applicant.applications.to_json(include: [:status_application,:application_type]) %>">
   <input type="hidden" ng-init="url_edit= '<%= applicant_application_path :id%>'">
@@ -26,9 +54,19 @@
         <tbody md-body>
         <!-- we can let ng-repeat sort the columns for us -->
         <tr md-row ng-repeat="application in applications track by $index">
+          <input type="hidden" ng-init="pending_id = $scope.application_types[0]">
+          <input type="hidden" ng-init="observations_id = $scope.application_types[0]">
           <td md-cell>{{application.created_at | date:'dd/MMM/yyyy'}}</td>
           <td md-cell>{{application.application_type.name}}</td>
-          <td md-cell>{{application.status_application.name}}</td>
+          <input type="hidden">
+          <td md-cell>
+            <label class="status_label" ng-class="{'pending': application.status_application_id == <%= StatusApplication::PENDING %>,
+                         'rejected': application.status_application_id == <%= StatusApplication::REJECTED %>,
+                         'approved': application.status_application_id == <%= StatusApplication::APPROVED %>,
+                         'observations': application.status_application_id == <%= StatusApplication::OBSERVATIONS %>}">
+              {{application.status_application.name}}
+            </label>
+          </td>
           <td md-cell>
             <a href="#" ng-click="delete(application.id,$index)">Eliminar</a>
             <a href="#" ng-show="application.status_application.id == <%= StatusApplication::OBSERVATIONS %>" ng-click="show(application.id)">Actualizar</a>
