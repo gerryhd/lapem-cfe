@@ -7,7 +7,7 @@ ActiveAdmin.register_page "Dashboard" do
       StatusApplication.all.each do |status|
         pie[status.name] = Application.where(status_application_id: status.id).count
       end
-      pie_chart pie
+      pie_chart pie, colors: ["#ff9900", "#dc3912", "#109618", "#3366cc"]
     end
 
     panel "Estadísticas de solicitudes por tipo" do
