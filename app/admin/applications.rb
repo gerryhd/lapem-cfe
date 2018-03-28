@@ -15,7 +15,19 @@ ActiveAdmin.register Application do
       link_to application.applicant.full_name, admin_user_path(application.applicant.user_id)
     end
     column 'Estado', :status do |application|
-      application.status_application.name
+      status_class = ""
+
+      if application.status_application_id == StatusApplication::PENDING
+        status_class = "pending"
+      elsif application.status_application_id == StatusApplication::REJECTED
+        status_class = "rejected"
+      elsif application.status_application_id == StatusApplication::APPROVED
+        status_class = "approved"
+      elsif application.status_application_id == StatusApplication::OBSERVATIONS
+        status_class = "observations"
+      end
+
+      label application.status_application.name, class: status_class
     end
     column 'Tipo de solicitud', :application_type do |application|
       application.application_type.name
