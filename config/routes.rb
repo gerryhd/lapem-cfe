@@ -13,7 +13,9 @@ Rails.application.routes.draw do
     resources :applications do
       collection do
         get 'general_information'
-        get 'show/:id' => 'applications#show'
+        get 'new' => 'applications#new'
+        get '/:id' => 'applications#show'
+        get '/:id/edit' => 'applications#edit'
       end
     end
   end

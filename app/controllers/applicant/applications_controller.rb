@@ -29,6 +29,7 @@ class Applicant::ApplicationsController < ApplicationController
   end
 
   def update
+    byebug
 
     result = false
 
@@ -50,7 +51,7 @@ class Applicant::ApplicationsController < ApplicationController
 
   end
 
-  def show
+  def edit
     if @application.status_application.id != StatusApplication::OBSERVATIONS || current_user.id != @application.applicant.user_id
       redirect_to applicant_index_url
     end
@@ -77,6 +78,44 @@ class Applicant::ApplicationsController < ApplicationController
             person_notification: {},
             data_copyrights: {},
             legal_representative: { include: [:address_data]},
+        }
+    end
+
+    @comments = application[:observations]
+    @application = application
+  end
+
+  def show
+    if current_user.id != @application.applicant.user_id
+      redirect_to applicant_index_url
+    end
+    application = @application.as_json include: {
+        applicant: {include: [:user]},
+        data_general: {include: [:person, address_data: {include: [:country]}]},
+        address_notification: {include: [address_data: {include: [:country]}]},
+        observations: {include: [user: {include: [:type_user], only: [:username]}]},
+    }
+
+    case @application.application_type.id
+      when ApplicationType::BRAND
+        application[:distinctive_sign] = @application.applicable.as_json include: {
+            establishment_location: { include: [address_data: {include: [:country]}]},
+            brand_type: {},
+            sign_type: {},
+        }
+      when ApplicationType::PATENT
+        application[:industrial_property] = @application.applicable.as_json include: {
+            data_inventor: {include: [address_data: {include: [:country]}]},
+            data_owner: {include: [address_data: {include: [:country]}]},
+        }
+      when ApplicationType::COPYRIGHT
+        application[:copyright] = @application.applicable.as_json include: {
+            general_data_author: {include: [address_data: {include: [:country]}]},
+            person_notification: {},
+            data_copyrights: {},
+            legal_representative: { include: [address_data: {include: [:country]}]},
+            derivation_type: {},
+            copyright_branch: {},
         }
     end
 

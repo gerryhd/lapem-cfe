@@ -1,0 +1,371 @@
+<md-content class="md-padding">
+        <ng-form name="form_request_data">
+          <div layout-gt-sm="row">
+            <div class="md-block" flex-gt-sm>
+              <md-toolbar>
+                <h4 class="md-toolbar-tools text-center">
+                  <span>{{ steps[0].title }}</span>
+                </h4>
+              </md-toolbar>
+            </div>
+          </div>
+
+          <md-radio-group ng-model="application.data_general.person.type_person_id" required>
+            <md-radio-button ng-value="type_person.id" ng-repeat="type_person in type_persons" value="{{type_person.id}}" class="md-primary">{{type_person.name}}</md-radio-button>
+          </md-radio-group>
+
+          <div layout-gt-sm="row" ng-if="application.data_general.person.type_person_id == <%= TypePerson::PHYSICAL_PERSON %>">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>CURP</label>
+              <div> {{ application.data_general.person.curp }} </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Nombre(s)</label>
+              <div> {{ application.data_general.person.name }} </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Primer Apellido</label>
+              <div> {{ application.data_general.person.first_last_name }} </div>
+            </md-input-container>
+
+          </div>
+
+          <div layout-gt-sm="row" ng-if="application.data_general.person.type_person_id == <%= TypePerson::MORAL_PERSON %>">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>RFC</label>
+              <div> {{ application.data_general.person.rfc }} </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Denominacion social</label>
+              <div> {{ application.data_general.person.social_reason }} </div>
+            </md-input-container>
+          </div>
+
+
+          <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm ng-if="application.data_general.person.type_person_id == <%= TypePerson::PHYSICAL_PERSON %>">
+              <label>Segundo Apellido</label>
+              <div> {{ application.data_general.person.second_last_name }} </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Nacionalidad</label>
+              <div> {{ application.data_general.person.nationality }} </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Telefono</label>
+              <div> {{ application.data_general.person.phone }} </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Correo Electronico</label>
+              <div> {{ application.data_general.person.email }} </div>
+            </md-input-container>
+          </div>
+          <div layout-gt-sm="row">
+            <div class="md-block" flex-gt-sm>
+              <md-toolbar>
+                <h4 class="md-toolbar-tools text-center">
+                  <span>{{ steps[1].title }}</span>
+                </h4>
+              </md-toolbar>
+            </div>
+          </div>
+
+          <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Código Postal</label>
+              <div> {{ application.data_general.address_data.zip_code }} </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Calle</label>
+              <div> {{ application.data_general.address_data.street }} </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Número exterior</label>
+              <div> {{ application.data_general.address_data.external_number }} </div>
+            </md-input-container>
+          </div>
+
+
+          <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Número interno</label>
+              <div> {{ application.data_general.address_data.internal_number }} </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Colonia</label>
+              <div> {{ application.data_general.address_data.colony }} </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Municipio</label>
+              <div> {{ application.data_general.address_data.municipality }} </div>
+            </md-input-container>
+          </div>
+
+          <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Localidad</label>
+              <div> {{ application.data_general.address_data.location }} </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Entidad Federativa</label>
+              <div> {{ application.data_general.address_data.federal_entity }} </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Entre Calles</label>
+              <div> {{ application.data_general.address_data.between_streets }} </div>
+            </md-input-container>
+          </div>
+
+          <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Pais</label>
+              <div> {{ application.data_general.address_data.country.name }} </div>
+
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Calle posterior</label>
+              <div> {{ application.data_general.address_data.back_street }} </div>
+            </md-input-container>
+          </div>
+
+          <div layout-gt-sm="row">
+            <div class="md-block" flex-gt-sm>
+              <md-toolbar>
+                <h4 class="md-toolbar-tools text-center">
+                  <span>{{ steps[2].title }}</span>
+                </h4>
+              </md-toolbar>
+            </div>
+          </div>
+
+          <!--<div layout-gt-sm="row">-->
+            <!--<md-checkbox class="md-primary" ng-model="data.same_address_notification">La-->
+              <!--dirección es la misma que la del solicitante-->
+            <!--</md-checkbox>-->
+          <!--</div>-->
+
+          <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Código Postal</label>
+              <div> {{ application.address_notification.address_data.zip_code }} </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Calle</label>
+              <div> {{ application.address_notification.address_data.street }} </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Número exterior</label>
+              <div> {{ application.address_notification.address_data.external_number }} </div>
+            </md-input-container>
+          </div>
+
+
+          <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Número interno</label>
+              <div> {{ application.address_notification.address_data.internal_number }} </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Colonia</label>
+              <div> {{ application.address_notification.address_data.colony }} </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Municipio</label>
+              <div> {{ application.address_notification.address_data.municipality }} </div>
+            </md-input-container>
+          </div>
+
+          <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Localidad</label>
+              <div> {{ application.address_notification.address_data.location }} </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Entidad Federativa</label>
+              <div> {{ application.address_notification.address_data.federal_entity }} </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Entre Calles</label>
+              <div> {{ application.address_notification.address_data.between_streets }} </div>
+            </md-input-container>
+          </div>
+
+          <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Pais</label>
+              <div> {{ application.address_notification.address_data.country.name }} </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Calle posterior</label>
+              <div> {{ application.address_notification.address_data.back_street }} </div>
+            </md-input-container>
+          </div>
+          <div layout-gt-sm="row">
+            <div class="md-block" flex-gt-sm>
+              <md-toolbar>
+                <h4 class="md-toolbar-tools text-center">
+                  <span>{{ steps[3].title }}</span>
+                </h4>
+              </md-toolbar>
+            </div>
+          </div>
+
+          <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Tipo de signo distintivo</label>
+              <div> {{ application.distinctive_sign.sign_type.name }} </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Tipo de marca</label>
+              <div> {{ application.distinctive_sign.brand_type.name }} </div>
+            </md-input-container>
+          </div>
+
+          <div layout-gt-sm="row">
+            <div class="md-block" flex-gt-sm>
+              <md-button class="md-primary md-raised" target="_blank" ng-href="{{ application_original.distinctive_sign.file_sign.url }}">Descargar Archivo</md-button>
+            </div>
+            <div class="md-block" flex-gt-sm ng-show="application.distinctive_sign.new_file">
+              <lf-ng-md-file-input lf-files='application.distinctive_sign.file_sign' ng-if="application.distinctive_sign.brand_type_id != <%= BrandType::NOMINATIVE %>"></lf-ng-md-file-input>
+            </div>
+            <md-input-container class="md-block" ng-required="application.distinctive_sign.brand_type_id != <%= BrandType::NOMINATIVE %>" flex-gt-sm ng-if="application.distinctive_sign.brand_type_id == <%= BrandType::NOMINATIVE %>">
+              <label>Signo Distintivo</label>
+              <div> {{ application.distinctive_sign.distinctive_sign }} </div>
+            </md-input-container>
+          </div>
+
+          <div layout-gt-sm="row">
+            <div class="md-block" flex-gt-sm>
+              <md-checkbox ng-click="application.date_first_use = undefined" class="md-primary" ng-model="application.distinctive_sign.used_previous" disabled>Se
+                ha usado anteriormente
+              </md-checkbox>
+            </div>
+            <div class="md-block" flex-gt-sm ng-show="application.distinctive_sign.used_previous">
+              <md-input-container>
+                <label>Fecha de primer uso</label>
+                <div> {{ application.distinctive_sign.first_date_use | date: "dd/MM/yyyy" }} </div>
+              </md-input-container>
+            </div>
+            <div class="md-block" flex-gt-sm>
+              <md-input-container>
+                <label>Clase</label>
+                <div> {{ application.distinctive_sign.class_sign }} </div>
+              </md-input-container>
+            </div>
+          </div>
+
+          <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>{{ application.distinctive_sign.sign_type_id == <%= SignType::COMMERCIAL_NAME %> ? 'Descripción de Giro Preponderante' : 'Descripción de Productos o Servicios' }}</label>
+              <div> {{ application.distinctive_sign.description }} </div>
+            </md-input-container>
+          </div>
+
+          <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm ng-if="application.distinctive_sign.brand_type_id == <%= BrandType::DENOMINATION_AND_DESIGN %> || application.distinctive_sign.brand_type_id == <%= BrandType::DENOMINATION_AND_3D %> || application.distinctive_sign.brand_type_id == <%= BrandType::MIXED %>">
+              <label>Denominación</label>
+              <div> {{ application.distinctive_sign.distinctive_sign }} </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Leyendas o Figuras no reservables</label>
+              <div> {{ application.distinctive_sign.tags }} </div>
+            </md-input-container>
+          </div>
+
+          <div layout-gt-sm="row" ng-if="application.distinctive_sign.used_previous || application.distinctive_sign.sign_type_id == <%= SignType::COMMERCIAL_NAME %>">
+            <div class="md-block" flex-gt-sm>
+              <md-toolbar>
+                <h2 class="md-toolbar-tools text-center">
+                  <span>Ubicación del establecimiento</span>
+                </h2>
+              </md-toolbar>
+            </div>
+          </div>
+
+          <div layout-gt-sm="row" ng-if="application.distinctive_sign.used_previous || application.distinctive_sign.sign_type_id == <%= SignType::COMMERCIAL_NAME %>">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Código Postal</label>
+              <div> {{ application.distinctive_sign.establishment_location.address_data.zip_code }} </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Calle</label>
+              <div> {{ application.distinctive_sign.establishment_location.address_data.street }} </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Número exterior</label>
+              <div> {{ application.distinctive_sign.establishment_location.address_data.external_number }} </div>
+            </md-input-container>
+          </div>
+
+
+          <div layout-gt-sm="row" ng-if="application.distinctive_sign.used_previous || application.distinctive_sign.sign_type_id == <%= SignType::COMMERCIAL_NAME %>">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Número interno</label>
+              <div> {{ application.distinctive_sign.establishment_location.address_data.internal_number }} </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Colonia</label>
+              <div> {{ application.distinctive_sign.establishment_location.address_data.colony }} </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Municipio</label>
+              <div> {{ application.distinctive_sign.establishment_location.address_data.municipality }} </div>
+            </md-input-container>
+          </div>
+
+          <div layout-gt-sm="row" ng-if="application.distinctive_sign.used_previous || application.distinctive_sign.sign_type_id == <%= SignType::COMMERCIAL_NAME %>">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Localidad</label>
+              <div> {{ application.distinctive_sign.establishment_location.address_data.location }} </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Entidad Federativa</label>
+              <div> {{ application.distinctive_sign.establishment_location.address_data.federal_entity }} </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Entre Calles</label>
+              <div> {{ application.distinctive_sign.establishment_location.address_data.between_streets }} </div>
+            </md-input-container>
+          </div>
+
+          <div layout-gt-sm="row" ng-if="application.distinctive_sign.used_previous || application.distinctive_sign.sign_type_id == <%= SignType::COMMERCIAL_NAME %>">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Pais</label>
+              <div> {{ application.distinctive_sign.establishment_location.address_data.country.name }} </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Calle posterior</label>
+              <div> {{ application.distinctive_sign.establishment_location.address_data.back_street }} </div>
+            </md-input-container>
+          </div>
+
+          <div layout="row" layout-align="space-between end" style="margin-top: 30px;">
+            <!--<md-button class="md-primary md-raised" style="position:absolute;left: 0" ng-href="{{<%= "\""+applicant_index_url+"\""  %>}}" >Cancelar</md-button>-->
+            <!--<md-button class="md-primary md-raised" style="position:absolute;right: 0" ng-click="saveRequest($index,form_request_data)">Guardar</md-button>-->
+          </div>
+        </ng-form>
+      </md-content>

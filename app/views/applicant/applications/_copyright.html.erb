@@ -1,0 +1,540 @@
+<md-content  class="md-padding">
+    <ng-form name="form_request_data">
+      <div layout-gt-sm="row">
+        <div class="md-block" flex-gt-sm>
+          <md-toolbar>
+            <h4 class="md-toolbar-tools text-center">
+              <span>{{ steps[0].title }}</span>
+            </h4>
+          </md-toolbar>
+        </div>
+      </div>
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Curp</label>
+          <div> {{ application.data_general.person.curp }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>RFC</label>
+          <div> {{ application.data_general.person.rfc }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Nombre</label>
+          <div> {{ application.data_general.person.name }} </div>
+        </md-input-container>
+      </div>
+
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Primer apellido</label>
+          <div> {{ application.data_general.person.first_last_name }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Segundo apellido</label>
+          <div> {{ application.data_general.person.second_last_name }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Sexo</label>
+          <div> {{ application.data_general.person.gender }} </div>
+        </md-input-container>
+      </div>
+
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>
+           Fecha de nacimiento
+          </label>
+          <div> {{ application.data_general.person.birth_date | date:"dd/MM/yyyy" }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Lugar de nacimiento</label>
+          <div> {{ application.data_general.person.birth_location }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Porcentaje de participación</label>
+          <div> {{ application.data_general.person.participation_percent }} </div>
+        </md-input-container>
+      </div>
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Tipo de participación:</label>
+          <div> {{ application.data_general.person.participation_type }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Telefono</label>
+          <div> {{ application.data_general.phone }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Celular</label>
+          <div> {{ application.data_general.person.cell_phone }} </div>
+        </md-input-container>
+      </div>
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Correo</label>
+          <div> {{ application.data_general.person.email }} </div>
+        </md-input-container>
+        <div class="md-block" flex-gt-sm></div>
+      </div>
+
+      <div layout-gt-sm="row">
+        <div class="md-block" flex-gt-sm>
+          <md-toolbar>
+            <h4 class="md-toolbar-tools text-center">
+              <span>Domicilio Particular</span>
+            </h4>
+          </md-toolbar>
+        </div>
+      </div>
+
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Codigo Postal</label>
+          <div> {{ application.data_general.address_data.zip_code }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Calle</label>
+          <div> {{ application.data_general.address_data.street }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Numero exterior</label>
+          <div> {{ application.data_general.address_data.external_number }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Numero interno</label>
+          <div> {{ application.data_general.address_data.internal_number }} </div>
+        </md-input-container>
+      </div>
+
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Colonia</label>
+          <div> {{ application.data_general.address_data.colony }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Municipio/Delegación</label>
+          <div> {{ application.data_general.address_data.municipality }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Estado</label>
+          <div> {{ application.data_general.address_data.state }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Pais</label>
+          <div> {{ application.data_general.address_data.country.name }} </div>
+        </md-input-container>
+      </div>
+      <div layout-gt-sm="row">
+        <div class="md-block" flex-gt-sm>
+          <md-toolbar>
+            <h4 class="md-toolbar-tools text-center">
+              <span>{{ steps[1].title }}</span>
+            </h4>
+          </md-toolbar>
+        </div>
+      </div>
+      <div layout-gt-sm="row">
+        <div class="md-block" flex-gt-sm>
+          <label>¿El titular es el mismo autor?</label>
+          <div ng-if="application.copyright.titular_is_author">Sí</div>
+          <div ng-if="!application.copyright.titular_is_author">No</div>
+        </div>
+      </div>
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Curp</label>
+          <div> {{ application.copyright.general_data_author.curp }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>RFC</label>
+          <div> {{ application.copyright.general_data_author.rfc }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Nombre</label>
+          <div> {{ application.copyright.general_data_author.name }} </div>
+        </md-input-container>
+      </div>
+
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Primer apellido</label>
+          <div> {{ application.copyright.general_data_author.first_last_name }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Segundo apellido</label>
+          <div> {{ application.copyright.general_data_author.second_last_name }} </div>
+        </md-input-container>
+
+        <div class="md-block" flex-gt-sm>
+          <div> {{ application.copyright.general_data_author.gender }} </div>
+        </div>
+      </div>
+
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>
+            Fecha de nacimiento
+          </label>
+          <div> {{ application.copyright.general_data_author.birth_date | date:"dd/MM/yyyy" }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Lugar de nacimiento</label>
+          <div> {{ application.copyright.general_data_author.birth_location }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Porcentaje de participación</label>
+          <div> {{ application.copyright.general_data_author.participation_percent }} </div>
+        </md-input-container>
+      </div>
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Tipo de participación:</label>
+          <div> {{ application.copyright.general_data_author.participation_type }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Telefono</label>
+          <div> {{ application.copyright.general_data_author.phone }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Celular</label>
+          <div> {{ application.copyright.general_data_author.cell_phone }} </div>
+        </md-input-container>
+      </div>
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Correo</label>
+          <div> {{ application.copyright.general_data_author.email }} </div>
+        </md-input-container>
+      </div>
+
+      <div layout-gt-sm="row">
+        <div class="md-block" flex-gt-sm>
+          <md-toolbar>
+            <h2 class="md-toolbar-tools text-center">
+              <span>Domicilio</span>
+            </h2>
+          </md-toolbar>
+        </div>
+      </div>
+
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Codigo Postal</label>
+          <div> {{ application.copyright.general_data_author.address_data.zip_code }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Calle</label>
+          <div> {{ application.copyright.general_data_author.address_data.street }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Numero exterior</label>
+          <div> {{ application.copyright.general_data_author.address_data.external_number }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Numero interno</label>
+          <div> {{ application.copyright.general_data_author.address_data.internal_number }} </div>
+        </md-input-container>
+      </div>
+
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Colonia</label>
+          <div> {{ application.copyright.general_data_author.address_data.colony }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Municipio/Delegación</label>
+          <div> {{ application.copyright.general_data_author.address_data.municipality }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Estado</label>
+          <div> {{ application.copyright.general_data_author.address_data.state }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Pais</label>
+          <div> {{ application.copyright.general_data_author.address_data.country.name }} </div>
+        </md-input-container>
+      </div>
+      <div layout-gt-sm="row">
+        <div class="md-block" flex-gt-sm>
+          <md-toolbar>
+            <h4 class="md-toolbar-tools text-center">
+              <span>{{ steps[2].title }}</span>
+            </h4>
+          </md-toolbar>
+        </div>
+      </div>
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Curp</label>
+          <div> {{ application.copyright.legal_representative.curp }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>RFC</label>
+          <div> {{ application.copyright.legal_representative.rfc }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Nombre(s)</label>
+          <div> {{ application.copyright.legal_representative.name }} </div>
+        </md-input-container>
+      </div>
+
+
+      <div layout-gt-sm="row">
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Primer Apellido</label>
+          <div> {{ application.copyright.legal_representative.first_last_name }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Segundo Apellido</label>
+          <div> {{ application.copyright.legal_representative.second_last_name }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Telefono</label>
+          <div> {{ application.copyright.legal_representative.phone }} </div>
+        </md-input-container>
+      </div>
+
+
+      <div layout-gt-sm="row">
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Celular</label>
+          <div> {{ application.copyright.legal_representative.cell_phone }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Correo</label>
+          <div> {{ application.copyright.legal_representative.email }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>¿A quién representa?</label>
+          <div> {{ application.copyright.legal_representative.name_representative }} </div>
+        </md-input-container>
+      </div>
+
+      <div layout-gt-sm="row">
+        <div class="md-block" flex-gt-sm>
+          <md-toolbar>
+            <h2 class="md-toolbar-tools text-center">
+              <span>Domicilio</span>
+            </h2>
+          </md-toolbar>
+        </div>
+      </div>
+
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Codigo Postal</label>
+          <div> {{ application.copyright.legal_representative.address_data.zip_code }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Calle</label>
+          <div> {{ application.copyright.legal_representative.address_data.street }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Numero exterior</label>
+          <div> {{ application.copyright.legal_representative.address_data.external_number }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Numero interno</label>
+          <div> {{ application.copyright.legal_representative.address_data.internal_number }} </div>
+        </md-input-container>
+      </div>
+
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Colonia</label>
+          <div> {{ application.copyright.legal_representative.address_data.colony }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Municipio/Delegación</label>
+          <div> {{ application.copyright.legal_representative.address_data.municipality }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Estado</label>
+          <div> {{ application.copyright.legal_representative.address_data.state }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Pais</label>
+          <div> {{ application.copyright.legal_representative.address_data.country.name }} </div>
+        </md-input-container>
+      </div>
+
+
+      <div layout-gt-sm="row">
+        <div class="md-block" flex-gt-sm>
+          <md-toolbar>
+            <h2 class="md-toolbar-tools text-center">
+              <span>Persona para recibir notificaciones</span>
+            </h2>
+          </md-toolbar>
+        </div>
+      </div>
+
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Curp</label>
+          <div> {{ application.copyright.person_notification.curp}}</div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>RFC</label>
+          <div>{{application.copyright.person_notification.rfc}}</div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Nombre(s)</label>
+          <div>{{application.copyright.person_notification.name}}</div>
+        </md-input-container>
+      </div>
+
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Primer apellido</label>
+          <div>{{application.copyright.person_notification.second_last_name}}</div>
+          </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Segundo Apellido</label>
+          <div>{{application.copyright.person_notification.first_last_name}}</div>
+          </md-input-container>
+      </div>
+      <div layout-gt-sm="row">
+        <div class="md-block" flex-gt-sm>
+          <md-toolbar>
+            <h4 class="md-toolbar-tools text-center">
+              <span>{{ steps[3].title }}</span>
+            </h4>
+          </md-toolbar>
+        </div>
+      </div>
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Titulo</label>
+          <div>{{application.copyright.title}}</div>
+          </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Sintesis</label>
+          <div>{{application.copyright.summary}}</div>
+          </md-input-container>
+      </div>
+
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Rama</label>
+          <div> {{ application.copyright.copyright_branch.name }} </div>
+        </md-input-container>
+
+        <div class="md-block" flex-gt-sm>
+          <label>¿Se ha dado a conocer?</label>
+          <div ng-if="application.copyright.known_public">Sí</div>
+          <div ng-if="!application.copyright.known_public">No</div>
+        </div>
+
+        <div class="md-block" ng-if="application.copyright.known_public == 1" flex-gt-sm>
+          <label>
+            <small>Fecha de publicación:</small>
+          </label>
+          <div> {{ application.copyright.publication_date | date:"dd/MM/yyyy" }} </div>
+        </div>
+
+      </div>
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Primigenia o derivada</label>
+          <div ng-if="application.copyright.is_derivated">Derivada</div>
+          <div ng-if="!application.copyright.is_derivated">Primigenia</div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm ng-if="application.copyright.is_derivated == 1">
+          <label>Tipo de derivación</label>
+          <div> {{ application.copyright.derivation_type.name }} </div>
+        </md-input-container>
+      </div>
+
+      <div layout-gt-sm="row" ng-if="application.copyright.is_derivated == 1">
+        <div class="md-block" flex-gt-sm>
+          <md-toolbar>
+            <h2 class="md-toolbar-tools text-center">
+              <span>Datos de la obra primigenia</span>
+            </h2>
+          </md-toolbar>
+        </div>
+      </div>
+
+      <div ng-if="application.copyright.is_derivated == 1">
+        <div layout-gt-sm="row" ng-repeat="data_copyright in application.copyright.data_copyrights track by $index">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Titulo</label>
+            <div>{{data_copyright.title}}</div>
+          </md-input-container>
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Autor</label>
+            <div>{{data_copyright.author}}</div>
+          </md-input-container>
+        </div>
+      </div>
+      <div layout="row" layout-align="space-between end" style="margin-top: 30px;">
+        <!--<md-button class="md-primary md-raised" style="position:absolute;left: 0" ng-href="{{<%= "\""+applicant_index_url+"\""  %>}}" >Cancelar</md-button>-->
+        <!--<md-button class="md-primary md-raised" style="position:absolute;right: 0" ng-click="saveCopyright($index,form_request_data)">Guardar</md-button>-->
+      </div>
+    </ng-form>
+  </md-content>

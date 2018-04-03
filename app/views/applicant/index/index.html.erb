@@ -7,28 +7,26 @@
   }
 
   .pending {
-    background-color: #e4e148;
-    color: #000000;
+    color: #ffcc00;
+    font-weight: bold;
   }
 
   .observations {
-    background-color: #8dbfe1;
-    color: #000000;
+    color: blue;
   }
 
   .approved {
-    background-color: #80e27e;
-    color: #000000;
+    color: green;
   }
 
   .rejected {
-    background-color: #e75f52;
-    color: #000000;
+    color: red;
   }
 </style>
 <md-card ng-controller="IndexController">
   <input type="hidden" ng-init="applications = <%= current_user.applicant.applications.to_json(include: [:status_application,:application_type]) %>">
-  <input type="hidden" ng-init="url_edit= '<%= applicant_application_path :id%>'">
+  <input type="hidden" ng-init="url_edit= '<%= edit_applicant_application_path :id%>'">
+  <input type="hidden" ng-init="url_show= '<%= applicant_application_path :id%>'">
   <md-card-header>
     <md-card-header-text>
       <span class="md-title">Solicitudes</span>
@@ -69,7 +67,8 @@
           </td>
           <td md-cell>
             <a href="#" ng-click="delete(application.id,$index)">Eliminar</a>
-            <a href="#" ng-show="application.status_application.id == <%= StatusApplication::OBSERVATIONS %>" ng-click="show(application.id)">Actualizar</a>
+            <a href="#" ng-click="show(application.id)">Ver</a>
+            <a href="#" ng-show="application.status_application.id == <%= StatusApplication::OBSERVATIONS %>" ng-click="edit(application.id)">Actualizar</a>
           </td>
         </tr>
         </tbody>

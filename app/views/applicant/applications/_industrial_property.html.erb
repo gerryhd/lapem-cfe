@@ -1,0 +1,286 @@
+
+<md-content  class="md-padding">
+    <ng-form name="form_request_data">
+      <div layout-gt-sm="row">
+        <div class="md-block" flex-gt-sm>
+          <md-toolbar>
+            <h4 class="md-toolbar-tools text-center">
+              <span>{{ steps[0].title }}</span>
+            </h4>
+          </md-toolbar>
+        </div>
+      </div>
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Nombre</label>
+          <div> {{ application.data_general.name }}</div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Nacionalidad</label>
+          <div> {{ application.data_general.nationality }}</div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Calle</label>
+          <div> {{ application.data_general.address_data.street }}</div>
+        </md-input-container>
+      </div>
+
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Numero</label>
+          <div> {{ application.data_general.address_data.internal_number }}</div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Colonia</label>
+          <div> {{ application.data_general.address_data.colony }}</div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Codigo Postal</label>
+          <div> {{ application.data_general.address_data.zip_code }}</div>
+        </md-input-container>
+      </div>
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Población</label>
+          <div> {{ application.data_general.address_data.federal_entity }}</div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Pais</label>
+          <div> {{ application.data_general.address_data.country.name }}</div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Estado</label>
+          <div> {{ application.data_general.address_data.state }}</div>
+        </md-input-container>
+
+      </div>
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Telefono</label>
+          <div> {{ application.data_general.phone}}</div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Fax</label>
+          <div> {{ application.data_general.fax }}</div>
+        </md-input-container>
+
+      </div>
+      <div layout-gt-sm="row">
+        <div class="md-block" flex-gt-sm>
+          <md-toolbar>
+            <h4 class="md-toolbar-tools text-center">
+              <span>{{ steps[1].title }}</span>
+            </h4>
+          </md-toolbar>
+        </div>
+      </div>
+      <!--<div layout-gt-sm="row">-->
+        <!--<md-checkbox class="md-primary" ng-model="data.applicant_is_inventor">El solicitante es el inventor-->
+        <!--</md-checkbox>-->
+      <!--</div>-->
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Nombre</label>
+          <div> {{ application.industrial_property.data_inventor.name }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Nacionalidad</label>
+          <div> {{ application.industrial_property.data_inventor.nationality }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Calle</label>
+          <div> {{ application.industrial_property.data_inventor.address_data.street }} </div>
+        </md-input-container>
+      </div>
+
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Numero</label>
+          <div> {{ application.industrial_property.data_inventor.address_data.internal_number }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Colonia</label>
+          <div> {{ application.industrial_property.data_inventor.address_data.colony }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Codigo Postal</label>
+          <div> {{ application.industrial_property.data_inventor.address_data.zip_code }} </div>
+        </md-input-container>
+      </div>
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Población</label>
+          <div> {{ application.industrial_property.data_inventor.address_data.federal_entity }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Pais</label>
+          <div> {{ application.industrial_property.data_inventor.address_data.country.name }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Estado</label>
+          <div> {{ application.industrial_property.data_inventor.address_data.state }} </div>
+        </md-input-container>
+
+      </div>
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Telefono</label>
+          <div> {{ application.industrial_property.data_inventor.phone }} </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Fax</label>
+          <div> {{ application.industrial_property.data_inventor.fax }} </div>
+        </md-input-container>
+
+      </div>
+    <div layout-gt-sm="row">
+      <div class="md-block" flex-gt-sm>
+        <md-toolbar>
+          <h4 class="md-toolbar-tools text-center">
+            <span>{{ steps[2].title }}</span>
+          </h4>
+        </md-toolbar>
+      </div>
+    </div>
+    <div layout-gt-sm="row">
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Nombre</label>
+        <div> {{ application.industrial_property.data_owner.name }} </div>
+      </md-input-container>
+
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>RGP</label>
+        <div> {{ application.industrial_property.data_owner.rgp }} </div>
+      </md-input-container>
+
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Calle</label>
+        <div> {{ application.industrial_property.data_owner.address_data.street }} </div>
+      </md-input-container>
+    </div>
+
+
+    <div layout-gt-sm="row">
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Numero</label>
+        <div> {{ application.industrial_property.data_owner.address_data.internal_number }} </div>
+      </md-input-container>
+
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Colonia</label>
+        <div> {{ application.industrial_property.data_owner.address_data.colony }} </div>
+      </md-input-container>
+
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Codigo Postal</label>
+        <div> {{ application.industrial_property.data_owner.address_data.zip_code }} </div>
+      </md-input-container>
+    </div>
+
+    <div layout-gt-sm="row">
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Población</label>
+        <div> {{ application.industrial_property.data_owner.address_data.federal_entity }} </div>
+      </md-input-container>
+
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Pais</label>
+        <div> {{ application.industrial_property.data_owner.address_data.country.name }} </div>
+      </md-input-container>
+
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Estado</label>
+        <div> {{ application.industrial_property.data_owner.address_data.state }} </div>
+      </md-input-container>
+
+    </div>
+
+    <div layout-gt-sm="row">
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Telefono</label>
+        <div> {{ application.industrial_property.data_owner.phone }} </div>
+      </md-input-container>
+
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Fax</label>
+        <div> {{ application.industrial_property.data_owner.fax }} </div>
+      </md-input-container>
+    </div>
+
+    <div layout-gt-sm="row">
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Personas autorizadas para recibir notificaciones</label>
+        <div> {{ application.industrial_property.data_owner.notification_people }} </div>
+      </md-input-container>
+    </div>
+    <div layout-gt-sm="row">
+      <div class="md-block" flex-gt-sm>
+        <md-toolbar>
+          <h4 class="md-toolbar-tools text-center">
+            <span>{{ steps[3].title }}</span>
+          </h4>
+        </md-toolbar>
+      </div>
+    </div>
+    <div layout-gt-sm="row">
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Tipo solicitud</label>
+        <div> {{ application.industrial_property.type_request.name }} </div>
+      </md-input-container>
+
+      <md-input-container class="md-block" flex-gt-sm ng-if="application.industrial_property.type_request_id == <%= TypeRequest::INDUSTRIAL_DESIGN %>">
+        <label>Tipo de diseño</label>
+        <div> {{ application.industrial_property.design_type.name }}</div>
+      </md-input-container>
+
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Denominación o Título de la invención</label>
+        <div> {{ application.industrial_property.title }} </div>
+      </md-input-container>
+
+    </div>
+
+
+    <div layout-gt-sm="row">
+
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Fecha de uso previo</label>
+        <div> {{ application.industrial_property.previous_release_date | date:"dd/MM/yyyy" }} </div>
+      </md-input-container>
+
+      <div class="md-block" flex-gt-sm>
+        <md-radio-group ng-model="application.industrial_property.is_applicant_invention">
+          <div ng-if="application.industrial_property.is_applicant_invention" >El solicitante es el inventor</div>
+          <div ng-if="!application.industrial_property.is_applicant_invention" >El solicitante es el causahabiente</div>
+        </md-radio-group>
+      </div>
+
+
+    </div>
+    <div layout="row" layout-align="space-between end" style="margin-top: 30px;">
+      <!--<md-button class="md-primary md-raised" style="position:absolute;left: 0" ng-href="{{<%= "\""+applicant_index_url+"\""  %>}}" >Cancelar</md-button>-->
+      <!--<md-button class="md-primary md-raised" style="position:absolute;right: 0" ng-click="saveIndustrialProperty($index,form_request_data)">Guardar</md-button>-->
+    </div>
+    </ng-form>
+  </md-content>

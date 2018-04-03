@@ -42,6 +42,11 @@ ObjectModule.controller('IndexController', ['$scope', 'ApplicationService', func
     }
 
     $scope.show = function(id){
+        var show_link = $scope.url_show.replace('id',id);
+        window.location = show_link;
+    };
+
+    $scope.edit = function(id){
         var edit_link = $scope.url_edit.replace('id',id);
         window.location = edit_link;
     };

@@ -2,12 +2,12 @@
   <input type="hidden" ng-init="application_original = <%= @application.to_json %>">
   <input type="hidden" ng-init="nominative_brand_type = <%= BrandType::NOMINATIVE %>">
   <md-card>
-    <md-card-header>
-      <md-card-header-text>
-        <span class="md-title">Solicitud <%= "#{@application["id"]}" %> </span>
-      </md-card-header-text>
+  <md-card-header>
+    <md-card-header-text>
+      <span class="md-title">Solicitud <%= "#{@application["id"]}" %> </span>
+    </md-card-header-text>
 
-    </md-card-header>
+  </md-card-header>
 
     <md-card-content>
       <div>
@@ -15,7 +15,7 @@
           <label>Tipo de solicitud</label>
           <md-select required name="application_type" ng-model="application.application_type_id" disabled>
             <md-option ng-value="application_type.id" ng-repeat="application_type in application_types"
-                       ng-selected="application_type.id == application.application_type_id">{{
+                        ng-selected="application_type.id == application.application_type_id">{{
               application_type.name }}
             </md-option>
           </md-select>
@@ -30,14 +30,14 @@
 
       <form name="form_request" class="form-horizontal" novalidate>
         <div ng-if="application.application_type_id == <%= ApplicationType::BRAND %>">
-          <%= render 'applicant/applications/distinctive_sign' %>
+          <%= render 'applicant/applications/forms/edit/distinctive_sign' %>
         </div>
         <div ng-if="application.application_type_id == <%= ApplicationType::PATENT %>">
-          <%= render 'applicant/applications/industrial_property' %>
+          <%= render 'applicant/applications/forms/edit/industrial_property' %>
         </div>
 
         <div ng-if="application.application_type_id == <%= ApplicationType::COPYRIGHT %>">
-          <%= render 'applicant/applications/copyright' %>
+          <%= render 'applicant/applications/forms/edit/copyright' %>
         </div>
 
       </form>
@@ -67,18 +67,27 @@
 
 
       </md-card>
+      <md-card>
+        <md-card-content>
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Enviar comentario</label>
+            <textarea name="observation" md-maxlength="4000" rows="5" ng-model="application.new_observation"></textarea>
+          </md-input-container>
 
+          <div layout="row" layout-align="space-between end" style="margin-top: 30px;position: relative">
+            <md-button class="md-primary md-raised" style="position:absolute;left: 0" ng-href="{{<%= "\""+applicant_index_url+"\""  %>}}" >Regresar</md-button>
+            <md-button class="md-primary md-raised" style="position:absolute;right: 0" ng-click="saveAll($index)">Actualizar</md-button>
+          </div>
+        </md-card-content>
+      </md-card>
     </md-card-content>
   </md-card>
 </div>
 
 <style>
-  md-input-container label {
-    font-size: 90%;
-    top: 0;
+  .date {
+    padding: 10px;
+    background-color: #dbe1cb;
+    float: right;
   }
-  div {
-    padding-top: 5px;
-  }
-
 </style>
