@@ -1,8 +1,8 @@
 var loginModule = angular.module("LoginModule", ['ngMaterial']);
 
-loginModule.config(function ($mdThemingProvider) {
+loginModule.config(['$mdThemingProvider', function ($mdThemingProvider) {
     $mdThemingProvider.theme('default');
-});
+}]);
 
 
 

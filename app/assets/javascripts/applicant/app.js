@@ -1,6 +1,6 @@
 var ObjectModule = angular.module('ApplicantModule', ['ngMaterial', 'md.data.table','lfNgMdFileInput','object-to-form-data']);
 
-ObjectModule.controller('MenuController', function ($scope, $timeout, $mdSidenav) {
+ObjectModule.controller('MenuController', ['$scope', '$timeout', '$mdSidenav', function ($scope, $timeout, $mdSidenav) {
 
     $scope.toggleLeft = buildToggler('left');
     $scope.toggleRight = buildToggler('right');
@@ -10,12 +10,12 @@ ObjectModule.controller('MenuController', function ($scope, $timeout, $mdSidenav
             $mdSidenav(componentId).toggle();
         };
     }
-});
+}]);
 
-ObjectModule.config(function ($provide, $mdThemingProvider) {
+ObjectModule.config(['$provide', '$mdThemingProvider', function ($provide, $mdThemingProvider) {
     $provide.constant('AUTHENTICITY_TOKEN', eval($('#token').val()));
 
     $mdThemingProvider.theme('default')
         .primaryPalette('green')
         .accentPalette('green');
-});
+}]);

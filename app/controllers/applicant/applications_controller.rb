@@ -29,8 +29,6 @@ class Applicant::ApplicationsController < ApplicationController
   end
 
   def update
-    byebug
-
     result = false
 
     case @application.application_type.id
@@ -107,6 +105,8 @@ class Applicant::ApplicationsController < ApplicationController
         application[:industrial_property] = @application.applicable.as_json include: {
             data_inventor: {include: [address_data: {include: [:country]}]},
             data_owner: {include: [address_data: {include: [:country]}]},
+            type_request: {},
+            design_type: {},
         }
       when ApplicationType::COPYRIGHT
         application[:copyright] = @application.applicable.as_json include: {
