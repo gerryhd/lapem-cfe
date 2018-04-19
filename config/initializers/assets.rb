@@ -17,3 +17,4 @@ Rails.application.config.assets.precompile += %w( login.js )
 end
 
 Rails.application.config.assets.precompile += ["active_admin.scss"]
+Rails.application.config.assets.precompile += ["jquery-fancybox.min.scss"]
