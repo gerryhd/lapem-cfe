@@ -15,3 +15,5 @@ Rails.application.config.assets.precompile += %w( login.js )
 %w(applicant/index applicant/applications).each do |controller|
   Rails.application.config.assets.precompile += ["#{controller}.js", "#{controller}.css"]
 end
+
+Rails.application.config.assets.precompile += ["active_admin.scss"]
