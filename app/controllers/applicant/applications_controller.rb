@@ -22,6 +22,7 @@ class Applicant::ApplicationsController < ApplicationController
     end
 
     if application.save
+      NotificationMailer.new_application(current_user, application).deliver_now!
       render json: {status: true}
     else
       render json: {status: false, errors: application.errors.full_messages}

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+<h1>Nueva solicitud</h1>
+<p>
+  Se ha recibido una nueva solicitud de registro.
+  <%= link_to admin_application_path(@application) do %>
+    <button>Ver solicitud</button>
+  <% end %>
+</p>
+</body>
+</html>

@@ -38,4 +38,26 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+  #
+
+  host = 'localhost:3000'
+  config.action_mailer.default_url_options = { host: host }
+
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  # SMTP settings
+  # config.action_mailer.smtp_settings = {
+  #     :address              => 'mail.sellodigital.com.mx',
+  #     :port                 => 25,
+  #     :domain               => 'sellodigital.com.mx',
+  #     :user_name            => 'no-responder@sellodigital.com.mx',
+  #     :password             => 'y-Z9aH1#9dkR8w',
+  #     :authentication       => "plain",
+  #     :enable_starttls_auto => true,
+  #     :openssl_verify_mode  => 'none'
+  # }
+
+  config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
+
 end
