@@ -1,6 +1,6 @@
 ActiveAdmin.register User do
   menu label: "Solicitantes"
-  permit_params :username, :password, :password_confirmation, :change_password, applicant_attributes: [:email, :name, :last_name]
+  permit_params :username, :password, :password_confirmation, :change_password, applicant_attributes: [:email, :name, :last_name, :company, :adscription_area, :charge, :rpe]
   
   actions :index, :show, :update, :edit
 
@@ -21,6 +21,9 @@ ActiveAdmin.register User do
     end
     column 'Apellidos', :last_name do |user|
       user.applicant.last_name
+    end
+    column 'Empresa', :company do |user|
+      user.applicant.company
     end
     actions
   end
@@ -44,6 +47,10 @@ ActiveAdmin.register User do
         a.input :email, label: 'Correo electrónico'
         a.input :name, label: 'Nombre'
         a.input :last_name, label: 'Apellido'
+        a.input :company, label: 'Empresa'
+        a.input :adscription_area, label: 'Área de Adscripción'
+        a.input :charge, label: 'Cargo'
+        a.input :rpe, label: 'RPE'
       end
 
     end
@@ -68,6 +75,18 @@ ActiveAdmin.register User do
       row 'Apellido' do |user|
         user.applicant.last_name
       end
+      row 'Empresa' do |user|
+        user.applicant.company
+      end
+      row 'Área de Adscripción' do |user|
+        user.applicant.adscription_area
+      end
+      row 'Cargo' do |user|
+        user.applicant.charge
+      end
+      row 'RPE' do |user|
+        user.applicant.rpe
+      end
     end
   end
   controller do
@@ -80,7 +99,7 @@ ActiveAdmin.register User do
       if query.blank?
         collect
       else
-        collect.joins(:applicant).where('username LIKE :search OR email LIKE :search OR name LIKE :search OR last_name LIKE :search', search: "%#{params[:search]}%")
+        collect.joins(:applicant).where('username LIKE :search OR email LIKE :search OR name LIKE :search OR last_name LIKE :search OR company LIKE :search OR adscription_area LIKE :search OR charge LIKE :search OR rpe LIKE :search', search: "%#{params[:search]}%")
       end
     end
 
