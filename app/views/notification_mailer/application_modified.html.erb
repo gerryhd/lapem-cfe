@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+<h1>Solicitud actualizada</h1>
+<p>
+  El usuario solicitante ha realizado algunas modificaciones en su solicitud.<br>
+  <%= link_to admin_application_path(@application) do %>
+    <button>Ver solicitud</button>
+  <% end %>
+
+  </p>
+  <div id="footer_email_doctor" style="background: #1ab394;padding: 20px;text-align: center;color: white;">
+    Copyright &copy; Todos los derechos reservados.
+  </div>
+
+  <p style="text-align: center;padding: 5px;font-size: 12px;">
+    Este correo electrónico ha sido generado automáticamente por el Sistema de Registro de Propiedad Intelectual de CFE <a target="_blank" href="#">(enlace)</a>
+    por lo que le solicitamos no responder a este mensaje, ya que las respuestas a este correo electrónico no serán leídas. Si tiene alguna duda, póngase en contacto con el administrador del sitio.
+  </p>
+  </body>
+</html>

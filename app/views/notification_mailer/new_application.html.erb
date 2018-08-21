@@ -7,9 +7,18 @@
 <h1>Nueva solicitud</h1>
 <p>
   Se ha recibido una nueva solicitud de registro.
+  <br>
   <%= link_to admin_application_path(@application) do %>
     <button>Ver solicitud</button>
   <% end %>
+</p>
+<div id="footer_email_doctor" style="background: #1ab394;padding: 20px;text-align: center;color: white;">
+  Copyright &copy; Todos los derechos reservados.
+</div>
+
+<p style="text-align: center;padding: 5px;font-size: 12px;">
+  Este correo electrónico ha sido generado automáticamente por el Sistema de Registro de Propiedad Intelectual de CFE <a target="_blank" href="#">(enlace)</a>
+  por lo que le solicitamos no responder a este mensaje, ya que las respuestas a este correo electrónico no serán leídas.
 </p>
 </body>
 </html>

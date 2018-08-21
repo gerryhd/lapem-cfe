@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+<h1>Estado de su solicitud</h1>
+<p>
+  <% if @application.status_application_id == StatusApplication::APPROVED %>
+    Su solicitud ha sido aprobada.
+  <% elsif @application.status_application_id == StatusApplication::REJECTED %>
+    Su solicitud ha sido rechazada. Consulte las observaciones para más información.
+  <% elsif @application.status_application_id == StatusApplication::OBSERVATIONS %>
+    Su solicitud tiene una observación nueva.
+
+    <blockquote>
+    <p><%= @application.observations.last.notes %></p>
+    </blockquote>
+  <% end %>
+  <br>
+  <%= link_to applicant_application_path(@application) do %>
+    <button>Ver solicitud</button>
+  <% end %>
+
+</p>
+  <div id="footer_email_doctor" style="background: #1ab394;padding: 20px;text-align: center;color: white;">
+    Copyright &copy; Todos los derechos reservados.
+  </div>
+
+  <p style="text-align: center;padding: 5px;font-size: 12px;">
+    Este correo electrónico ha sido generado automáticamente por el Sistema de Registro de Propiedad Intelectual de CFE <a target="_blank" href="#">(enlace)</a>
+    por lo que le solicitamos no responder a este mensaje, ya que las respuestas a este correo electrónico no serán leídas. Si tiene alguna duda, póngase en contacto con el administrador del sitio.
+  </p>
+</body>
+<style>
+  blockquote {
+    background: #f9f9f9;
+    border-left: 10px solid #ccc;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+    quotes: "\201C""\201D""\2018""\2019";
+  }
+  blockquote:before {
+    color: #ccc;
+    content: open-quote;
+    font-size: 4em;
+    line-height: 0.1em;
+    margin-right: 0.25em;
+    vertical-align: -0.4em;
+  }
+  blockquote p {
+    display: inline;
+  }
+</style>
+</html>
