@@ -15,12 +15,15 @@ class Applicant::ApplicationsController < ApplicationController
     case application.application_type.id
       when ApplicationType::BRAND
         application.applicable = DistinctiveSign.new(distinctive_sign_params)
+        files_uploaded = file_signs_params
+        files_uploaded.each do |k,f|
+          application.applicable.file_signs.new(sign_file: f)
+        end
       when ApplicationType::PATENT
         application.applicable = IndustrialProperty.new(industrial_property_params)
       when ApplicationType::COPYRIGHT
         application.applicable = Copyright.new(copyright_params)
     end
-
     if application.save
       NotificationMailer.new_application(current_user, application).deliver_now!
       render json: {status: true}
@@ -41,6 +44,7 @@ class Applicant::ApplicationsController < ApplicationController
         result = @application.applicable.update(copyright_params)
     end
     if result && @application.update(application_params)
+      NotificationMailer.application_modified(current_user, @application).deliver_now!
       #@application.status_application_id = StatusApplication::PENDING if @application.status_application_id == StatusApplication::OBSERVATIONS
       @application.save
       render json: {status: true}
@@ -165,5 +169,9 @@ class Applicant::ApplicationsController < ApplicationController
 
   def copyright_params
     params.require(:application).require(:copyright).permit(:titular_is_author, :title, :copyright_branch_id, :derivation_type_id, :summary, :known_public, :publication_date, :is_derivated, general_data_author_attributes: [:id, :nationality, :name, :first_last_name, :second_last_name, :email, :curp, :rfc, :gender, :birth_date, :birth_location, :cell_phone, :participation_percent, :participation_type, :phone, :fax, address_data_attributes: [:id, :zip_code, :state, :street, :external_number, :internal_number, :colony, :municipality, :location, :federal_entity, :between_streets, :back_street, :country_id]], person_notification_attributes: [:id, :curp, :rfc, :name, :first_last_name, :second_last_name], data_copyrights_attributes: [:id, :title, :author], legal_representative_attributes: [:id, :name, :first_last_name, :second_last_name, :phone, :email, :curp, :rfc, :cell_phone, :name_representative, address_data_attributes: [:id, :zip_code, :street, :external_number, :internal_number, :colony, :municipality, :location, :federal_entity, :between_streets, :back_street, :country_id, :state]])
+  end
+
+  def file_signs_params
+    params.require(:application).require(:distinctive_sign).fetch(:file_signs)
   end
 end

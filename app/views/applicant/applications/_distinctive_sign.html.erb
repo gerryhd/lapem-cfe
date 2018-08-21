@@ -243,7 +243,7 @@
               <md-button class="md-primary md-raised" target="_blank" ng-href="{{ application_original.distinctive_sign.file_sign.url }}">Descargar Archivo</md-button>
             </div>
             <div class="md-block" flex-gt-sm ng-show="application.distinctive_sign.new_file">
-              <lf-ng-md-file-input lf-files='application.distinctive_sign.file_sign' ng-if="application.distinctive_sign.brand_type_id != <%= BrandType::NOMINATIVE %>"></lf-ng-md-file-input>
+              <lf-ng-md-file-input lf-files='application.distinctive_sign.file_sign' ng-if="application.distinctive_sign.brand_type_id != <%= BrandType::NOMINATIVE %>" multiple></lf-ng-md-file-input>
             </div>
             <md-input-container class="md-block" ng-required="application.distinctive_sign.brand_type_id != <%= BrandType::NOMINATIVE %>" flex-gt-sm ng-if="application.distinctive_sign.brand_type_id == <%= BrandType::NOMINATIVE %>">
               <label>Signo Distintivo</label>

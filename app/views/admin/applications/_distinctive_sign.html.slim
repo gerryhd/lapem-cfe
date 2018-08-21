@@ -184,7 +184,8 @@ div.panel
           - if distinctive_sign.brand_type_id == BrandType::NOMINATIVE
             = distinctive_sign.distinctive_sign
           - else
-            = link_to "Descargar", distinctive_sign.file_sign.url, target: :_blank
+            - distinctive_sign.file_signs.each_with_index do |f, i|
+              = link_to "(#{i})", f.sign_file.url, target: :_blank
       div.field_block
         label Descripción de giro preponderante:
         p

@@ -68,9 +68,15 @@ ObjectModule.controller('ApplicationController', ['$scope', 'ApplicationService'
                 delete $scope.application.data_general;
                 delete $scope.application.address_notification;
                 has_file = true;
-                var file = $scope.application.distinctive_sign.file_sign[0].lfFile;
-                delete $scope.application.distinctive_sign.file_sign[0];
-                $scope.application.distinctive_sign.file_sign = file;
+                var files = $scope.application.distinctive_sign.file_sign;
+                $scope.application.distinctive_sign.file_signs = [];
+                angular.forEach(files, function(file){
+                    $scope.application.distinctive_sign.file_signs.push(file.lfFile);
+
+                })
+                // var file = $scope.application.distinctive_sign.file_sign[0].lfFile;
+                // delete $scope.application.distinctive_sign.file_sign[0];
+                // $scope.application.distinctive_sign.file_sign = file;
                 data = ObjectToFormData({application: data});
 
             }
