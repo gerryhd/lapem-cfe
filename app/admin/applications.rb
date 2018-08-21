@@ -70,6 +70,7 @@ ActiveAdmin.register Application do
       application = Application.find(params[:id])
       application.status_application_id = StatusApplication::REJECTED
       application.save
+      NotificationMailer.application_updated(application.applicant.user, application).deliver_now!
       redirect_to admin_application_path(application)
     end
 
@@ -77,6 +78,7 @@ ActiveAdmin.register Application do
       application = Application.find(params[:id])
       application.status_application_id = StatusApplication::APPROVED
       application.save
+      NotificationMailer.application_updated(application.applicant.user, application).deliver_now!
       redirect_to admin_application_path(application)
     end
 
@@ -88,6 +90,7 @@ ActiveAdmin.register Application do
         app = Application.find(observation[:application_id])
         app.status_application_id = StatusApplication::OBSERVATIONS if app.status_application_id == StatusApplication::PENDING
         app.save
+        NotificationMailer.application_updated(app.applicant.user, app).deliver_now!
       else
         flash[:error] = "Error al hacer comentario: Las IDs no concuerdan"
       end
@@ -97,6 +100,40 @@ ActiveAdmin.register Application do
 
     def observation_params
       params.require(:observation).permit(:notes, :application_id, :user_id)
+    end
+  end
+
+  csv do
+    column 'Tipo de Solicitud' do |app|
+      app.application_type.name
+    end
+    column 'Fecha' do |app|
+      app.created_at
+    end
+    column 'Estado' do |app|
+      app.status_application.name
+    end
+    column 'Solicitante' do |app|
+      app.applicant.name
+    end
+    column 'Empresa' do |app|
+      app.applicant.company
+    end
+    column 'Área de Adscripción' do |app|
+      app.applicant.adscription_area
+    end
+    column 'Teléfono' do |app|
+      app.applicant.phone
+    end
+    column 'Correo Electrónico' do |app|
+      app.applicant.email
+    end
+    column 'Observaciones' do |app|
+      string = ""
+      app.observations.each do |obs|
+        string += obs.notes + "\n"
+      end
+      string
     end
   end
 end
